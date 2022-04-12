@@ -1,0 +1,9 @@
+
+.login-box {
+    border: 1px lightgrey solid;
+    border-radius: 0.4em;
+}
+
+.fg-bold  {
+    font-weight: bold;
+}
