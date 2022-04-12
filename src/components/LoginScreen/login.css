@@ -7,3 +7,7 @@
 .fg-bold  {
     font-weight: bold;
 }
+
+.fg-font-large {
+    font-size: large;
+}
