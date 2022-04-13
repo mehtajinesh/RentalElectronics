@@ -4,6 +4,7 @@ const Profile = () => {
 
   return(
       <>
+
         <div className="mt-5">
           <h1 className="ms-3">Profile</h1>
 
@@ -19,12 +20,6 @@ const Profile = () => {
               <div className="mt-4 ms-4">
                 <i className="fas fa-home mt-2"/>
                 <span className="ms-2 text-body">Located in: City</span>
-                <br/>
-                <i className="mt-3 fas fa-comment"/>
-                <span className="ms-2 text-body">Speaks: Language</span>
-                <br/>
-                <i className="mt-3 fas fa-briefcase"/>
-                <span className="ms-2 text-body">Occupation: Occupation</span>
 
                 <div className="private-data">
                   <i className="mt-3 fas fa-map-marker-alt"/>
@@ -57,10 +52,9 @@ const Profile = () => {
               </div>
 
               <h5 className="mt-4">
-                Bio
+                My Recent Rentals (show 3)
               </h5>
 
-              <div className="mb-4">Bio text</div>
               <hr/>
 
 
