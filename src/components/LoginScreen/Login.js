@@ -1,11 +1,14 @@
 import React from 'react'
 import './login.css'
 import { Link } from 'react-router-dom'
+import Footer from '../footer/index'
+import Header from '../header/index'
 
 const Login = () => {
   return (
-    <>
-        <div className="container mt-4">
+      <>
+      <Header/>
+        <div className="container my-6">
             <div className="row">
                 <div className="col-sm-1 col-md-1 col-lg-2 col-xl-3"> </div>
                 
@@ -46,8 +49,9 @@ const Login = () => {
                 <div className="col-sm-1 col-md-1 col-lg-2 col-xl-3"> </div>
             </div>
         </div>
+        <Footer/>
+
     </>
   )
 }
-
 export default Login

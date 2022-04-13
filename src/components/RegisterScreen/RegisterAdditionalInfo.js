@@ -5,8 +5,6 @@ import {Link} from 'react-router-dom'
 const RegisterAdditionalInfo = () => {
   return (
     <>
-    <div className="container mt-4">
-        <div className="row">
             <div className="col-sm-1 col-md-1 col-lg-2 col-xl-3"> </div>
             
             <div className="col-sm-10 col-md-10 col-lg-8 col-xl-6 login-box">
@@ -140,8 +138,7 @@ const RegisterAdditionalInfo = () => {
             </div>
 
             <div className="col-sm-1 col-md-1 col-lg-2 col-xl-3"> </div>
-        </div>
-    </div>
+
 </>
   )
 }
