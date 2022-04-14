@@ -3,20 +3,30 @@ import "./rentalItem.css";
 
 const RentalItem = () => {
   return (
-      <>
-        <div className="mt-5 ms-0">
 
-        <div className="d-flex">
-          <div className="col-4 ms-0 col-xl-3 col-lg-4">
+        <div className="mt-5 ms-0 me-5 pe-0">
 
-            <img className="rounded ms-0 ri-image" width="275px" height="auto" src="https://www.zdnet.com/a/img/resize/42d669282543a649bfe6a25b861a898e3f117054/2022/01/13/1a257540-68a4-4759-adac-19201fde6609/apple-macbook-air.png?width=1200&height=900&fit=crop&format=pjpg&auto=webp" alt="">
+        <div className="row">
 
+          <div className="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+
+            <div className="ri-left-column">
+
+            <img className="rounded ms-0 ri-img" width="100%" height="auto"
+                 src="https://www.zdnet.com/a/img/resize/42d669282543a649bfe6a25b861a898e3f117054/2022/01/13/1a257540-68a4-4759-adac-19201fde6609/apple-macbook-air.png?width=1200&height=900&fit=crop&format=pjpg&auto=webp" alt="">
             </img>
+
+            </div>
 
           </div>
 
 
-          <div className="col-4 ms-3 me-4 col-xl-5 col-lg-4">
+
+
+
+
+          <div className="col-xl-5 col-lg-5 col-md-8 col-sm-8">
+            <div className="ri-middle-column">
             <div className="fs-5">
               Product Name
             </div>
@@ -57,10 +67,17 @@ const RentalItem = () => {
               </li>
             </ul>
 
-
+            </div>
           </div>
 
-          <div className="col-4 col-xl-4 col-lg-4 ms-4">
+
+
+
+
+
+          <div className="col-xl-4 col-lg-4">
+
+            <div className="ri-right-column">
 
             <div className="mb-3">
               How long do you want to rent this for?
@@ -137,17 +154,12 @@ const RentalItem = () => {
             </div>
 
 
-
-
-
           </div>
+          </div>
+        </div>
 
         </div>
-        </div>
 
-
-
-      </>
   )
 }
 export default RentalItem;

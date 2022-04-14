@@ -7,7 +7,7 @@ import RentalItem from "./components/rental-item/rentalItem";
 function App() {
   return (
       <BrowserRouter>
-        <div className="container ms-4 me-0">
+        <div className="container-fluid">
           <Routes>
             <Route index element={<Profile/>}/>
             <Route path="profile" element={<Profile/>}/>
