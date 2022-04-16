@@ -1,6 +1,8 @@
 import "./profile.css";
+import user from "../data/user.json"
 
 const Profile = () => {
+
 
   return(
       <>
