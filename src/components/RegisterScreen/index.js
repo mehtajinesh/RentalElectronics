@@ -1,16 +1,12 @@
 import React from 'react'
-import Header from '../header'
 import { Routes, Route} from 'react-router-dom'
 import Register from './Register'
 import RegisterPersonalInfo from './RegisterPersonalInfo'
 import RegisterAdditionalInfo from './RegisterAdditionalInfo'
-import Footer from '../footer'
 
 const index = () => {
   return (
-      <>
-        <Header/>
-        
+      <>        
         <div className="container my-6">
             <div className="row">
                 <Routes>
@@ -21,10 +17,7 @@ const index = () => {
 
             </div>
         </div>
-
-        <Footer/>
       </>
-
   )
 }
 

@@ -35,12 +35,12 @@ const Register = () => {
                     <form onSubmit={handleSubmit}>
 
                         <div className="form-floating mb-3">
-                            <input type="email" className="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email" value={email} OnChange={(e) => setEmail(e.target.value)} required/>
+                            <input type="email" className="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
                             <label for="InputEmail">Email address</label>
                         </div>
 
                         <div className="form-floating">
-                            <input type="password" className="form-control" id="InputPassword" placeholder="Password" value={password} OnChange={(e) => setPassword(e.target.value)} required/>
+                            <input type="password" className="form-control" id="InputPassword" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
                             <label for="InputPassword">Password</label>
                         </div>
 

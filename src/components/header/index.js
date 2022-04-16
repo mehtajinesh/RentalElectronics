@@ -5,10 +5,10 @@ import LoginContext from '../../context/loginContext';
 const Header = () => {
     const [isLoggedin, setLoginStatus] = useContext(LoginContext);
 
-    const handleLogin = () => {
-        setLoginStatus(!isLoggedin);
+    const handleLogout = () => {
+        setLoginStatus(false);
     }
-
+    
   return (
       <>
         <nav className="navbar navbar-expand-lg navbar-light border-bottom bg-white sticky-top py-3" >
@@ -35,10 +35,11 @@ const Header = () => {
                     <Link to="">
                         <li class="nav-item mx-4">
                             {
-                                isLoggedin && <button type="button" class="btn btn-outline-primary rounded-pill px-4" onClick={handleLogin}>Logout</button>
+                                isLoggedin && <button type="button" class="btn btn-outline-primary rounded-pill px-4" onClick={handleLogout}>Logout</button>
                             }
+
                             {
-                                !isLoggedin && <button type="button" class="btn btn-outline-primary rounded-pill px-4" onClick={handleLogin}>Login</button>
+                                !isLoggedin && <Link to="../login"><button type="button" class="btn btn-outline-primary rounded-pill px-4">Login</button></Link>
                             }
                             
                         </li>

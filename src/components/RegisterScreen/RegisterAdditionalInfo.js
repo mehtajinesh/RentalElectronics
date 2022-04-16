@@ -131,7 +131,7 @@ const RegisterAdditionalInfo = () => {
                         <br></br>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="rent" onChange={(e) => setRole(e.target.value)} checked/>
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="rent" onChange={(e) => setRole(e.target.value)}/>
                             <label class="form-check-label" for="inlineRadio1">To Rent</label>
                         </div>
 

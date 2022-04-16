@@ -26,7 +26,6 @@ const Login = () => {
 
     return (
       <>
-      <Header/>
         <div className="container my-6">
             <div className="row">
                 <div className="col-sm-1 col-md-1 col-lg-2 col-xl-3"> </div>
@@ -89,8 +88,6 @@ const Login = () => {
                 <div className="col-sm-1 col-md-1 col-lg-2 col-xl-3"> </div>
             </div>
         </div>
-        <Footer/>
-
     </>
   )
 }
