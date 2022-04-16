@@ -1,14 +1,17 @@
 import "./profile.css";
+import user from "../data/user.json"
 
 const Profile = () => {
 
+
   return(
       <>
-        <div className="mt-5">
-          <h1 className="ms-3">Profile</h1>
 
-          <div className="d-flex">
-          <div className="me-4 col-lg-3 col-sm-4 col-md-4">
+        <div className="mt-5 ms-5 me-5">
+          <h1 className="ms-2">Profile</h1>
+
+          <div className="row">
+          <div className="col-xl-4 col-lg-4 col-md-4 col-sm-4">
           <div className="pr-border border w-100 h-100 mt-4 ms-2">
 
             <div className="mt-4 d-flex flex-column">
@@ -19,12 +22,6 @@ const Profile = () => {
               <div className="mt-4 ms-4">
                 <i className="fas fa-home mt-2"/>
                 <span className="ms-2 text-body">Located in: City</span>
-                <br/>
-                <i className="mt-3 fas fa-comment"/>
-                <span className="ms-2 text-body">Speaks: Language</span>
-                <br/>
-                <i className="mt-3 fas fa-briefcase"/>
-                <span className="ms-2 text-body">Occupation: Occupation</span>
 
                 <div className="private-data">
                   <i className="mt-3 fas fa-map-marker-alt"/>
@@ -42,7 +39,8 @@ const Profile = () => {
 
         </div>
 
-            <div className="ms-5 me-lg-5-5 col-lg-9 col-sm-8 col-md-8 mt-4">
+            <div className="col-xl-8 col-lg-8 col-md-8 col-sm-8 mt-4 me-0">
+              <div className="ps-5">
               <div className="d-flex">
                 <div className="col-10 mb-0">
                   <h3 className="mb-0">First Name Last Name</h3>
@@ -52,15 +50,12 @@ const Profile = () => {
                   </div>
                 </div>
 
-                  <button className="col-2 btn btn-outline-secondary rounded-pill align-self-start">Switch to Seller</button>
-
               </div>
 
               <h5 className="mt-4">
-                Bio
+                My Recent Rentals (show 3)
               </h5>
 
-              <div className="mb-4">Bio text</div>
               <hr/>
 
 
@@ -96,12 +91,12 @@ const Profile = () => {
                   The review body: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </div>
 
-                <div className="d-flex row mt-3">
-                  <div className="col-1">
+                <div className="row mt-3">
+                  <div className="col-1 col-xl-1 col-lg-1 col-md-2 col-sm-2">
                     <img className="pr-profile-pic-small" alt="" src="https://12ax7web.s3.amazonaws.com/accounts/1/products/1986199880924/Boba-Stitch_800x800_SEPS-1000x1000.jpg"/>
                   </div>
 
-                  <div className="mt-1 col-11">
+                  <div className="mt-1 col-11 col-xl-11 col-lg-11 col-md-10 col-sm-10">
                     <h6 className="mb-0 ms-2">Name</h6>
                     <div className="ms-2 text-secondary">City, Country</div>
                   </div>
@@ -112,6 +107,7 @@ const Profile = () => {
 
             </div>
 
+            </div>
           </div>
 
         </div>

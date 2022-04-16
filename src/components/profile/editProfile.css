@@ -1,0 +1,29 @@
+@media (min-width: 1200px) and (max-width: 1800px){
+
+}
+
+@media (min-width: 992px) and (max-width: 1200px){
+
+}
+
+@media (min-width: 767px) and (max-width: 992px){
+  .e-pr-save-btn{
+    margin-top: 10px;
+  }
+}
+
+@media (min-width: 575px) and (max-width: 767px){
+  .e-pr-save-btn{
+    margin-top: 10px;
+  }
+}
+
+@media (min-width: 543px) and (max-width: 575px){
+
+}
+
+@media (min-width: 2px) and (max-width: 543px){
+  .e-pr-save-btn{
+    margin-top: 10px;
+  }
+}
