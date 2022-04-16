@@ -7,7 +7,7 @@ const index = () => {
         <div className="container mx-5 my-3">
             <div className="row border-bottom mb-3">
                 <div className="col">
-                    <h6>Rental Electornics</h6>
+                    <h6>Rentronics</h6>
                     <ul className="no-bullet px-0" >
                         <li> <small className="text-muted">About Us</small></li>
                         <li> <small className="text-muted">Contact</small></li>
@@ -34,7 +34,7 @@ const index = () => {
                 </div>
 
             </div>
-            <small className="text-muted">&copy; Copyright 2022, Rental Electronics</small> 
+            <small className="text-muted">&copy; Copyright 2022, Rentronics</small> 
         </div>
 
     </footer>

@@ -13,7 +13,6 @@ const index = () => {
         
         <div className="container my-6">
             <div className="row">
-
                 <Routes>
                     <Route index element={<Register/>}/>
                     <Route path="/1" element={<RegisterPersonalInfo/>}/> 

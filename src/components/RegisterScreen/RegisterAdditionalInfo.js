@@ -1,8 +1,28 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
 
 
 const RegisterAdditionalInfo = () => {
+    const [address1, setAddress1] = useState('');
+    const [address2, setAddress2] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [zipcode, setZipcode] = useState();
+    const [role, setRole] = useState('rent');
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+        // Send info to db
+
+        // clear all the form detail
+        setAddress1('');
+        setAddress2('');
+        setCity('');
+        setState('');
+        setZipcode();
+        setRole('rent');
+    };
+
   return (
     <>
             <div className="col-sm-1 col-md-1 col-lg-2 col-xl-3"> </div>
@@ -23,27 +43,27 @@ const RegisterAdditionalInfo = () => {
                 </div>
 
                 <div className="login-input-fields mx-4 my-4">
-                    <form>
+                    <form onSubmit={handleSubmit}>
 
                         <label for="inputAddress" className="text-muted mb-1">Address</label>
 
                         <div className="form-floating mb-2">
-                            <input type="text" className="form-control" id="InputAddress1" placeholder="Address"/>
+                            <input type="text" className="form-control" id="InputAddress1" placeholder="Address" value={address1} onChange={(e) => setAddress1(e.target.value)}/>
                             <label for="InputAddress1">Address 1</label>
                         </div>
 
                         <div className="form-floating mb-2">
-                            <input type="text" className="form-control" id="InputAddress2" placeholder="Address"/>
+                            <input type="text" className="form-control" id="InputAddress2" placeholder="Address" value={address2} onChange={(e) => setAddress2(e.target.value)}/>
                             <label for="InputAddress2">Address 2 (Optional)</label>
                         </div>
 
                         <div className="form-floating mb-2">
-                            <input type="text" className="form-control" id="InputCity" placeholder="City"/>
+                            <input type="text" className="form-control" id="InputCity" placeholder="City" value={city} onChange={(e) => setCity(e.target.value)}/>
                             <label for="InputCity">City</label>
                         </div>
 
                         <div className="form-floating mb-2">
-                            <select id="inputState" className="form-control">
+                            <select id="inputState" className="form-control" value={state} onChange={(e) => setState(e.target.value)}>
                                 <option selected value="">N/A</option>
                                 <option value="AK">Alaska</option>
                                 <option value="AL">Alabama</option>
@@ -102,25 +122,26 @@ const RegisterAdditionalInfo = () => {
                         </div>
 
                         <div className="form-floating mb-4">
-                            <input type="text" id="inputZipcode" className="form-control" placeholder="Zipcode"/>                           
+                            <input type="text" id="inputZipcode" className="form-control" placeholder="Zipcode" value={zipcode} onChange={(e) => setZipcode(e.target.value)}/>                           
                             <label for="InputZipcode">ZipCode</label>
                         </div>
 
                         <label for="inputRole" className="text-muted mb-1">What are you looking for?</label>
                     
                         <br></br>
+
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked/>
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="rent" onChange={(e) => setRole(e.target.value)} checked/>
                             <label class="form-check-label" for="inlineRadio1">To Rent</label>
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="lease" onChange={(e) => setRole(e.target.value)} />
                             <label class="form-check-label" for="inlineRadio2">To Lease</label>
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" selected/>
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="both" onChange={(e) => setRole(e.target.value)}/>
                             <label class="form-check-label" for="inlineRadio3">Both</label>
                         </div>
 

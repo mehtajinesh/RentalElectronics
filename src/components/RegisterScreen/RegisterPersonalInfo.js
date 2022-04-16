@@ -1,7 +1,24 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
 
 const RegisterPersonalInfo = () => {
+    const [firstname, setFirstname] = useState('');
+    const [lastname, setLastname] = useState('');
+    const [dob, setDOB] = useState();
+    const [phoneNumber, setPhoneNumber] = useState();
+
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+        // Send user info to db
+
+        // clear all the form detail
+        setFirstname('');
+        setLastname('');
+        setDOB();
+        setPhoneNumber();
+    };
+
   return (
     <>
 
@@ -23,32 +40,30 @@ const RegisterPersonalInfo = () => {
                 </div>
 
                 <div className="login-input-fields mx-4 my-4">
-                    <form>
+                    <form onSubmit={handleSubmit}>
 
                         <label for="inputName" className="text-muted mb-1">Name</label>
 
                         <div className="col form-floating mb-2">
-                            <input type="text" className="form-control" id="InputFirstName" placeholder="First Name" required/>
+                            <input type="text" className="form-control" id="InputFirstName" placeholder="First Name" value={firstname} onChange={(e) => setFirstname(e.target.value)} required/>
                             <label for="InputFirstName">First Name</label>
                         </div>
 
                         <div className="col form-floating mb-4">
-                            <input type="text" className="form-control" id="InputLastName" placeholder="Last Name" required/>
+                            <input type="text" className="form-control" id="InputLastName" placeholder="Last Name" value={lastname} onChange={(e) => setLastname(e.target.value)} required/>
                             <label for="InputLastName">Last Name</label>
                         </div>
 
                         <label for="inputDob" className="text-muted mb-1">Date Of Birth</label>
 
                         <div className="form-floating mb-4">
-                            <input type="date" className="form-control" id="InputDob" placeholder="Date of Birth" required/>
+                            <input type="date" className="form-control" id="InputDob" placeholder="Date of Birth" value={dob} onChange={(e) => setDOB(e.target.value)} required/>
                             <label for="InputDob">Date Of Birth</label>
                             <small id="privacyText" className="form-text text-muted">Must be over the age of 18 to use the service.</small>
                         </div>
 
-
-
                         <div className="col form-floating mb-4">
-                            <input type="tel" className="form-control" id="InputLastName" pattern="[+]{1}[0-9]{11,14}" placeholder="Phone Number" required/>
+                            <input type="tel" className="form-control" id="InputLastName" pattern="[+]{1}[0-9]{11,14}" placeholder="Phone Number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required/>
                             <label for="InputLastName">Phone Number</label>
                         </div>
                

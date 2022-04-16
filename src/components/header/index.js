@@ -1,12 +1,19 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {Link} from 'react-router-dom'
+import LoginContext from '../../context/loginContext';
 
 const Header = () => {
+    const [isLoggedin, setLoginStatus] = useContext(LoginContext);
+
+    const handleLogin = () => {
+        setLoginStatus(!isLoggedin);
+    }
+
   return (
       <>
         <nav className="navbar navbar-expand-lg navbar-light border-bottom bg-white sticky-top py-3" >
             <Link to="" style={{ textDecoration: 'none' }}>
-                <div className="navbar-brand px-5" href="#">Rental Electornics</div>
+                <div className="navbar-brand px-5" href="#">Rentronics</div>
             </Link>
 
             <div class="collapse navbar-collapse justify-content-end " id="navbarCollapse">
@@ -20,9 +27,22 @@ const Header = () => {
                     </Link>
 
                     <Link to="" style={{ textDecoration: 'none', color: "lightgrey"}}>
-                        <li class="nav-item ">
+                        <li class="nav-item">
                             <i class="fas fa-user-circle fa-2x"></i>
                         </li>
+                    </Link>
+
+                    <Link to="">
+                        <li class="nav-item mx-4">
+                            {
+                                isLoggedin && <button type="button" class="btn btn-outline-primary rounded-pill px-4" onClick={handleLogin}>Logout</button>
+                            }
+                            {
+                                !isLoggedin && <button type="button" class="btn btn-outline-primary rounded-pill px-4" onClick={handleLogin}>Login</button>
+                            }
+                            
+                        </li>
+
                     </Link>
 
                 </ul>
