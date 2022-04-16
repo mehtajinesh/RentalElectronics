@@ -1,0 +1,18 @@
+
+.login-box {
+    border: 1px lightgrey solid;
+    border-radius: 0.4em;
+}
+
+.fg-bold  {
+    font-weight: bold;
+}
+
+.fg-font-large {
+    font-size: large;
+}
+
+.my-6{
+    margin-top: 4rem;
+    margin-bottom: 4em;
+}
