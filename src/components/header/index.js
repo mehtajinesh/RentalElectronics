@@ -13,7 +13,7 @@ const Header = () => {
       <>
         <nav className="navbar navbar-expand-lg navbar-light border-bottom bg-white sticky-top py-3" >
             <Link to="" style={{ textDecoration: 'none' }}>
-                <div className="navbar-brand px-5" href="#">Rentronics</div>
+                <div className="navbar-brand px-5">Rentronics</div>
             </Link>
 
             <div class="collapse navbar-collapse justify-content-end " id="navbarCollapse">
@@ -26,7 +26,7 @@ const Header = () => {
                         </li>
                     </Link>
 
-                    <Link to="" style={{ textDecoration: 'none', color: "lightgrey"}}>
+                    <Link to="profile" style={{ textDecoration: 'none', color: "lightgrey"}}>
                         <li class="nav-item">
                             <i class="fas fa-user-circle fa-2x"></i>
                         </li>

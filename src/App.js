@@ -1,8 +1,8 @@
 import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {useState} from 'react'
-import Login from './components/loginScreen/Login'
-import RegisterScreen from './components/registerScreen/index'
+import Login from './components/login/Login'
+import RegisterScreen from './components/register/index'
 import LoginContext from './context/loginContext';
 import Profile from "./components/profile/profile";
 import EditProfile from "./components/profile/editProfile";
@@ -19,7 +19,7 @@ function App() {
       <LoginContext.Provider value={[isLoggedin, setLoginStatus]}>
 
         <BrowserRouter>
-//             <div className="container-fluid">
+             {/* <div className="container-fluid"> */}
 
           <Header/>
             <Routes>
