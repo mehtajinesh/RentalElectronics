@@ -1,0 +1,232 @@
+{
+  "laptops": [
+    {
+      "label": "Brand",
+      "type": "checkbox",
+      "values": [
+        "HP",
+        "Acer",
+        "Apple",
+        "Sony",
+        "Lenovo",
+        "Dell",
+        "ASUS",
+        "Samsung"
+      ]
+    },
+    {
+      "label": "Rating",
+      "type": "checkbox",
+      "values": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "label": "Rent Duration",
+      "type": "checkbox",
+      "values": [
+        "1 month",
+        "6 month",
+        "12 months",
+        "24 months"
+      ]
+    },
+    {
+      "label": "Location",
+      "type": "checkbox",
+      "values": [
+        "Boston",
+        "Cambridge",
+        "California",
+        "Vegas",
+        "New York",
+        "Chicago"
+      ]
+    },
+    {
+      "label": "Operating System",
+      "type": "checkbox",
+      "values": [
+        "Windows 10 Pro",
+        "MacOS",
+        "Linux OS"
+      ]
+    },
+    {
+      "label": "RAM",
+      "type": "checkbox",
+      "values": [
+        "4GB",
+        "8GB",
+        "16GB",
+        "32GB",
+        "64GB"
+      ]
+    }
+  ],
+  "monitors": {
+    "BRANDS": {
+      "label": "Brand",
+      "type": "checkbox",
+      "values": [
+        "HP",
+        "Acer",
+        "Apple",
+        "Sony",
+        "Lenovo",
+        "Dell",
+        "ASUS",
+        "Samsung"
+      ]
+    },
+    "RATINGS": {
+      "label": "Rating",
+      "type": "checkbox",
+      "values": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "DURATIONS": {
+      "label": "Rent Duration",
+      "type": "checkbox",
+      "values": [
+        "1 month",
+        "6 month",
+        "12 months",
+        "24 months"
+      ]
+    },
+    "LOCATIONS": {
+      "label": "Location",
+      "type": "checkbox",
+      "values": [
+        "Boston",
+        "Cambridge",
+        "California",
+        "Vegas",
+        "New York",
+        "Chicago"
+      ]
+    },
+    "REFRESH": {
+      "label": "Refresh Rate",
+      "type": "checkbox",
+      "values": [
+        "60Hz",
+        "70Hz",
+        "120Hz"
+      ]
+    },
+    "RESOLUTION": {
+      "label": "Resolution",
+      "type": "checkbox",
+      "values": [
+        "FHD",
+        "UHD",
+        "4K",
+        "5K",
+        "8K"
+      ]
+    }
+  },
+  "phone": {
+    "BRANDS": {
+      "label": "Brand",
+      "type": "checkbox",
+      "values": [
+        "Apple",
+        "Google",
+        "OnePlus",
+        "Sony",
+        "Oppo",
+        "Samsung"
+      ]
+    },
+    "RATINGS": {
+      "label": "Rating",
+      "type": "checkbox",
+      "values": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "DURATIONS": {
+      "label": "Duration",
+      "type": "checkbox",
+      "values": [
+        "1 month",
+        "6 month",
+        "12 months",
+        "24 months"
+      ]
+    },
+    "LOCATIONS": {
+      "label": "Location",
+      "type": "checkbox",
+      "values": [
+        "Boston",
+        "Cambridge",
+        "California",
+        "Vegas",
+        "New York",
+        "Chicago"
+      ]
+    }
+  },
+  "smart-device": {
+    "BRANDS": {
+      "label": "Brand",
+      "type": "checkbox",
+      "values": [
+        "Apple",
+        "Google",
+        "Philips",
+        "Logitech"
+      ]
+    },
+    "RATINGS": {
+      "label": "Rating",
+      "type": "checkbox",
+      "values": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "DURATIONS": {
+      "label": "Duration",
+      "type": "checkbox",
+      "values": [
+        "1 month",
+        "6 month",
+        "12 months",
+        "24 months"
+      ]
+    },
+    "LOCATIONS": {
+      "label": "Location",
+      "type": "checkbox",
+      "values": [
+        "Boston",
+        "Cambridge",
+        "California",
+        "Vegas",
+        "New York",
+        "Chicago"
+      ]
+    }
+  }
+}
