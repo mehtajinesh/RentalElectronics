@@ -10,7 +10,7 @@ const SearchBox = () => {
         updateSelectedCategory(event.target.textContent)
     }
     return (
-        <div className="input-group p-5">
+        <div className="input-group mt-4">
             <button className="btn btn-primary dropdown-toggle shadow-none" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false">{selectedCategory}
             </button>
