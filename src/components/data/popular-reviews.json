@@ -1,0 +1,50 @@
+[
+  {   "item_id": "1",
+    "item_title": "Item-Title-1",
+    "item_review_title": "Review Title",
+    "item_review_detail": "This is review for item-1. This is review for item-1. This is review for item-1",
+    "item_rating" : "5",
+    "item_buyer_name" : "Buyer Name",
+    "item_buyer_profile_url" : "https://jineshmehta.com"
+  },
+  {   "item_id": "2",
+    "item_title": "Item-Title-2",
+    "item_review_title": "Review Title",
+    "item_review_detail": "This is review for item-2. This is review for item-2. This is review for item-2",
+    "item_rating" : "4",
+    "item_buyer_name" : "Buyer Name",
+    "item_buyer_profile_url" : "https://jineshmehta.com"
+  },
+  {   "item_id": "3",
+    "item_title": "Item-Title-3",
+    "item_review_title": "Review Title",
+    "item_review_detail": "This is review for item-3. This is review for item-3. This is review for item-3",
+    "item_rating" : "5",
+    "item_buyer_name" : "Buyer Name",
+    "item_buyer_profile_url" : "https://jineshmehta.com"
+  },
+  {   "item_id": "4",
+    "item_title": "Item-Title-4",
+    "item_review_title": "Review Title",
+    "item_review_detail": "This is review for item-4. This is review for item-4. This is review for item-4",
+    "item_rating" : "4",
+    "item_buyer_name" : "Buyer Name",
+    "item_buyer_profile_url" : "https://jineshmehta.com"
+  },
+  {   "item_id": "5",
+    "item_title": "Item-Title-5",
+    "item_review_title": "Review Title",
+    "item_review_detail": "This is review for item-5. This is review for item-5. This is review for item-5",
+    "item_rating" : "5",
+    "item_buyer_name" : "Buyer Name",
+    "item_buyer_profile_url" : "https://jineshmehta.com"
+  },
+  {   "item_id": "6",
+    "item_title": "Item-Title-6",
+    "item_review_title": "Review Title",
+    "item_review_detail": "This is review for item-6. This is review for item-6. This is review for item-6",
+    "item_rating" : "4",
+    "item_buyer_name" : "Buyer Name",
+    "item_buyer_profile_url" : "https://jineshmehta.com"
+  }
+]
