@@ -6,8 +6,10 @@ import Profile from "./components/profile/profile";
 import EditProfile from "./components/profile/editProfile";
 import RentalItem from "./components/rental-item/rentalItem";
 import AddItem from './components/add-item/addItem';
+import EditItem from './components/add-item/editItem'
 import Header from './components/header/index'
 import Footer from './components/footer/index'
+import MyCart from './components/my-cart/myCart';
 
 
 function App() {
@@ -23,9 +25,11 @@ function App() {
                 
                 <Route path="profile" element={<Profile/>}/>
                 <Route path="editProfile" element={<EditProfile/>}/>
-                
+                <Route path="cart" element={<MyCart/>}/>
+
                 <Route path="rentalItem" element={<RentalItem/>}/>
-                <Route path="addItem" element={<AddItem/>}/>
+                <Route path="additem" element={<AddItem/>}/>
+                <Route path="myitem/:id" element={<EditItem/>}/>
 
               </Route>
             </Routes>

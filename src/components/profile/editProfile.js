@@ -2,7 +2,7 @@ import "./editProfile.css";
 import "./profile.css";
 import { useSelector, useDispatch } from "react-redux";
 import React, {useState} from 'react'
-import { UpdateUser } from "../actions/user-action";
+import { UpdateUser } from "../../actions/user-action";
 import {useNavigate } from 'react-router-dom'
 
 // TODO: currently updating only the user on login state

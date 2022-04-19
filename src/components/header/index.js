@@ -1,14 +1,15 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { LogOut, SwitchRole } from '../actions/login-action'
-import { ResetUser } from '../actions/user-action'
+import { LogOut, SwitchRole } from '../../actions/login-action'
+import { ResetUser } from '../../actions/user-action'
 import './header.css'
 
 
 const Header = () => {
     const currentLogin = useSelector(state => state.login);
     // const currentUser = useSelector(state => state.user);
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -19,6 +20,7 @@ const Header = () => {
 
     const handleSwitch = () => {
         dispatch(SwitchRole());
+        navigate('/');
     }
 
   return (
@@ -35,17 +37,6 @@ const Header = () => {
                 
                 <div className="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-
-                        {/* Only show add item btn when leaser */}
-                        <li className="nav-item">
-                            {
-                                !currentLogin.renter && currentLogin.isLoggedIn &&
-                                <Link to="">
-                                    <button type="button" className="btn btn-outline-secondary rounded-pill mt-2 mx-2">Add Item</button>
-                                </Link>
-                            }  
-
-                        </li>
 
                         <li className="nav-item">
                             {
@@ -78,9 +69,33 @@ const Header = () => {
                                 </Link>
                             }
                         </li>
+
+                        <li className="nav-item">
+                            {
+                                currentLogin.isLoggedIn && currentLogin.renter &&
+                                <Link to="cart">
+                                    <button type="button" className="btn rounded-pill mt-2">
+                                        <i class="fas fa-shopping-cart"></i> Cart   
+                                    </button>
+
+                                </Link>
+                            }
+                        </li>
+
+                        <li className="nav-item">
+
+                            {/* Only show add item btn when leaser */}
+                            {
+                                !currentLogin.renter && currentLogin.isLoggedIn &&
+                                <Link to="additem">
+                                    <button type="button" className="btn btn-outline-secondary rounded-pill mt-2 mx-2">Add Item</button>
+                                </Link>
+                            }  
+
+                        </li>
                             
                         { currentLogin.isLoggedIn &&
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown ms-3">
 
                                 <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i className="fas fa-user-circle fa-2x"></i>

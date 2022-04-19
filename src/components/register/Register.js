@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { CreateUser } from "../actions/user-action";
+import { CreateUser } from "../../actions/user-action";
 
 const Register = () => {
     const [email, setEmail] = useState('');

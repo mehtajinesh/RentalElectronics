@@ -1,7 +1,7 @@
 import React from 'react'
 import "./addItem.css"
 
-const addItem = () => {
+const editItem = () => {
   return (
     
     <div className="container my-5">
@@ -12,7 +12,7 @@ const addItem = () => {
 
       <div className="col-sm-9 col-md-9 col-lg-8 col-xl-8 px-5 py-2"> 
 
-      <h3>Add Item</h3>
+      <h3>Edit Item</h3>
       {/* <small className="text-muted">Rent out electronics and make extra cash!</small> */}
 
       <form>
@@ -83,7 +83,7 @@ const addItem = () => {
         </form>
         
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-          <button class="btn btn-secondary me-md-2 px-5 py-2" type="button">Save</button>
+          <button class="btn btn-secondary me-md-2 px-5 py-2" type="button">Remove</button>
           <button class="btn btn-primary px-5 py-2" type="button">Post</button>
         </div>
 
@@ -97,4 +97,4 @@ const addItem = () => {
   )
 }
 
-export default addItem
+export default editItem

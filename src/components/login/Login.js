@@ -2,8 +2,8 @@ import './login.css'
 import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { LogIn } from '../actions/login-action'
-import { CheckUserExists } from '../actions/user-action'
+import { LogIn } from '../../actions/login-action'
+import { CheckUserExists } from '../../actions/user-action'
 
 const Login = () => {
 

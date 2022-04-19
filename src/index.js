@@ -4,9 +4,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createStore, combineReducers} from 'redux'
 import {Provider} from 'react-redux'
-import userReducer from './components/reducers/user-reducer';
-import productReducer from './components/reducers/product-reducer';
-import loginReducer from './components/reducers/login-reducer';
+import userReducer from './reducers/user-reducer';
+import productReducer from './reducers/product-reducer';
+import loginReducer from './reducers/login-reducer';
 
 // Create Store
 const reducer = combineReducers({login: loginReducer, user: userReducer, product: productReducer});
