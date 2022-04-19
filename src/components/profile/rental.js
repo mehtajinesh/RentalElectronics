@@ -1,7 +1,7 @@
 
-const Rental = (rental) => {
+// const Rental = (rental) => {
 
 
 
-}
-export default Rentals;
+// }
+// export default Rentals;

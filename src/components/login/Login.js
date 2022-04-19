@@ -1,28 +1,42 @@
-import React, {useState, useContext} from 'react'
 import './login.css'
-import { Link } from 'react-router-dom'
-import Footer from '../footer/index'
-import Header from '../header/index'
-import LoginContext from '../../context/loginContext'
+import React, {useState} from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { LogIn } from '../actions/login-action'
+import { CheckUserExists } from '../actions/user-action'
 
 const Login = () => {
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [success, setSucess] = useState(false);
-    const [isLoggedin, setLoginStatus] = useContext(LoginContext);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [success, setSucess] = useState(true);
 
-    const handleSubmit = async e => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const user = useSelector((state) => state.user);
+
+    const onSubmitHandler = (e) => {
         e.preventDefault();
-        // Check if user exists in the db
 
-        // update success
-        setSucess(true);
-        setLoginStatus(true);
+        // Find if user exists in the data set
+        // currently if exists, updates isSeached to true
+        dispatch(CheckUserExists({email: email, password: password}));
+        
+        const currentUser = user.filter(user => user.isSearched === true);
 
+        if (currentUser.length === 0) {
+            setSucess(false);
+        } else {
+            // If user exists add user to login state
+            dispatch(LogIn(currentUser[0].user));
+            navigate('/');
+        }
+        
         setEmail('');
         setPassword('');
-    };
+
+    }
+    
 
     return (
       <>
@@ -39,6 +53,9 @@ const Login = () => {
 
                     {/* Welcome Text */}
                     <div className="mx-4 mt-3 mb-2 fg-bold fg-font-large">
+                        
+                        {!success && <div class="alert alert-danger" role="alert"> Wrong email and password</div>}
+                        
                         Welcome to Rental Electornics
                     </div>
 
@@ -52,8 +69,8 @@ const Login = () => {
                                     id="InputEmail" 
                                     aria-describedby="emailHelp" 
                                     placeholder="Enter email" 
-                                    value={email} 
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    value = {email}
+                                    onChange = {(e) => setEmail(e.target.value)}
                                     required/>
                                 <label for="InputEmail">Email address</label>
                             </div>
@@ -64,8 +81,8 @@ const Login = () => {
                                     className="form-control" 
                                     id="InputPassword" 
                                     placeholder="Password" 
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    value = {password}
+                                    onChange = {(e) => setPassword(e.target.value)}
                                     required/>
 
                                 <label for="InputPassword">Password</label>
@@ -73,9 +90,7 @@ const Login = () => {
 
                             <small id="privacyText" className="form-text text-muted">Read our <Link to="">Privacy Policy</Link></small>
 
-                            <Link to="">
-                                <button type="button" className="btn btn-primary w-100 my-4 px-2 py-2" onClick={handleSubmit}>Login</button>
-                            </Link>
+                            <button type="button" className="btn btn-primary w-100 my-4 px-2 py-2" onClick={onSubmitHandler}>Login</button>
 
                         </form>
                     

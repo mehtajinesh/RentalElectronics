@@ -1,8 +1,10 @@
 import "./profile.css";
-import user from "../data/user.json"
+// import user from "../data/user.json"
+import { useSelector } from "react-redux";
+import { Link } from 'react-router-dom'
 
 const Profile = () => {
-
+  const currentUser = useSelector(state => state.login.user);
 
   return(
       <>
@@ -16,22 +18,22 @@ const Profile = () => {
 
             <div className="mt-4 d-flex flex-column">
               <div className="d-flex align-self-center">
-                <img className="pr-profile-pic" alt="" src="https://12ax7web.s3.amazonaws.com/accounts/1/products/1986199880924/Boba-Stitch_800x800_SEPS-1000x1000.jpg"/>
+                <img className="pr-profile-pic" alt="" src={currentUser.profileImg}/>
               </div>
 
               <div className="mt-4 ms-4">
                 <i className="fas fa-home mt-2"/>
-                <span className="ms-2 text-body">Located in: City</span>
+                <span className="ms-2 text-body">Located in: {currentUser.city}, {currentUser.state}</span>
 
                 <div className="private-data">
                   <i className="mt-3 fas fa-map-marker-alt"/>
-                  <span className="ms-2 text-body">Address</span>
+                  <span className="ms-2 text-body">{currentUser.address1}</span>
                   <br/>
                   <i className="mt-3 fas fa-mobile-alt"/>
-                  <span className="ms-2 text-body">Phone number</span>
+                  <span className="ms-2 text-body">{currentUser.phoneNumber}</span>
                   <br/>
                   <i className="mt-3 fas fa-envelope"/>
-                  <span className="ms-2 text-body">Email address</span>
+                  <span className="ms-2 text-body">{currentUser.email}</span>
                 </div>
               </div>
             </div>
@@ -43,11 +45,13 @@ const Profile = () => {
               <div className="ps-5">
               <div className="d-flex">
                 <div className="col-10 mb-0">
-                  <h3 className="mb-0">First Name Last Name</h3>
+                  <h3 className="mb-0">{currentUser.firstname} {currentUser.lastname}</h3>
 
+                <Link to="/editProfile">
                   <div className="mt-0 text-secondary text-decoration-underline">
-                    Edit profile
-                  </div>
+                      Edit profile
+                    </div>
+                </Link>
                 </div>
 
               </div>

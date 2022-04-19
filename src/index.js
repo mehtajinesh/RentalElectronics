@@ -2,10 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {createStore, combineReducers} from 'redux'
+import {Provider} from 'react-redux'
+import userReducer from './components/reducers/user-reducer';
+import productReducer from './components/reducers/product-reducer';
+import loginReducer from './components/reducers/login-reducer';
+
+// Create Store
+const reducer = combineReducers({login: loginReducer, user: userReducer, product: productReducer});
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,17 +1,58 @@
-[
+[ 
   {
-    "username": "sarah",
-    "firstName": "Sarah",
-    "lastName": "Connor",
-    "address": {
-      "state": "MA",
-      "city": "Boston",
-      "zipcode": "02135",
-      "street": "Boylston",
-      "unit": "155"
-    },
-    "phoneNumber": "6571235445",
-    "emailAddress": "sarah@connor.me",
-    "profile_logo": "https://12ax7web.s3.amazonaws.com/accounts/1/products/1986199880924/Boba-Stitch_800x800_SEPS-1000x1000.jpg"
+    "isSearched" : false,
+    "user": {
+        "email": "sarah@connor.me",
+        "password": "password",
+        "firstname": "Sarach",
+        "lastname": "Connor",
+        "phoneNumber": "6571235445",
+        "dob": "2020-01-09",
+        "address1": "1 Boylston St",
+        "address2": "155",
+        "city": "Boston",
+        "state": "MA",
+        "zipcode": "02135",
+        "role": "both",
+        "profileImg": "https://12ax7web.s3.amazonaws.com/accounts/1/products/1986199880924/Boba-Stitch_800x800_SEPS-1000x1000.jpg"
+    }
+  },
+  {
+    "isSearched" : false,
+    "user": {
+        "email": "admin@gmail.com",
+        "password": "password",
+        "firstname": "John",
+        "lastname": "Doe",
+        "phoneNumber": "123-234-123",
+        "dob": "2022-02-23",
+        "address1": "123 Boylston St",
+        "address2": "Apt 1",
+        "city": "Boston",
+        "state": "MA",
+        "zipcode": "02115",
+        "role": "rent",
+        "profileImg": "https://12ax7web.s3.amazonaws.com/accounts/1/products/1986199880924/Boba-Stitch_800x800_SEPS-1000x1000.jpg"
+    }
+  },
+
+  {
+      "isSearched" : false,
+      "user": {
+          "email": "jake@gmail.com",
+          "password": "password",
+          "firstname": "Jake",
+          "lastname": "Lee",
+          "phoneNumber": "222-233-111",
+          "dob": "2019-05-23",
+          "address1": "20 Boylston St",
+          "address2": "Apt 10",
+          "city": "Boston",
+          "state": "MA",
+          "zipcode": "02112",
+          "role": "lease",
+          "profileImg": "https://12ax7web.s3.amazonaws.com/accounts/1/products/1986199880924/Boba-Stitch_800x800_SEPS-1000x1000.jpg"
+    }
   }
+
 ]
