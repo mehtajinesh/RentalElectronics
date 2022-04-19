@@ -1,8 +1,8 @@
 import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {useState} from 'react'
-import Login from './components/loginScreen/Login'
-import RegisterScreen from './components/registerScreen/index'
+import Login from './components/LoginScreen/Login'
+import RegisterScreen from './components/RegisterScreen/index'
 import LoginContext from './context/loginContext';
 import Header from './components/header/index'
 import Footer from './components/footer/index'
