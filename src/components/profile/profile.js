@@ -8,8 +8,9 @@ const Profile = () => {
 
   return(
       <>
+        <div className="container my-6">
 
-        <div className="mt-5 ms-5 me-5">
+        <div className="mt-2 ms-5 me-5">
           <h1 className="ms-2">Profile</h1>
 
           <div className="row">
@@ -115,7 +116,7 @@ const Profile = () => {
           </div>
 
         </div>
-
+</div>
       </>
   );
 }

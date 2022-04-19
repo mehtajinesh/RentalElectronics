@@ -48,6 +48,7 @@ const EditProfile = () => {
   }
 
   return(
+    <div className="container my-6">
 
         <div className="mt-5">
           <h1 className="ps-3">Edit Profile</h1>
@@ -218,6 +219,7 @@ const EditProfile = () => {
 
         </div>
 
+  </div>
   );
 }
 export default EditProfile;

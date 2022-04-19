@@ -4,7 +4,9 @@ import "./rentalItem.css";
 const RentalItem = () => {
   return (
 
-        <div className="mt-5 ms-0 me-5 pe-0">
+    <div className="container my-6">
+
+        {/* <div className="my-5 ms-0 me-5 pe-0"> */}
 
         <div className="row">
 
@@ -19,9 +21,6 @@ const RentalItem = () => {
             </div>
 
           </div>
-
-
-
 
 
 
@@ -158,8 +157,8 @@ const RentalItem = () => {
           </div>
         </div>
 
-        </div>
 
+</div>
   )
 }
 export default RentalItem;

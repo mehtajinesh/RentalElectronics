@@ -5,6 +5,7 @@ import RegisterScreen from './components/register/index'
 import Profile from "./components/profile/profile";
 import EditProfile from "./components/profile/editProfile";
 import RentalItem from "./components/rental-item/rentalItem";
+import AddItem from './components/add-item/addItem';
 import Header from './components/header/index'
 import Footer from './components/footer/index'
 
@@ -24,6 +25,8 @@ function App() {
                 <Route path="editProfile" element={<EditProfile/>}/>
                 
                 <Route path="rentalItem" element={<RentalItem/>}/>
+                <Route path="addItem" element={<AddItem/>}/>
+
               </Route>
             </Routes>
           <Footer/>

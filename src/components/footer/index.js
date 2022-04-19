@@ -4,7 +4,7 @@ import './footer.css'
 const index = () => {
   return (
       <>
-        <div className="footer mt-5 py-3 bg-light border-bottom">
+        <div className="footer my-0 py-3 bg-light">
             <div className="container mt-3">
                 <div className="row mb-3">
                     <div className="col-4 col-sm-4 col-md-4 col-lg-4">
@@ -39,8 +39,8 @@ const index = () => {
 
         </div>      
     
-        <div className="bg-light">
-             <div className="container py-3">
+        <div className="bg-light border-top">
+             <div className="container py-3 ">
                 <small className="text-muted">&copy; Copyright 2022, Rentronics</small> 
             </div>
         </div>

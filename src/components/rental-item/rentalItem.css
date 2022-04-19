@@ -18,6 +18,12 @@
 }
 
 
+.my-6{
+  margin-top: 7rem;
+  margin-bottom: 4em;
+}
+
+
 @media (min-width: 1200px) and (max-width: 1800px){
   .ri-right-column{
     padding-left: 45px;

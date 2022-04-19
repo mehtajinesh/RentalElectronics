@@ -4,6 +4,7 @@ const ProfileSeller = () => {
 
   return(
       <>
+  
         <div className="mt-5">
           <h1 className="ms-3">Profile</h1>
 
