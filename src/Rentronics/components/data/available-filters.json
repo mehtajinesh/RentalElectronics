@@ -1,0 +1,178 @@
+{
+  "laptops": [
+    {
+      "label": "Brand",
+      "type": "checkbox",
+      "values": [
+        "HP",
+        "Acer",
+        "Apple",
+        "Sony",
+        "Lenovo",
+        "Dell",
+        "ASUS",
+        "Samsung"
+      ]
+    },
+    {
+      "label": "Rent Duration",
+      "type": "checkbox",
+      "values": [
+        "1 month",
+        "6 month",
+        "12 months",
+        "24 months"
+      ]
+    },
+    {
+      "label": "Location",
+      "type": "checkbox",
+      "values": [
+        "Boston",
+        "Cambridge",
+        "California",
+        "Vegas",
+        "New York",
+        "Chicago"
+      ]
+    },
+    {
+      "label": "Operating System",
+      "type": "checkbox",
+      "values": [
+        "Windows 10 Pro",
+        "MacOS",
+        "Linux OS"
+      ]
+    },
+    {
+      "label": "RAM",
+      "type": "checkbox",
+      "values": [
+        "4GB",
+        "8GB",
+        "16GB",
+        "32GB",
+        "64GB"
+      ]
+    }
+  ],
+  "monitors": [
+    {
+      "label": "Brand",
+      "type": "checkbox",
+      "values": [
+        "HP",
+        "Acer",
+        "Apple",
+        "Sony",
+        "Lenovo",
+        "Dell",
+        "ASUS",
+        "Samsung"
+      ]
+    },
+    {
+      "label": "Rent Duration",
+      "type": "checkbox",
+      "values": [
+        "1 month",
+        "6 month",
+        "12 months",
+        "24 months"
+      ]
+    },
+    {
+      "label": "Location",
+      "type": "checkbox",
+      "values": [
+        "Boston",
+        "Cambridge",
+        "California",
+        "Vegas",
+        "New York",
+        "Chicago"
+      ]
+    },
+    {
+      "label": "Refresh Rate",
+      "type": "checkbox",
+      "values": [
+        "60Hz",
+        "70Hz",
+        "120Hz"
+      ]
+    },
+    {
+      "label": "Resolution",
+      "type": "checkbox",
+      "values": [
+        "FHD",
+        "UHD",
+        "4K",
+        "5K",
+        "8K"
+      ]
+    }
+  ],
+  "phone": [
+    {
+      "label": "Brand",
+      "type": "checkbox",
+      "values": [
+        "Apple",
+        "Google",
+        "OnePlus",
+        "Sony",
+        "Oppo",
+        "Samsung"
+      ]
+    },
+    {
+      "label": "Duration",
+      "type": "checkbox",
+      "values": [
+        "1 month",
+        "6 month",
+        "12 months",
+        "24 months"
+      ]
+    },
+    {
+      "label": "Location",
+      "type": "checkbox",
+      "values": [
+        "Boston",
+        "Cambridge",
+        "California",
+        "Vegas",
+        "New York",
+        "Chicago"
+      ]
+    },
+    {
+      "label": "Storage",
+      "type": "checkbox",
+      "values": [
+        "64GB",
+        "128GB",
+        "256GB",
+        "512GB",
+        "1TB",
+        "2TB"
+      ]
+    },
+    {
+      "label": "Front Camera",
+      "type": "checkbox",
+      "values": [
+        "8MP",
+        "12MP",
+        "16MP",
+        "32MP",
+        "64MP",
+        "128MP"
+      ]
+    }
+  ]
+}
