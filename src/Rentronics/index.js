@@ -5,12 +5,14 @@ import Footer from "./components/footer";
 import {combineReducers, createStore} from "redux";
 import loginReducer from "./components/reducers/login-reducer";
 import userReducer from "./components/reducers/user-reducers";
+import currentUserReducer from "./components/reducers/current-user-reducer";
+import listedProducts from './components/reducers/listed-product-reducer'
 
 const reducer = combineReducers({
-    loggedIn: loginReducer, users: userReducer
+    loggedIn: loginReducer, users: userReducer, currentUser: currentUserReducer, listedProducts: listedProducts,
 });
 
-const store = createStore(reducer);
+const store = createStore(reducer,  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 const Rentronics = () => {
     return (
         <Provider store={store}>

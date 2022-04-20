@@ -1,0 +1,50 @@
+[
+    { "item_id": "1",
+      "item_title": "Macbook Pro 2018 14 Inch Intel",
+      "item_description": "This is description for item-1",
+      "item_location": "Location",
+      "item_post_date": "Date",
+      "item_seller_name": "admin",
+      "item_price": 3,
+      "item_rent_duration": 7,
+      "item_properties": {
+        "category": "laptop",
+        "product_name": "Macbook Pro",
+        "brand": "Apple",
+        "model_number": "A2338 (EMC 3578)",
+        "useRemoteAPI": false,
+        "features": "",
+        "dimensions": "",
+        "description": "",
+        "condition": "",
+        "start_date": "",
+        "end_date": ""
+      },
+      "item_seller_profile_url": "https://jineshmehta.com",
+      "item_primary_image": "https://shorturl.at/bA023"
+    },
+    {  "item_id": "2",
+        "item_title": "Macbook Air 2014 14 Inch Intel",
+        "item_description": "This is description for item-1",
+        "item_location": "Location",
+        "item_post_date": "Date",
+        "item_seller_name": "admin",
+        "item_price": 3,
+        "item_rent_duration": 7,
+        "item_properties": {
+          "category": "laptop",
+          "product_name": "Macbook Air",
+          "brand": "Apple",
+          "model_number": "A2334 (EMC 3578)",
+          "useRemoteAPI": true,
+          "features": "",
+          "dimensions": "",
+          "description": "",
+          "condition": "",
+          "start_date": "",
+          "end_date": ""
+        },
+        "item_seller_profile_url": "https://jineshmehta.com",
+        "item_primary_image": "https://shorturl.at/bA023"
+      }
+  ]

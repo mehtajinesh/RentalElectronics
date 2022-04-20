@@ -6,10 +6,14 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
     let loggedIn = useSelector(state => state.loggedIn);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const RegisteredUsers = useSelector(state => state.users);
+    
     //if user is already logged in, navigate to home page.
     if (loggedIn){
         navigate('/home');
@@ -23,6 +27,13 @@ const Login = () => {
         return false;
     }
 
+    const getValidUser = () => {
+        for(let i=0;i<RegisteredUsers.length;i++){
+            if (RegisteredUsers[i]["email"] === email && RegisteredUsers[i]["password"] === password)
+                return RegisteredUsers[i];
+        }
+    }
+
     const handleLogin = (event) => {
         // check if user is valid and authorized
         loggedIn = checkForValidUser()
@@ -32,19 +43,31 @@ const Login = () => {
             return;
         }
         alert("Login Successful")
+        
         //set the state to logged in
         dispatch({
             type:'UPDATE_LOGIN_STATE',
             loggedIn
         });
+
+        // set current user 
+        let currentUser = getValidUser();
+        console.log(currentUser);
+        dispatch({
+            type: 'SET_CURRENT_USER',
+            currentUser
+        })
+
         //navigate the user to home page
         navigate('/home');
     }
 
-    return (<div className="container">
+    return (
+    
+        <div className="container">
             <div className="row">
                 <div className="col-sm-1 col-md-1 col-lg-2 col-xl-3"/>
-                <div className="col-sm-10 col-md-10 col-lg-8 col-xl-6">
+                <div className="col-sm-10 col-md-10 col-lg-8 col-xl-6 border rounded my-5">
                     <div className="text-center px-3 py-3 fw-bold border-bottom border-grey">
                         Login
                     </div>
@@ -82,9 +105,10 @@ const Login = () => {
                                     Please provide a password.
                                 </div>
                             </div>
-                            <div id="privacyText" className="form-text text-muted fs-6 ps-2">Read our <Link
-                                to="/privacy">Privacy
-                                Policy</Link></div>
+                            <div id="privacyText" className="form-text text-muted fs-6 ps-2">
+                                <small>Read our <Link to="/privacy">Privacy Policy</Link></small>
+                            </div>
+                            
                             <button type="button" onClick={handleLogin}
                                     className="btn btn-primary w-100 my-4 px-2 py-2">Login
                             </button>
