@@ -5,7 +5,18 @@
     "password": "test",
     "firstName": "Jinesh",
     "lastName": "Mehta",
-    "userType": "buyer"
+    "userType": "buyer",
+    "DOB": "2022-04-20",
+    "phoneNumber": "857-123-345",
+    "address": {
+      "line1": "123 Boylston St",
+      "line2": "Apt 1",
+      "city": "Boston",
+      "state": "MA",
+      "zipcode": "02115"
+    },
+    "reviews": [],
+    "listed_item": []
   },
   {
     "_id": "2",
@@ -13,7 +24,18 @@
     "password": "test12",
     "firstName": "Kalpit",
     "lastName": "Mehta",
-    "userType": "buyer"
+    "userType": "buyer",
+    "DOB": "2022-04-19",
+    "phoneNumber": "857-123-345",
+    "address": {
+      "line1": "1 Boylston St",
+      "line2": "10",
+      "city": "Boston",
+      "state": "MA",
+      "zipcode": "02114"
+    },
+    "reviews": [],
+    "listed_item": []
   },
   {
     "_id": "3",
@@ -21,14 +43,36 @@
     "password": "test34",
     "firstName": "Hemnabh",
     "lastName": "Mehta",
-    "userType": "buyer_seller"
+    "userType": "buyer_seller",
+    "DOB": "2022-04-20",
+    "phoneNumber": "857-123-345",
+    "address": {
+      "line1": "10 Huntington Ave",
+      "line2": "100",
+      "city": "Boston",
+      "state": "MA",
+      "zipcode": "02115"
+    },
+    "reviews": [],
+    "listed_item": []
   },
   {
     "_id": "4",
     "email": "test@gmail.com",
-    "password": "test34",
+    "password": "test12",
     "firstName": "John",
     "lastName": "Doe",
-    "userType": "buyer"
+    "userType": "buyer_seller",
+    "DOB": "2022-04-20",
+    "phoneNumber": "857-123-345",
+    "address": {
+      "line1": "55 Huntington Ave",
+      "line2": "12",
+      "city": "Boston",
+      "state": "MA",
+      "zipcode": "02115"
+    },
+    "reviews": [],
+    "listed_item": []
   }
 ]

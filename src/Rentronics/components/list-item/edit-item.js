@@ -12,7 +12,7 @@ const EditItem = () => {
   const item_post_date = item.item_post_date;
   const item_seller_name = item.item_seller_name;
   const item_price = item.item_price;
-  const item_duration = item.item_duration;
+
   const item_seller_profile_url = item.item_seller_profile_url;
   const item_primary_image = item.item_primary_image;
 
@@ -79,7 +79,9 @@ const EditItem = () => {
     dispatch({
       type: 'DELETE_ITEM',
       item_id
-    })
+    });
+
+    navigate("/profile");
   }
 
   return (

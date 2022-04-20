@@ -10,21 +10,39 @@ const Register = () => {
     const [lastname, setLastname] = useState('');
     const [dob, setDOB] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [address1, setAddress1] = useState('');
-    const [address2, setAddress2] = useState('');
+    const [line1, setAddress1] = useState('');
+    const [line2, setAddress2] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [zipcode, setZipcode] = useState();
-    const [role, setRole] = useState('Buyer');
+    const [role, setRole] = useState('buyer');
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const AddUser = () => {
-        let newUser = {"email":email, "password":password,"firstName":firstname, "lastName":lastname, "userType":role}
+        let newUser = {
+            email: email, 
+            password: password,
+            firstName: firstname, 
+            lastName: lastname, 
+            userType: role,
+            DOB: dob,
+            phoneNumber : phoneNumber,
+            address: {
+                line1: line1,
+                line2: line2,
+                city: city,
+                state: state,
+                zipcode: zipcode
+            },
+            reviews: [],
+            listed_item: []
+        }
         dispatch({
             type:'ADD_USER',
             newUser
         });
+        
         navigate('/login');
     }
 
@@ -117,7 +135,7 @@ const Register = () => {
                         <label htmlFor="inputAddress" className="text-muted mb-1">Address</label>
                         <div className="form-floating mb-2">
                             <input type="text" className="form-control" id="InputAddress1" placeholder="Address"
-                                   value={address1} onChange={(e) => setAddress1(e.target.value)}/>
+                                   value={line1} onChange={(e) => setAddress1(e.target.value)}/>
                             <label htmlFor="InputAddress1">Address 1</label>
                             <div className="invalid-feedback">
                                 Please provide a valid address.
@@ -125,7 +143,7 @@ const Register = () => {
                         </div>
                         <div className="form-floating mb-2">
                             <input type="text" className="form-control" id="InputAddress2" placeholder="Address"
-                                   value={address2} onChange={(e) => setAddress2(e.target.value)}/>
+                                   value={line2} onChange={(e) => setAddress2(e.target.value)}/>
                             <label htmlFor="InputAddress2">Address 2 (Optional)</label>
                         </div>
                         <div className="form-floating mb-2">

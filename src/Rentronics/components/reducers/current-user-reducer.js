@@ -4,6 +4,17 @@ const initialState = {
     firstName: '',
     lastName: '',    
     userType: '',
+    DOB:'',
+    phoneNumber: '',
+    address: {
+      line1: '',
+      line2: '',
+      city: '',
+      state: '',
+      zipcode: ''
+    },
+    reviews: [],
+    listed_item: []
 }
 
 

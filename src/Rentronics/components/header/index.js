@@ -1,10 +1,12 @@
+import bootstrap from 'bootstrap'  // this is need for toggle down menu for profile
+
 import {Link} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
-import bootstrap from 'bootstrap'  // this is need for toggle down menu for profile
 
 const Header = () => {
     let loggedIn = useSelector(state => state.loggedIn);
+    let currentUser = useSelector(state => state.currentUser);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -53,7 +55,7 @@ const Header = () => {
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
 
                             {
-                                loggedIn &&
+                                loggedIn && currentUser.userType === "buyer_seller" &&
                                 <li className="nav-item">
                                     <button type="button" className="btn btn-outline-primary rounded-pill mt-2" onClick={handleAddItem}>Add Item</button>
                                 </li>
