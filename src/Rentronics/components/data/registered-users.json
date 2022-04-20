@@ -74,5 +74,24 @@
     },
     "reviews": [],
     "listed_item": []
+  },
+  {
+    "_id": "5",
+    "email": "test2@gmail.com",
+    "password": "test12",
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "userType": "buyer",
+    "DOB": "2022-04-20",
+    "phoneNumber": "857-123-345",
+    "address": {
+      "line1": "55 Huntington Ave",
+      "line2": "12",
+      "city": "Boston",
+      "state": "MA",
+      "zipcode": "02115"
+    },
+    "reviews": [],
+    "listed_item": []
   }
 ]

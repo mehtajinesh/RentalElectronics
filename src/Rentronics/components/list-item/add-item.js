@@ -62,6 +62,17 @@ const AddItem = () => {
       newItem
     });
 
+
+    // if (currentUser.userType === 'buyer') {
+    //   let updateUserRole = 'buyer_seller';
+
+    //   dispatch({
+    //     type: 'UPDATE_USER',
+    //     updateUserRole
+    //   })
+    // }
+
+
     // TODO: go to product detail page
     navigate('/product');
   }

@@ -89,7 +89,25 @@ const Header = () => {
                             }
 
                             { 
-                                loggedIn &&
+                                loggedIn && currentUser.userType === 'buyer' &&
+
+                                <li class="nav-item dropdown ms-3">
+                                    <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-1 border-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i className="fas fa-user-circle fa-2x"></i>
+                                    </button>
+
+                                    <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <li><Link to="profile" className="dropdown-item">Profile</Link></li>
+                                        <li><Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link></li>
+                                        <li><hr className="dropdown-divider"/></li>
+                                        <li><Link to="/additem" className="dropdown-item">Become Leaser</Link></li>
+                                    </ul>
+                                </li>
+                            }
+
+
+                            {  
+                                loggedIn && currentUser.userType === 'buyer_seller' &&
 
                                 <li class="nav-item dropdown ms-3">
                                     <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-1 border-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
