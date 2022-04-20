@@ -1,5 +1,5 @@
 import SearchBox from "../search-box";
-import availableFilters from "./../data/available-filters.json"
+import availableFilters from "../data/available-filters.json"
 import FilterItem from "./filter-item";
 import ResultsPage from "./result-page";
 

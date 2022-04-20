@@ -10,7 +10,7 @@ const SearchBox = () => {
         updateSelectedCategory(event.target.textContent)
     }
     return (
-        <div className="input-group mt-4">
+        <div className="input-group ps-5 pe-5 pt-4">
             <button className="btn btn-primary dropdown-toggle shadow-none" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false">{selectedCategory}
             </button>
@@ -27,7 +27,7 @@ const SearchBox = () => {
             </ul>
             <input type="text" placeholder="Search Products" className="shadow-none form-control"
                    aria-label="Search input with category dropdown" onChange={onSearchValueChange}/>
-            <button className="btn btn-primary rounded ml-2"> Search</button>
+            <button className="btn btn-primary rounded ms-2"> Search</button>
         </div>
     );
 };

@@ -1,22 +1,42 @@
-import HomeScreen from "./components/home-screen";
-import {BrowserRouter,Route, Routes} from "react-router-dom";
-import SearchResults from "./components/search-results";
-import searchResultItems from "./../src/components/data/search-results.json"
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js'
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
+import Rentronics from "./Rentronics";
+import HomeScreen from "./Rentronics/components/home-screen";
+import Login from "./Rentronics/components/login";
+import Register from "./Rentronics/components/register";
+// import ViewProfile from "./Rentronics/components/view-profile";
+// import EditProfile from "./Rentronics/components/edit-profile";
+// import AddProduct from "./Rentronics/components/add-product";
+// import ViewProduct from "./Rentronics/components/view-product";
+// import EditProduct from "./Rentronics/components/edit-product";
+// import SearchResults from "./Rentronics/components/search-results";
 
 function App() {
-  return (
-  <BrowserRouter>
-        <div className="container">
-          <Routes>
-            <Route path="/">
-              <Route index element={<HomeScreen/>}/>
-              <Route path="search" exact={true} element={<SearchResults currentCategory={"laptops"} resultItems={searchResultItems}/>}/>
-            </Route>
-          </Routes>
-        </div>
-      </BrowserRouter>
-);
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Rentronics/>}>
+                    <Route index element={<HomeScreen/>}/>
+                    <Route path="home" exact={true} element={<HomeScreen/>}/>
+                    <Route path="login" exact={true} element={<Login/>}/>
+                    <Route path="register" exact={true} element={<Register/>}/>
+                    {/*<Route path="viewProfile" exact={true} element={<ViewProfile/>}/>*/}
+                    {/*<Route path="editProfile" exact={true} element={<EditProfile/>}/>*/}
+                    {/*<Route path="addProduct" exact={true} element={<AddProduct/>}/>*/}
+                    {/*<Route path="viewProduct" exact={true} element={<ViewProduct/>}/>*/}
+                    {/*<Route path="editProduct" exact={true} element={<EditProduct/>}/>*/}
+                    {/*<Route path="searchResults" exact={true} element={<SearchResults/>}/>*/}
+                    {/*<Route path="cart" exact={true} element={<Cart/>}/>*/}
+                    {/*<Route path="privacy" exact={true} element={<Privacy/>}/>*/}
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;

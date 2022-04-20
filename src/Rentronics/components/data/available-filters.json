@@ -15,17 +15,6 @@
       ]
     },
     {
-      "label": "Rating",
-      "type": "checkbox",
-      "values": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
-    },
-    {
       "label": "Rent Duration",
       "type": "checkbox",
       "values": [
@@ -68,8 +57,8 @@
       ]
     }
   ],
-  "monitors": {
-    "BRANDS": {
+  "monitors": [
+    {
       "label": "Brand",
       "type": "checkbox",
       "values": [
@@ -83,18 +72,7 @@
         "Samsung"
       ]
     },
-    "RATINGS": {
-      "label": "Rating",
-      "type": "checkbox",
-      "values": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
-    },
-    "DURATIONS": {
+    {
       "label": "Rent Duration",
       "type": "checkbox",
       "values": [
@@ -104,7 +82,7 @@
         "24 months"
       ]
     },
-    "LOCATIONS": {
+    {
       "label": "Location",
       "type": "checkbox",
       "values": [
@@ -116,7 +94,7 @@
         "Chicago"
       ]
     },
-    "REFRESH": {
+    {
       "label": "Refresh Rate",
       "type": "checkbox",
       "values": [
@@ -125,7 +103,7 @@
         "120Hz"
       ]
     },
-    "RESOLUTION": {
+    {
       "label": "Resolution",
       "type": "checkbox",
       "values": [
@@ -136,9 +114,9 @@
         "8K"
       ]
     }
-  },
-  "phone": {
-    "BRANDS": {
+  ],
+  "phone": [
+    {
       "label": "Brand",
       "type": "checkbox",
       "values": [
@@ -150,18 +128,7 @@
         "Samsung"
       ]
     },
-    "RATINGS": {
-      "label": "Rating",
-      "type": "checkbox",
-      "values": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
-    },
-    "DURATIONS": {
+    {
       "label": "Duration",
       "type": "checkbox",
       "values": [
@@ -171,7 +138,7 @@
         "24 months"
       ]
     },
-    "LOCATIONS": {
+    {
       "label": "Location",
       "type": "checkbox",
       "values": [
@@ -182,51 +149,30 @@
         "New York",
         "Chicago"
       ]
-    }
-  },
-  "smart-device": {
-    "BRANDS": {
-      "label": "Brand",
+    },
+    {
+      "label": "Storage",
       "type": "checkbox",
       "values": [
-        "Apple",
-        "Google",
-        "Philips",
-        "Logitech"
+        "64GB",
+        "128GB",
+        "256GB",
+        "512GB",
+        "1TB",
+        "2TB"
       ]
     },
-    "RATINGS": {
-      "label": "Rating",
+    {
+      "label": "Front Camera",
       "type": "checkbox",
       "values": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
-    },
-    "DURATIONS": {
-      "label": "Duration",
-      "type": "checkbox",
-      "values": [
-        "1 month",
-        "6 month",
-        "12 months",
-        "24 months"
-      ]
-    },
-    "LOCATIONS": {
-      "label": "Location",
-      "type": "checkbox",
-      "values": [
-        "Boston",
-        "Cambridge",
-        "California",
-        "Vegas",
-        "New York",
-        "Chicago"
+        "8MP",
+        "12MP",
+        "16MP",
+        "32MP",
+        "64MP",
+        "128MP"
       ]
     }
-  }
+  ]
 }
