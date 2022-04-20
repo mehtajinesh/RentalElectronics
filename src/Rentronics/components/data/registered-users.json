@@ -22,5 +22,13 @@
     "firstName": "Hemnabh",
     "lastName": "Mehta",
     "userType": "buyer_seller"
+  },
+  {
+    "_id": "4",
+    "email": "test@gmail.com",
+    "password": "test34",
+    "firstName": "John",
+    "lastName": "Doe",
+    "userType": "buyer"
   }
 ]

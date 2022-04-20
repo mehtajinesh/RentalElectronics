@@ -28,26 +28,26 @@ const Register = () => {
         navigate('/login');
     }
 
-    (function () {
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.querySelectorAll('.needs-validation')
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })()
+    // (function () {
+    //     // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    //     var forms = document.querySelectorAll('.needs-validation')
+    //     // Loop over them and prevent submission
+    //     Array.prototype.slice.call(forms)
+    //         .forEach(function (form) {
+    //             form.addEventListener('submit', function (event) {
+    //                 if (!form.checkValidity()) {
+    //                     event.preventDefault()
+    //                     event.stopPropagation()
+    //                 }
+    //                 form.classList.add('was-validated')
+    //             }, false)
+    //         })
+    // })()
 
     return (<div className="container my-6">
         <div className="row">
             <div className="col-xs-1 col-sm-1 col-md-1 col-lg-2 col-xl-3"/>
-            <div className="col-xs-10 col-sm-10 col-md-10 col-lg-8 col-xl-6">
+            <div className="col-xs-10 col-sm-10 col-md-10 col-lg-8 col-xl-6 border rounded  my-5">
                 <div className="text-center px-3 py-3 fw-bold border-bottom border-grey">
                     Sign Up
                 </div>
@@ -55,13 +55,13 @@ const Register = () => {
                     <div className="fw-bold fs-4">
                         Create Account
                     </div>
-                    <div id="privacyText" className="form-text text-muted fs-6">Get instant access to all the
-                        electronics to rent in your area.
+                    <div id="privacyText" className="form-text text-muted fs-6">
+                        Get instant access to all the electronics to rent in your area.
                     </div>
                 </div>
                 <div className="mx-4 my-4">
                     <form className="needs-validation" noValidate>
-                        <label htmlFor="InputEmail" className="text-muted mb-1">Essential</label>
+                        <label htmlFor="InputEmail" className="text-muted mb-1">Login</label>
                         <div className="form-floating mb-2">
                             <input type="email" className="form-control" id="InputEmail"
                                    aria-describedby="emailHelp" placeholder="Enter email" value={email}
@@ -80,7 +80,7 @@ const Register = () => {
                                 Please provide a valid password.
                             </div>
                         </div>
-                        <label htmlFor="InputFirstName" className="text-muted mb-1">Basic</label>
+                        <label htmlFor="InputFirstName" className="text-muted mb-1">Personal Information</label>
                         <div className="col form-floating mb-2">
                             <input type="text" className="form-control" id="InputFirstName" placeholder="First Name"
                                    value={firstname} onChange={(e) => setFirstname(e.target.value)} required/>
@@ -206,18 +206,24 @@ const Register = () => {
                                 Please provide a valid zip.
                             </div>
                         </div>
-                        <div className="form-check form-check-inline">
-                            <input className="form-check-input" type="radio" name="inlineRadioOptions"
-                                   id="buyerRadio" value="buyer" checked onChange={(e) => setRole(e.target.value)}/>
-                            <label className="form-check-label" htmlFor="buyerRadio">Buyer</label>
+                        
+                        <div>
+                            <label htmlFor="inputRole" className="text-muted mb-1">What are you looking for?</label>
+                            <br></br>
+                            <div className="form-check form-check-inline">
+                                <input className="form-check-input" type="radio" name="inlineRadioOptions"
+                                    id="buyerRadio" value="buyer" checked onChange={(e) => setRole(e.target.value)}/>
+                                <label className="form-check-label" htmlFor="buyerRadio">Buyer</label>
+                            </div>
+                            <div className="form-check form-check-inline">
+                                <input className="form-check-input" type="radio" name="inlineRadioOptions"
+                                    id="buyerSellerRadio" value="buyer_seller"
+                                    onChange={(e) => setRole(e.target.value)}/>
+                                <label className="form-check-label" htmlFor="buyerSellerRadio">Buyer & Seller</label>
+                            </div>
                         </div>
-                        <div className="form-check form-check-inline">
-                            <input className="form-check-input" type="radio" name="inlineRadioOptions"
-                                   id="buyerSellerRadio" value="buyer_seller"
-                                   onChange={(e) => setRole(e.target.value)}/>
-                            <label className="form-check-label" htmlFor="buyerSellerRadio">Buyer & Seller</label>
-                        </div>
-                        <div className="form-check mt-2">
+
+                        <div className="form-check mt-3">
                             <input className="form-check-input" type="checkbox" value="" id="privacyPolicy"
                                    required/>
                             <label className="form-check-label" htmlFor="privacyPolicy">
@@ -231,8 +237,8 @@ const Register = () => {
                     </form>
                     <button type="button" onClick={AddUser} className="btn btn-primary w-100 my-4 px-2 py-2">Sign Up
                     </button>
-                    <p id="createAccount" className="form-text text-center mb-4">Already have an account? <Link
-                        to="/login">Login</Link></p>
+                    <p id="createAccount" className="form-text text-center mb-4">Already have an account? 
+                    <Link to="/login">Login</Link></p>
                 </div>
             </div>
             <div className="col-xs-1 col-sm-1 col-md-1 col-lg-2 col-xl-3"/>

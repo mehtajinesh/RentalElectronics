@@ -6,28 +6,28 @@ const footer = () => {
                     <div className="row mb-3">
                         <div className="col-4 col-sm-4 col-md-4 col-lg-4">
                             <h6>Rentronics</h6>
-                            <ul className="no-bullet px-0">
-                                <li><small className="text-muted">About Us</small></li>
-                                <li><small className="text-muted">Contact</small></li>
-                                <li><small className="text-muted">Career</small></li>
+                            <ul class="list-group bg-transparent">
+                                <li class="list-group-item border-0 bg-transparent text-muted px-0">About Us</li>
+                                <li class="list-group-item border-0 bg-transparent text-muted px-0">Contract</li>
+                                <li class="list-group-item border-0 bg-transparent text-muted px-0">Career</li>
                             </ul>
                         </div>
 
                         <div className="col-4 col-sm-4 col-md-4 col-lg-4">
                             <h6>Information</h6>
-                            <ul className="no-bullet px-0">
-                                <li><small className="text-muted">Blog</small></li>
-                                <li><small className="text-muted">FAQs</small></li>
+                            <ul class="list-group bg-transparent">
+                                <li class="list-group-item border-0 bg-transparent text-muted px-0">Blog</li>
+                                <li class="list-group-item border-0 bg-transparent text-muted px-0">FAQs</li>
+                                <li class="list-group-item border-0 bg-transparent text-muted px-0">Career</li>
                             </ul>
                         </div>
 
                         <div className="col-4 col-sm-4 col-md-4 col-lg-4">
                             <h6>Policies</h6>
-                            <ul className="no-bullet px-0">
-                                <li><small className="text-muted">Privacy Policy</small></li>
-                                <li><small className="text-muted">Cancelation</small></li>
-                                <li><small className="text-muted">Rental Terms and Conditions </small></li>
-
+                            <ul class="list-group bg-transparent">
+                                <li class="list-group-item border-0 bg-transparent text-muted px-0">Privacy Policy</li>
+                                <li class="list-group-item border-0 bg-transparent text-muted px-0">Cancelation</li>
+                                <li class="list-group-item border-0 bg-transparent text-muted px-0">Rental Terms and Conditions</li>
                             </ul>
                         </div>
 
