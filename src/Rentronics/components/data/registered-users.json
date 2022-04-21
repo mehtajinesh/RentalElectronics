@@ -21,7 +21,9 @@
       "2",
       "3",
       "4"
-    ]
+    ],
+    "cart": [],
+    "wishlist": []
   },
   {
     "_id": "2",
@@ -45,7 +47,9 @@
       "6",
       "7",
       "8"
-    ]
+    ],
+    "cart": [],
+    "wishlist": []
   },
   {
     "_id": "3",
@@ -69,7 +73,9 @@
       "10",
       "11",
       "12"
-    ]
+    ],
+    "cart": [],
+    "wishlist": []
   },
   {
     "_id": "4",
@@ -88,7 +94,9 @@
       "zipcode": "02115"
     },
     "reviews": [],
-    "listed_item": []
+    "listed_item": [],
+    "cart": [],
+    "wishlist": []
   },
   {
     "_id": "5",
@@ -107,6 +115,8 @@
       "zipcode": "02115"
     },
     "reviews": [],
-    "listed_item": []
+    "listed_item": [],
+    "cart": [],
+    "wishlist": []
   }
 ]
