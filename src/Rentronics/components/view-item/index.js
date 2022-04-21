@@ -1,19 +1,22 @@
 import {useLocation, useNavigate} from "react-router-dom";
 import "./index.css"
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 const ViewItem = () => {
     const location = useLocation()
     let loggedIn = useSelector(state => state.loggedIn);
-    let currentUser = useSelector(state => state.currentUser);
     const item = location.state.itemData
     const list_text = item["item_description"].trim().split("\n")
     const features = item["item_properties"]
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleRentNow = () => {
         if (loggedIn) {
-            currentUser["cart"] = [...currentUser["cart"], item]
+            dispatch({
+                type:'ADD_ITEM_TO_CART',
+                item
+            });
             alert("Item " + item["item_title"] + " added to cart. Navigating to cart")
             navigate('/cart');
         } else {
@@ -24,7 +27,10 @@ const ViewItem = () => {
 
     const handleAddToCart = () => {
         if (loggedIn) {
-            currentUser["cart"] = [...currentUser["cart"], item]
+            dispatch({
+                type:'ADD_ITEM_TO_CART',
+                item
+            });
             alert("Item " + item["item_title"] + " added to cart.")
         } else {
             alert("User not logged in. Navigating to Login")
@@ -34,7 +40,10 @@ const ViewItem = () => {
 
     const handleAddToWishlist = () => {
         if (loggedIn) {
-            currentUser["wishlist"] = [...currentUser["wishlist"], item]
+            dispatch({
+                type:'ADD_ITEM_TO_WISHLIST',
+                item
+            });
             alert("Item " + item["item_title"] + " added to Wishlist.")
         } else {
             alert("User not logged in. Navigating to Login")
