@@ -15,6 +15,7 @@ const AddItem = () => {
   const [brand, setBrand] = useState('');
   const [modelNumber, setModelNumber] = useState('');
   const [useRemoteAPI, setRemoteAPI] = useState(true);
+  const [fetchingAPI, setFetchAPI] = useState(false);
   const [features, setFeatures] = useState('');
   const [dimensions, setDimensions] = useState('');
   const [description, setDescription] = useState('');
@@ -38,12 +39,14 @@ const AddItem = () => {
       
       if (useRemoteAPI && brand !== '' && modelNumber !== '' && productName !== '') 
         {
+          setFetchAPI(true);
           let search_term = brand + " " + modelNumber + " " + productName;
           let asin = await service.getASIN(search_term);
           console.log(asin);
           let productDetail = await service.getProductDetail(asin);
           console.log(productDetail);
-  
+          setFetchAPI(false);
+
           setFeatures(productDetail.feature_bullets_flat);
           setDimensions(productDetail.specifications_flat);
           setDescription(productDetail.description);
@@ -51,7 +54,6 @@ const AddItem = () => {
 
   }
  
-  // useEffect(GetProductDetail); 
 
   const AddItem = () => {
     let newItem = { 
@@ -120,9 +122,9 @@ const AddItem = () => {
           <div className="form-floating mb-4">
               <select className="form-select" id="floatingSelect" aria-label="Floating label select example" value={category} onChange={(e) => setCategory(e.target.value)} required>
                 <option selected>Open this to select category</option>
-                <option value="laptop">Laptop</option>
-                <option value="display">Display</option>
-                <option value="smart-device">Smart Device</option>
+                <option value="phone">Phone</option>
+                <option value="laptops">Laptops</option>
+                <option value="monitors">Monitors</option>
               </select>
               <label for="floatingSelect">Product Category</label>
           </div>
@@ -147,25 +149,60 @@ const AddItem = () => {
   
               <div className="form-check">
                 <input className="form-check-input" type="checkbox" id="flexCheckChecked" onChange={checkRemoteAPI} onClick={GetProductDetail}/>
-                <small className="form-check-label text-muted" for="flexCheckChecked">
-                  Use Product Detail from Amazon
-                </small>
+                {
+                  !fetchingAPI && 
+                  <small className="form-check-label text-muted" for="flexCheckChecked">
+                    Use Product Detail from Amazon
+                  </small>
+                }
+                {
+                  fetchingAPI && 
+                  <small className="form-check-label text-muted" for="flexCheckChecked">
+                    Fetching Product Detail from Amazon ...
+                  </small>
+                }
               </div>
   
-              <div className="col form-floating mb-2">
-                <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "5em"}} value={features} onChange={(e) => setFeatures(e.target.value)}></textarea>
-                <label for="product-detail">Features</label>
-              </div>
-  
-              <div className="col form-floating mb-2">
-                <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "5em"}} value={dimensions} onChange={(e) => setDimensions(e.target.value)}></textarea>
-                <label for="product-detail">Dimensions</label>
-              </div>
-  
-              <div className="col form-floating mb-4">
-                <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "10em"}} value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
-                <label for="product-detail">Description</label>
-              </div>
+              {
+                !fetchingAPI && 
+                <>
+                    <div className="col form-floating mb-2">
+                      <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "5em"}} value={features} onChange={(e) => setFeatures(e.target.value)}></textarea>
+                      <label for="product-detail">Features</label>
+                    </div>
+      
+                  <div className="col form-floating mb-2">
+                    <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "5em"}} value={dimensions} onChange={(e) => setDimensions(e.target.value)}></textarea>
+                    <label for="product-detail">Dimensions</label>
+                  </div>
+      
+                  <div className="col form-floating mb-4">
+                    <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "10em"}} value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+                    <label for="product-detail">Description</label>
+                  </div>
+                </>
+              }
+
+              {
+                fetchingAPI && 
+                <>
+                    <div className="col form-floating mb-2">
+                      <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "5em"}} value={features} onChange={(e) => setFeatures(e.target.value)} disabled></textarea>
+                      <label for="product-detail">Features</label>
+                    </div>
+      
+                  <div className="col form-floating mb-2">
+                    <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "5em"}} value={dimensions} onChange={(e) => setDimensions(e.target.value)} disabled></textarea>
+                    <label for="product-detail">Dimensions</label>
+                  </div>
+      
+                  <div className="col form-floating mb-4">
+                    <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "10em"}} value={description} onChange={(e) => setDescription(e.target.value)} disabled></textarea>
+                    <label for="product-detail">Description</label>
+                  </div>
+                </>
+              }   
+
   
   
             <label for="condition" className="text-muted mb-1">Condition</label>

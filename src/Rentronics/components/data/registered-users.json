@@ -19,9 +19,7 @@
     "reviews": [],
     "listed_item_ids": [
       "1",
-      "2",
-      "3",
-      "4"
+      "2"
     ],
     "cart": [],
     "wishlist": []
@@ -97,7 +95,10 @@
       "zipcode": "02115"
     },
     "reviews": [],
-    "listed_item": [],
+    "listed_item": [
+      "1",
+      "2"
+    ],
     "cart": [],
     "wishlist": []
   },

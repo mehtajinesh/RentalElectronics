@@ -1,5 +1,5 @@
 [
-    { "item_id": "1",
+    { "item_id": "2",
       "item_title": "Macbook Pro 2018 14 Inch Intel",
       "item_description": "This is description for item-1",
       "item_location": "Location",
@@ -23,7 +23,7 @@
       "item_seller_profile_url": "https://jineshmehta.com",
       "item_primary_image": "https://shorturl.at/bA023"
     },
-    {  "item_id": "2",
+    {  "item_id": "1",
         "item_title": "Macbook Air 2014 14 Inch Intel",
         "item_description": "This is description for item-1",
         "item_location": "Location",
