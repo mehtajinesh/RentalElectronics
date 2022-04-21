@@ -14,7 +14,9 @@ const initialState = {
       zipcode: ''
     },
     reviews: [],
-    listed_item: []
+    listed_item: [],
+    cart: [],
+    wishlist: []
 }
 
 
@@ -23,11 +25,11 @@ const currentUserReducer = (state = initialState, action) => {
         case 'SET_CURRENT_USER':
             return action.currentUser;
         case 'ADD_ITEM_TO_CART':
-            state["cart"] = [...state["cart"], action.item]
-            return state;
+            return {...state, "cart" : [...state["cart"], action.item] };
+        case 'REMOVE_ITEM_FROM_CART':
+            return {...state, "cart" : state["cart"].filter(item => item.item_id !== action.item.item_id) };
         case 'ADD_ITEM_TO_WISHLIST':
-            state["wishlist"] = [...state["wishlist"], action.item]
-            return state;
+            return {...state, "wishlist" : [...state["wishlist"], action.item] };
         default:
             return state;
     }

@@ -124,6 +124,34 @@ const ViewItem = () => {
                     </div>
                     <div className="mt-2">
                         <div className="fs-4 fw-bold">
+                            Location
+                        </div>
+                        <ul className="list-group pt-2">
+                            <li className="list-group-item">{item["item_location"]}</li>
+                        </ul>
+                    </div>
+                    <div className="mt-2">
+                        <div className="fs-4 fw-bold">
+                            Posted Date
+                        </div>
+                        <ul className="list-group pt-2">
+                            <li className="list-group-item">{item["item_post_date"]}</li>
+                        </ul>
+                    </div>
+                    <div className="mt-2">
+                        <div className="fs-4 fw-bold">
+                            Seller
+                        </div>
+                        <ul className="list-group pt-2">
+                            <li className="list-group-item">
+                                <a href={item["item_seller_profile_url"]}>
+                                    {item["item_seller_name"]}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="mt-2">
+                        <div className="fs-4 fw-bold">
                             Price
                         </div>
                         <ul className="list-group pt-2">
