@@ -1,0 +1,254 @@
+[
+  {
+    "item_id": "1",
+    "item_title": "2021 Apple MacBook Pro",
+    "item_description": "Apple M1 Pro or M1 Max chip for a massive leap in CPU, GPU, and machine learning performance\nUp to 10-core CPU delivers up to 3.7x faster performance to fly through pro workflows quicker than ever\nUp to 32-core GPU with up to 13x faster performance for graphics-intensive apps and games\n16-core Neural Engine for up to 11x faster machine learning performance\nLonger battery life, up to 17 hours\nUp to 64GB of unified memory so everything you do is fast and fluid\nUp to 8TB of superfast SSD storage launches apps and opens files in an instant\n",
+    "item_price": 2000,
+    "item_rent_duration": 6,
+    "category": "laptop",
+    "item_properties": {
+      "brand": "Apple",
+      "model": "MacBook Pro",
+      "OS": "MacOS",
+      "RAM": "16GB"
+    },
+    "useRemoteAPI": false,
+    "item_images": ["https://m.media-amazon.com/images/I/61cCf94xIEL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/71AKE565U4L._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61JqllsE+DL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/812bneVWgKL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/81b4e7f9SnL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61mAVrSs-AL._AC_SX679_.jpg"],
+    "item_location": "Boston",
+    "item_post_date": "04/03/2022",
+    "item_seller_name": "apple@apple.com",
+    "item_seller_profile_url": "https://jineshmehta.com",
+    "purchased": "false"
+  },
+  {
+    "item_id": "2",
+    "item_title": "2021 Apple MacBook Pro",
+    "item_description": "Apple M1 Pro or M1 Max chip for a massive leap in CPU, GPU, and machine learning performance\nUp to 10-core CPU delivers up to 3.7x faster performance to fly through pro workflows quicker than ever\nUp to 32-core GPU with up to 13x faster performance for graphics-intensive apps and games\n16-core Neural Engine for up to 11x faster machine learning performance\nLonger battery life, up to 17 hours\nUp to 64GB of unified memory so everything you do is fast and fluid\nUp to 8TB of superfast SSD storage launches apps and opens files in an instant\n",
+    "item_price": 1800,
+    "item_rent_duration": 12,
+    "category": "laptop",
+    "item_properties": {
+      "brand": "Apple",
+      "model": "MacBook Pro",
+      "OS": "MacOS",
+      "RAM": "32GB"
+    },
+    "useRemoteAPI": false,
+    "item_images": ["https://m.media-amazon.com/images/I/61cCf94xIEL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/71AKE565U4L._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61JqllsE+DL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/812bneVWgKL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/81b4e7f9SnL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/61mAVrSs-AL._AC_SX679_.jpg"],
+    "item_location": "New York",
+    "item_post_date": "02/03/2022",
+    "item_seller_name": "apple@apple.com",
+    "item_seller_profile_url": "https://jineshmehta.com",
+    "purchased": "false"
+  },
+  {
+    "item_id": "3",
+    "item_title": "2020 Apple MacBook Pro",
+    "item_description": "Apple-designed M1 chip for a giant leap in CPU, GPU, and machine learning performance\nGet more done with up to 20 hours of battery life, the longest ever in a Mac\n8-core CPU delivers up to 2.8x faster performance to fly through workflows quicker than ever\n8-core GPU with up to 5x faster graphics for graphics-intensive apps and games\n16-core Neural Engine for advanced machine learning\n8GB of unified memory so everything you do is fast and fluid\nSuperfast SSD storage launches apps and opens files in an instant\nActive cooling system sustains incredible performance\n13.3-inch Retina display with 500 nits of brightness for vibrant colors and incredible image detail\nFaceTime HD camera with advanced image signal processor for clearer, sharper video calls.",
+    "item_price": 1250,
+    "item_rent_duration": 6,
+    "category": "laptop",
+    "item_properties": {
+      "brand": "Apple",
+      "model": "MacBook Pro",
+      "OS": "MacOS",
+      "RAM": "32GB"
+    },
+    "useRemoteAPI": false,
+    "item_images": ["https://m.media-amazon.com/images/I/71gD8WdSlaL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/81AkdxBCVpL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/91xkiFp-lzL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/71Bh8LMhLTL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/71Z4vYGB3EL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/71nRj-fGoZL._AC_SX679_.jpg"],
+    "item_location": "Boston",
+    "item_post_date": "04/02/2021",
+    "item_seller_name": "apple@apple.com",
+    "item_seller_profile_url": "https://jineshmehta.com",
+    "purchased": "false"
+  },
+  {
+    "item_id": "4",
+    "item_title": "2020 Apple MacBook Pro",
+    "item_description": "Apple-designed M1 chip for a giant leap in CPU, GPU, and machine learning performance\nGet more done with up to 20 hours of battery life, the longest ever in a Mac\n8-core CPU delivers up to 2.8x faster performance to fly through workflows quicker than ever\n8-core GPU with up to 5x faster graphics for graphics-intensive apps and games\n16-core Neural Engine for advanced machine learning\n8GB of unified memory so everything you do is fast and fluid\nSuperfast SSD storage launches apps and opens files in an instant\nActive cooling system sustains incredible performance\n13.3-inch Retina display with 500 nits of brightness for vibrant colors and incredible image detail\nFaceTime HD camera with advanced image signal processor for clearer, sharper video calls.",
+    "item_price": 1250,
+    "item_rent_duration": 15,
+    "category": "laptop",
+    "item_properties": {
+      "brand": "Apple",
+      "model": "MacBook Pro",
+      "OS": "MacOS",
+      "RAM": "16GB"
+    },
+    "useRemoteAPI": false,
+    "item_images": ["https://m.media-amazon.com/images/I/71gD8WdSlaL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/81AkdxBCVpL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/91xkiFp-lzL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/71Bh8LMhLTL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/71Z4vYGB3EL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/71nRj-fGoZL._AC_SX679_.jpg"],
+    "item_location": "Chicago",
+    "item_post_date": "04/02/2021",
+    "item_seller_name": "apple@apple.com",
+    "item_seller_profile_url": "https://jineshmehta.com",
+    "purchased": "false"
+  },
+  {
+    "item_id": "5",
+    "item_title": "Samsung Galaxy S22 5G",
+    "item_description": "NOTE: Global Version. No Warranty. This device is globally unlocked and ready to be used with your preferred GSM Carrier. THIS DEVICE IS NOT COMPATIBLE with CDMA carriers such as Cricket, Verizon, Sprint, Boost Mobile, US Cellular, etc. SIM CARD NOT INCLUDED. Please confirm device compatibility with your service provider before placing your order.\nStorage: 256GB 8GB RAM\nDisplay: 6.1 inches flat FHD+ Dynamic AMOLED 2X, Infinity-O Display (2340x1080), 425 ppi, HDR10+ certified, 120Hz refresh rate\nPlatform: Android 12, One UI 4.1 Qualcomm SM8450 Snapdragon 8 Gen 1\nCamera: 50MP f/1.8 primary, Dual Pixel AF, OIS; 12MP f/2.2 ultra-wide (120° FoV); 10MP f/2.4 3x optical zoom sensor with OIS; 30x digital zoom\nBattery: 3,700mAh, 25W fast charging, 15W wireless charging, Reverse wireless charging",
+    "item_price": 845,
+    "item_rent_duration": 12,
+    "category": "phone",
+    "item_properties": {
+      "brand": "Samsung",
+      "model": "S22",
+      "storage": "128GB",
+      "frontCamera": "8MP"
+    },
+    "useRemoteAPI": false,
+    "item_images": ["https://m.media-amazon.com/images/I/71QxlbJa5oL._AC_SL1280_.jpg","https://m.media-amazon.com/images/I/714-msIObSL._AC_SL1280_.jpg","https://m.media-amazon.com/images/I/41mfa2kDk2L._AC_SL1280_.jpg","https://m.media-amazon.com/images/I/419iGPCfXbL._AC_SL1280_.jpg"],
+    "item_location": "Boston",
+    "item_post_date": "04/03/2022",
+    "item_seller_name": "samsung@samsung.com",
+    "item_seller_profile_url": "https://jineshmehta.com",
+    "purchased": "false"
+  },
+  {
+    "item_id": "6",
+    "item_title": "Samsung Galaxy S22 5G",
+    "item_description": "NOTE: Global Version. No Warranty. This device is globally unlocked and ready to be used with your preferred GSM Carrier. THIS DEVICE IS NOT COMPATIBLE with CDMA carriers such as Cricket, Verizon, Sprint, Boost Mobile, US Cellular, etc. SIM CARD NOT INCLUDED. Please confirm device compatibility with your service provider before placing your order.\nStorage: 256GB 8GB RAM\nDisplay: 6.1 inches flat FHD+ Dynamic AMOLED 2X, Infinity-O Display (2340x1080), 425 ppi, HDR10+ certified, 120Hz refresh rate\nPlatform: Android 12, One UI 4.1 Qualcomm SM8450 Snapdragon 8 Gen 1\nCamera: 50MP f/1.8 primary, Dual Pixel AF, OIS; 12MP f/2.2 ultra-wide (120° FoV); 10MP f/2.4 3x optical zoom sensor with OIS; 30x digital zoom\nBattery: 3,700mAh, 25W fast charging, 15W wireless charging, Reverse wireless charging",
+    "item_price": 845,
+    "item_rent_duration": 12,
+    "category": "phone",
+    "item_properties": {
+      "brand": "Samsung",
+      "model": "S22",
+      "storage": "256GB",
+      "frontCamera": "12MP"
+    },
+    "useRemoteAPI": false,
+    "item_images": ["https://m.media-amazon.com/images/I/71QxlbJa5oL._AC_SL1280_.jpg","https://m.media-amazon.com/images/I/714-msIObSL._AC_SL1280_.jpg","https://m.media-amazon.com/images/I/41mfa2kDk2L._AC_SL1280_.jpg","https://m.media-amazon.com/images/I/419iGPCfXbL._AC_SL1280_.jpg"],
+    "item_location": "Boston",
+    "item_post_date": "04/03/2022",
+    "item_seller_name": "samsung@samsung.com",
+    "item_seller_profile_url": "https://jineshmehta.com",
+    "purchased": "false"
+  },
+  {
+    "item_id": "7",
+    "item_title": "Samsung Galaxy S22 Ultra 5G",
+    "item_description": "NOTE: Global Version. No Warranty. This device is globally unlocked and ready to be used with your preferred GSM Carrier. THIS DEVICE IS NOT COMPATIBLE with CDMA carriers such as Cricket, Verizon, Sprint, Boost Mobile, US Cellular, etc. SIM CARD NOT INCLUDED. Please confirm device compatibility with your service provider before placing your order.\nDisplay: 6.8\" QHD+ Dynamic AMOLED 2x LTPO, 1~120Hz refresh rate, 240Hz refresh rate\nPlatform: Android 12, One UI 4.1 Qualcomm SM8450 Snapdragon 8 Gen 1\nCamera: 108MP f/1.8 primary, 0.8µm large pixels, OIS and PDAF; 12MP f/2.2 ultra-wide (120° FoV); 10MP f/2.4 3x optical zoom sensor with OIS; 10MP f/4.9 10x optical zoom with OIS; 100x digital zoom\nBattery: 5000mAh, 45W fast charging, 15W wireless charging, Reverse wireless charging\nStorage: 256GB 12GB RAM",
+    "item_price": 1300,
+    "item_rent_duration": 12,
+    "category": "phone",
+    "item_properties": {
+      "brand": "Samsung",
+      "model": "S22 Ultra",
+      "OS": "Android",
+      "RAM": "16GB"
+    },
+    "useRemoteAPI": false,
+    "item_images": ["https://m.media-amazon.com/images/I/71sRvG4HrKL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/718VSaujU6L._AC_SY879_.jpg","https://m.media-amazon.com/images/I/71VW43RlcBL._AC_SY879_.jpg","https://m.media-amazon.com/images/I/41MC-Zps3VL._AC_SY879_.jpg"],
+    "item_location": "Boston",
+    "item_post_date": "04/03/2022",
+    "item_seller_name": "samsung@samsung.com",
+    "item_seller_profile_url": "https://jineshmehta.com",
+    "purchased": "false"
+  },
+  {
+    "item_id": "8",
+    "item_title": "SAMSUNG Galaxy S22+",
+    "item_description": "8K SUPER STEADY VIDEO: Shoot videos that rival how epic your life is with stunning 8K recording, the highest recording resolution available on a smartphone; Video captured is effortlessly smooth, thanks to Auto Focus Video Stabilization on Galaxy S22 Plus*\nNIGHTOGRAPHY + PORTAIT MODE: Capture the night with crystal clear, bright pics and videos, no matter the lighting with Night Mode; Portrait Mode auto-detects and adjusts to what you want front and center, making all your photos worthy of a frame\n50MP PHOTO RESOLUTION + BRIGHT DISPLAY: From elaborate landscapes to intricate creations, capture vivid detail with 50MP resolution; Your favorite content will look even more epic on our brightest display ever with Vision Booster\nADAPTIVE COLOR CONTRAST: Streaming on the go, working from your patio or binge-watching late into the night? The Galaxy S22+ adaptive screen automatically optimizes color and brightness, outdoors and indoors\nLONG LASTING BATTERY + FAST CHARGING: Power every scroll, click, tap and stream all day long and then some with an intelligent, long-lasting battery**; Dive back into action at a moment’s notice with 25W Super-Fast Charging***\nPREMIUM DESIGN & CRAFTMANSHIP: With a classy, eye-catching glass-metal-glass design, we’re setting a standard for smart phones; With our strongest aluminum frame and the latest Gorilla Glass, this phone is lightweight and durable to help endure scratches and dings\nLIVE SHARING w/ GOOGLE DUO: Watch viral YouTube videos and content together with your friends, from anywhere****",
+    "item_price": 1000,
+    "item_rent_duration": 15,
+    "category": "phone",
+    "item_properties": {
+      "brand": "Samsung",
+      "model": "S22+",
+      "storage": "128GB",
+      "frontCamera": "12MP"
+    },
+    "useRemoteAPI": false,
+    "item_images": ["https://m.media-amazon.com/images/I/61V49wCBDtL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/41cDgRdRdGL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/71E6PM+kBwL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/81CxY3xcq7L._AC_SX679_.jpg"],
+    "item_location": "New York",
+    "item_post_date": "04/03/2022",
+    "item_seller_name": "samsung@samsung.com",
+    "item_seller_profile_url": "https://jineshmehta.com",
+    "purchased": "false"
+  },
+  {
+    "item_id": "9",
+    "item_title": "LG 24MP60G-B 24\" Full HD",
+    "item_description": "24” Full HD (1920 x 1080) IPS Display\n3-Side Virtually Borderless Design\n1ms MBR Response Time\nAMD FreeSync\nOnScreen Control",
+    "item_price": 170,
+    "item_rent_duration": 12,
+    "category": "monitor",
+    "item_properties": {
+      "brand": "LG",
+      "model": "MP60G-B",
+      "RefreshRate": "120Hz",
+      "Resolution": "FHD"
+    },
+    "item_images": ["https://m.media-amazon.com/images/I/81HMdxTizIL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/81ShvoMBewL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/811z7dVahcL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/914A2ovrRoL._AC_SX679_.jpg"],
+    "useRemoteAPI": false,
+    "item_location": "Boston",
+    "item_post_date": "04/03/2022",
+    "item_seller_name": "lg@lg.com",
+    "item_seller_profile_url": "https://jineshmehta.com",
+    "purchased": "false"
+  },
+  {
+    "item_id": "10",
+    "item_title": "LG 29WN600-W 29\"",
+    "item_description": "29” Ultra wide Full HD (2560 x 1080) IPS Display\n3-Side Virtually Borderless Design\nSRGB 99% Color Gamut\nHDR 10 Compatible\nAMD FreeSync. Display Position Adjustments-Tilt\nIdeal Size for Home Offices",
+    "item_price": 195,
+    "item_rent_duration": 6,
+    "category": "monitor",
+    "item_properties": {
+      "brand": "LG",
+      "model": "29WN600-W",
+      "RefreshRate": "60Hz",
+      "Resolution": "UHD"
+    },
+    "item_images": ["https://m.media-amazon.com/images/I/81HMdxTizIL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/81ShvoMBewL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/811z7dVahcL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/914A2ovrRoL._AC_SX679_.jpg"],
+    "useRemoteAPI": false,
+    "item_location": "Boston",
+    "item_post_date": "04/03/2022",
+    "item_seller_name": "lg@lg.com",
+    "item_seller_profile_url": "https://jineshmehta.com",
+    "purchased": "false"
+  },
+  {
+    "item_id": "11",
+    "item_title": "LG 24MP60G-B 24\" Full HD",
+    "item_description": "24” Full HD (1920 x 1080) IPS Display\n3-Side Virtually Borderless Design\n1ms MBR Response Time\nAMD FreeSync\nOnScreen Control",
+    "item_price": 170,
+    "item_rent_duration": 12,
+    "category": "monitor",
+    "item_properties": {
+      "brand": "LG",
+      "model": "MP60G-B",
+      "RefreshRate": "75Hz",
+      "Resolution": "UHD"
+    },
+    "item_images": ["https://m.media-amazon.com/images/I/81HMdxTizIL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/81ShvoMBewL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/811z7dVahcL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/914A2ovrRoL._AC_SX679_.jpg"],
+    "useRemoteAPI": false,
+    "item_location": "New York",
+    "item_post_date": "04/03/2022",
+    "item_seller_name": "lg@lg.com",
+    "item_seller_profile_url": "https://jineshmehta.com",
+    "purchased": "false"
+  },
+  {
+    "item_id": "12",
+    "item_title": "LG 24MP60G-B 24\" Full HD",
+    "item_description": "24” Full HD (1920 x 1080) IPS Display\n3-Side Virtually Borderless Design\n1ms MBR Response Time\nAMD FreeSync\nOnScreen Control",
+    "item_price": 170,
+    "item_rent_duration": 12,
+    "category": "monitor",
+    "item_properties": {
+      "brand": "LG",
+      "model": "MP60G-B",
+      "RefreshRate": "120Hz",
+      "Resolution": "4K"
+    },
+    "item_images": ["https://m.media-amazon.com/images/I/81HMdxTizIL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/81ShvoMBewL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/811z7dVahcL._AC_SX679_.jpg","https://m.media-amazon.com/images/I/914A2ovrRoL._AC_SX679_.jpg"],
+    "useRemoteAPI": false,
+    "item_location": "Boston",
+    "item_post_date": "04/03/2022",
+    "item_seller_name": "lg@lg.com",
+    "item_seller_profile_url": "https://jineshmehta.com",
+    "purchased": "false"
+  }
+]

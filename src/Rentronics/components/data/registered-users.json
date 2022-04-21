@@ -1,12 +1,12 @@
 [
   {
     "_id": "1",
-    "email": "mehtajineshs@gmail.com",
-    "password": "test",
-    "firstName": "Jinesh",
-    "lastName": "Mehta",
-    "userType": "buyer",
-    "DOB": "2022-04-20",
+    "email": "apple@apple.com",
+    "password": "apple",
+    "firstName": "Tim",
+    "lastName": "Cook",
+    "userType": "buyer_seller",
+    "DOB": "1970-04-20",
     "phoneNumber": "857-123-345",
     "address": {
       "line1": "123 Boylston St",
@@ -16,16 +16,21 @@
       "zipcode": "02115"
     },
     "reviews": [],
-    "listed_item": []
+    "listed_item_ids": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
   },
   {
     "_id": "2",
-    "email": "kalpit@gmail.com",
-    "password": "test12",
-    "firstName": "Kalpit",
-    "lastName": "Mehta",
-    "userType": "buyer",
-    "DOB": "2022-04-19",
+    "email": "samsung@samsung.com",
+    "password": "samsung",
+    "firstName": "KS",
+    "lastName": "Choi",
+    "userType": "buyer_seller",
+    "DOB": "1972-04-19",
     "phoneNumber": "857-123-345",
     "address": {
       "line1": "1 Boylston St",
@@ -35,14 +40,19 @@
       "zipcode": "02114"
     },
     "reviews": [],
-    "listed_item": []
+    "listed_item": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
   },
   {
     "_id": "3",
-    "email": "hemnabh@gmail.com",
-    "password": "test34",
-    "firstName": "Hemnabh",
-    "lastName": "Mehta",
+    "email": "lg@lg.com",
+    "password": "lg",
+    "firstName": "William",
+    "lastName": "Cho",
     "userType": "buyer_seller",
     "DOB": "2022-04-20",
     "phoneNumber": "857-123-345",
@@ -54,7 +64,12 @@
       "zipcode": "02115"
     },
     "reviews": [],
-    "listed_item": []
+    "listed_item": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
   },
   {
     "_id": "4",

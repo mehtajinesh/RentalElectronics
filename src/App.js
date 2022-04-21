@@ -13,9 +13,7 @@ import AddItem from "./Rentronics/components/list-item/add-item";
 import EditItem from "./Rentronics/components/list-item/edit-item";
 // import ViewProfile from "./Rentronics/components/view-profile";
 // import EditProfile from "./Rentronics/components/edit-profile";
-// import AddProduct from "./Rentronics/components/add-product";
-// import ViewProduct from "./Rentronics/components/view-product";
-// import EditProduct from "./Rentronics/components/edit-product";
+import ViewItem from "./Rentronics/components/view-item";
 // import SearchResults from "./Rentronics/components/search-results";
 
 function App() {
@@ -29,12 +27,9 @@ function App() {
                     <Route path="register" exact={true} element={<Register/>}/>
                     <Route path='additem' exact={true} element={<AddItem/>}/>
                     <Route path='edititem/:id' exact={true} element={<EditItem/>}/>
-
                     {/*<Route path="viewProfile" exact={true} element={<ViewProfile/>}/>*/}
                     {/*<Route path="editProfile" exact={true} element={<EditProfile/>}/>*/}
-                    {/*<Route path="addProduct" exact={true} element={<AddProduct/>}/>*/}
-                    {/*<Route path="viewProduct" exact={true} element={<ViewProduct/>}/>*/}
-                    {/*<Route path="editProduct" exact={true} element={<EditProduct/>}/>*/}
+                    <Route path="viewItem/:id" exact={true} element={<ViewItem/>}/>
                     {/*<Route path="searchResults" exact={true} element={<SearchResults/>}/>*/}
                     {/*<Route path="cart" exact={true} element={<Cart/>}/>*/}
                     {/*<Route path="privacy" exact={true} element={<Privacy/>}/>*/}

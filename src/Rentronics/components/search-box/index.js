@@ -19,11 +19,6 @@ const SearchBox = () => {
                 <li><a className="dropdown-item " onClick={onUpdateSelectCategory}>Phones</a></li>
                 <li><a className="dropdown-item" onClick={onUpdateSelectCategory}>Laptops</a></li>
                 <li><a className="dropdown-item" onClick={onUpdateSelectCategory}>Monitors</a></li>
-                <li>
-                    <hr className="dropdown-divider"/>
-                </li>
-                <li><a className="dropdown-item" onClick={onUpdateSelectCategory}>Charger</a></li>
-                <li><a className="dropdown-item" onClick={onUpdateSelectCategory}>Cables</a></li>
             </ul>
             <input type="text" placeholder="Search Products" className="shadow-none form-control"
                    aria-label="Search input with category dropdown" onChange={onSearchValueChange}/>
