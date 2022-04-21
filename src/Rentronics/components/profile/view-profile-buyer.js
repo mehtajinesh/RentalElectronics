@@ -60,6 +60,13 @@ const ViewProfileBuyer = ({buyer}) => {
 
                 <hr/>
 
+                <div>
+                  <h5 className="mt-4"> My Listed Items</h5>
+
+                </div>
+
+                <hr/>
+
 
                 <h5 className="mt-4">
                   <span className="text-black">My Reviews</span>
