@@ -8,8 +8,11 @@ const EditProfile = () => {
   const profile = useSelector(state => state.currentUser);
   let [firstName, setFirstName] = useState(profile.firstName);
   let [lastName, setLastName] = useState(profile.lastName);
-  let [location, setLocation] = useState(profile.address.city);
   let [address, setAddress] = useState(profile.address.line1);
+  let [addressOptional, setAddressOptional] = useState(profile.address.line2);
+  let [city, setCity] = useState(profile.address.city);
+  let [state, setState] = useState(profile.address.state);
+  let [zipCode, setZipCode] = useState(profile.address.zipcode);
   let [phoneNumber, setPhoneNumber] = useState(profile.phoneNumber);
   let [email, setEmail] = useState(profile.email);
 
@@ -17,7 +20,17 @@ const EditProfile = () => {
   const navigate = useNavigate();
   const saveClickHandler = () => {
     const updatedProfile = {
-      firstName, lastName, location, address, phoneNumber, email
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      address: {
+        line1: address,
+        line2: addressOptional,
+        city: city,
+        state: state,
+        zipcode: zipCode
+      }
     }
     dispatch({type: 'UPDATE_CURRENT_USER_PROFILE', profile: updatedProfile});
     navigate("/profile")
@@ -70,17 +83,38 @@ const EditProfile = () => {
             </div>
 
             <div className="form-floating mt-4">
-              <input value={location} placeholder="Location"
-                     className="form-control bg-body border-1 border-dark"
-                     onChange={(event) => setLocation(event.target.value)}/>
-              <label>Location</label>
-            </div>
-
-            <div className="form-floating mt-4">
               <input value={address} placeholder="Address"
                      className="form-control bg-body border-1 border-dark"
                      onChange={(event) => setAddress(event.target.value)}/>
               <label>Address</label>
+            </div>
+
+            <div className="form-floating mt-4">
+              <input value={addressOptional} placeholder="Address (optional)"
+                     className="form-control bg-body border-1 border-dark"
+                     onChange={(event) => setAddressOptional(event.target.value)}/>
+              <label>Address 2 (Optional)</label>
+            </div>
+
+            <div className="form-floating mt-4">
+              <input value={city} placeholder="City"
+                     className="form-control bg-body border-1 border-dark"
+                     onChange={(event) => setCity(event.target.value)}/>
+              <label>City</label>
+            </div>
+
+            <div className="form-floating mt-4">
+              <input value={state} placeholder="State"
+                     className="form-control bg-body border-1 border-dark"
+                     onChange={(event) => setState(event.target.value)}/>
+              <label>State</label>
+            </div>
+
+            <div className="form-floating mt-4">
+              <input value={zipCode} placeholder="Zipcode"
+                     className="form-control bg-body border-1 border-dark"
+                     onChange={(event) => setZipCode(event.target.value)}/>
+              <label>Zipcode</label>
             </div>
 
             <div className="form-floating mt-4">
