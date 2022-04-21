@@ -1,0 +1,26 @@
+[
+  {
+    "item_title": "2021 Apple MacBook Pro",
+    "review_date": "24 April 2022",
+    "item_image": "https://m.media-amazon.com/images/I/61cCf94xIEL._AC_SX679_.jpg",
+    "review_body": "The review body: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "item_seller": {
+      "seller_name": "Apple",
+      "seller_image": "https://www.logo.wine/a/logo/Apple_Store/Apple_Store-Logo.wine.svg",
+      "seller_city": "Boston",
+      "seller_state": "MA"
+    }
+  },
+  {
+    "item_title": "2021 Apple MacBook Pro",
+    "review_date": "24 April 2022",
+    "item_image": "https://m.media-amazon.com/images/I/61cCf94xIEL._AC_SX679_.jpg",
+    "review_body": "The review body: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "item_seller": {
+      "seller_name": "Apple",
+      "seller_image": "https://www.logo.wine/a/logo/Apple_Store/Apple_Store-Logo.wine.svg",
+      "seller_city": "Boston",
+      "seller_state": "MA"
+    }
+  }
+]
