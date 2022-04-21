@@ -65,14 +65,14 @@ const Header = () => {
                                 {
                                     !loggedIn &&
                                     <button type="button" className="btn rounded-pill" onClick={handleCart}>
-                                        <i class="fas fa-shopping-cart"></i> Cart   
+                                        <i className="fas fa-shopping-cart"></i> Cart   
                                     </button>
                                 }
                                 {
                                     // I had to do this to match the margins
                                     loggedIn &&
                                     <button type="button" className="btn rounded-pill mt-2" onClick={handleCart}>
-                                        <i class="fas fa-shopping-cart"></i> Cart   
+                                        <i className="fas fa-shopping-cart"></i> Cart   
                                     </button>
                                 }
 
@@ -91,7 +91,7 @@ const Header = () => {
                             { 
                                 loggedIn && currentUser.userType === 'buyer' &&
 
-                                <li class="nav-item dropdown ms-3">
+                                <li className="nav-item dropdown ms-3">
                                     <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-1 border-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i className="fas fa-user-circle fa-2x"></i>
                                     </button>
@@ -109,7 +109,7 @@ const Header = () => {
                             {  
                                 loggedIn && currentUser.userType === 'buyer_seller' &&
 
-                                <li class="nav-item dropdown ms-3">
+                                <li className="nav-item dropdown ms-3">
                                     <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-1 border-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i className="fas fa-user-circle fa-2x"></i>
                                     </button>
