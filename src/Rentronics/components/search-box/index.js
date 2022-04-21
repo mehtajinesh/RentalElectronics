@@ -1,13 +1,20 @@
 import {useState} from "react";
+import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 
 const SearchBox = () => {
     const [newSearchValue, updateNewSearchValue] = useState("");
-    const [selectedCategory, updateSelectedCategory] = useState("All");
+    const selectedCategory = useSelector(state => state.activeSearch);
+    const dispatch = useDispatch();
+
     const onSearchValueChange = (event) => {
         updateNewSearchValue(event.target.value);
     };
     const onUpdateSelectCategory = (event) => {
-        updateSelectedCategory(event.target.textContent)
+        dispatch({
+            type:'UPDATE_CATEGORY',
+            newCategory: event.target.textContent
+        });
     }
     return (
         <div className="input-group ps-5 pe-5 pt-4">
@@ -22,7 +29,9 @@ const SearchBox = () => {
             </ul>
             <input type="text" placeholder="Search Products" className="shadow-none form-control"
                    aria-label="Search input with category dropdown" onChange={onSearchValueChange}/>
+            <Link to="/searchResults" state={{ selectedCategory }} className="text-decoration-none">
             <button className="btn btn-primary rounded ms-2"> Search</button>
+            </Link>
         </div>
     );
 };

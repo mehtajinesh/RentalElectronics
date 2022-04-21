@@ -2,9 +2,14 @@ import SearchBox from "../search-box";
 import availableFilters from "../data/available-filters.json"
 import FilterItem from "./filter-item";
 import ResultsPage from "./result-page";
+import {useLocation} from "react-router-dom";
+import AvailableItems from './../data/available-items.json'
 
-const SearchResults = ({currentCategory, resultItems}) => {
-    let categoryFilters = availableFilters[currentCategory];
+const SearchResults = () => {
+    const location = useLocation()
+    const currCategory = location.state.selectedCategory
+    // const results = location.state.searchItems
+    let categoryFilters = availableFilters[currCategory];
     return (
         <div>
             <SearchBox/>
@@ -22,7 +27,7 @@ const SearchResults = ({currentCategory, resultItems}) => {
                         }
                     </div>
                     <div className="col-md-9 rounded">
-                        <ResultsPage items={resultItems}/>
+                        <ResultsPage items={AvailableItems}/>
                     </div>
                 </div>
             </div>

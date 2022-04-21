@@ -15,8 +15,8 @@ import EditItem from "./Rentronics/components/list-item/edit-item";
 // import EditProfile from "./Rentronics/components/edit-profile";
 import ViewItem from "./Rentronics/components/view-item";
 import Cart from "./Rentronics/components/cart";
-// import OrderSummart from "./Rentronics/components/order-summary";
-// import SearchResults from "./Rentronics/components/search-results";
+// import OrderSummary from "./Rentronics/components/order-summary";
+import SearchResults from "./Rentronics/components/search-results";
 
 function App() {
     return (
@@ -32,7 +32,7 @@ function App() {
                     {/*<Route path="viewProfile" exact={true} element={<ViewProfile/>}/>*/}
                     {/*<Route path="editProfile" exact={true} element={<EditProfile/>}/>*/}
                     <Route path="viewItem/:id" exact={true} element={<ViewItem/>}/>
-                    {/*<Route path="searchResults" exact={true} element={<SearchResults/>}/>*/}
+                    <Route path="searchResults" exact={true} element={<SearchResults/>}/>
                     {/*<Route path="orderSummary" exact={true} element={<OrderSummary/>}/>*/}
                     <Route path="cart" exact={true} element={<Cart/>}/>
                     {/*<Route path="privacy" exact={true} element={<Privacy/>}/>*/}
