@@ -1,18 +1,20 @@
 import { useNavigate}  from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import * as service from '../services/amazon-api-service.js'
 
 const AddItem = () => {
   
   let currentUser = useSelector(state => state.currentUser);
   let listedProducts = useSelector(state => state.listedProducts);
+
   const newId = listedProducts.length + 1;
 
   const [category, setCategory] = useState('');
   const [productName, setProductName] = useState('');
   const [brand, setBrand] = useState('');
   const [modelNumber, setModelNumber] = useState('');
-  const [useRemoteAPI, setRemoteAPI] = useState(false);
+  const [useRemoteAPI, setRemoteAPI] = useState(true);
   const [features, setFeatures] = useState('');
   const [dimensions, setDimensions] = useState('');
   const [description, setDescription] = useState('');
@@ -29,6 +31,27 @@ const AddItem = () => {
 
     return (end - start) / (1000 * 3600 * 24);
   }
+
+  const checkRemoteAPI = () => {setRemoteAPI(useRemoteAPI => !useRemoteAPI)};
+
+  const GetProductDetail = async () => {
+      
+      if (useRemoteAPI && brand !== '' && modelNumber !== '' && productName !== '') 
+        {
+          let search_term = brand + " " + modelNumber + " " + productName;
+          let asin = await service.getASIN(search_term);
+          console.log(asin);
+          let productDetail = await service.getProductDetail(asin);
+          console.log(productDetail);
+  
+          setFeatures(productDetail.feature_bullets_flat);
+          setDimensions(productDetail.specifications_flat);
+          setDescription(productDetail.description);
+        }
+
+  }
+ 
+  // useEffect(GetProductDetail); 
 
   const AddItem = () => {
     let newItem = { 
@@ -74,7 +97,7 @@ const AddItem = () => {
 
 
     // TODO: go to product detail page
-    navigate('/product');
+    navigate('/profile');
   }
 
   return (
@@ -123,7 +146,7 @@ const AddItem = () => {
               </div>
   
               <div className="form-check">
-                <input className="form-check-input" type="checkbox" id="flexCheckChecked" value={useRemoteAPI} onChange={(e) => setRemoteAPI(e.target.value)}/>
+                <input className="form-check-input" type="checkbox" id="flexCheckChecked" onChange={checkRemoteAPI} onClick={GetProductDetail}/>
                 <small className="form-check-label text-muted" for="flexCheckChecked">
                   Use Product Detail from Amazon
                 </small>
