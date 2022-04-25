@@ -25,7 +25,7 @@ function App() {
           <Route path="/" element={<Rentronics/>}>
             <Route index element={<HomeScreen/>}/>
             <Route path="home" exact={true} element={<HomeScreen/>}/>
-            <Route path="login" exact={true} element={<Login/>}/>
+            <Route path="login" exact={true} element={<Login />}/>
             <Route path="register" exact={true} element={<Register/>}/>
             <Route path='additem' exact={true} element={<AddItem/>}/>
             <Route path='edititem/:id' exact={true} element={<EditItem/>}/>

@@ -1,9 +1,10 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useLocation} from "react-router-dom";
 
 const Login = () => {
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -14,6 +15,7 @@ const Login = () => {
 
     const RegisteredUsers = useSelector(state => state.users);
     
+
     //if user is already logged in, navigate to home page.
     if (loggedIn){
         navigate('/home');
@@ -73,8 +75,17 @@ const Login = () => {
                     </div>
                     <div className="mx-4 mt-3 mb-2 fw-bold fs-large">
                         Welcome to Rentronics
+                        {/* {
+                            registerSuccess && 
+                            <div class="alert alert-success" role="alert">
+                                Your registration has been successful!
+                          </div>
+                        } */}
                     </div>
+                    
                     <div className="mx-4 my-4">
+
+
                         <form noValidate className="needs-validation">
                             <div className="form-floating mb-3">
                                 <input

@@ -8,9 +8,11 @@ import userReducer from "./components/reducers/user-reducers";
 import currentUserReducer from "./components/reducers/current-user-reducer";
 import listedProducts from './components/reducers/listed-product-reducer'
 import searchReducer from "./components/reducers/search-reducer";
+import chooseProductReducer from "./components/reducers/choose-product-reducer";
 
 const reducer = combineReducers({
-    loggedIn: loginReducer, users: userReducer, currentUser: currentUserReducer, listedProducts: listedProducts, activeSearch: searchReducer
+    loggedIn: loginReducer, users: userReducer, currentUser: currentUserReducer, listedProducts: listedProducts, activeSearch: searchReducer,
+    chooseProduct: chooseProductReducer
 });
 
 const store = createStore(reducer,  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
