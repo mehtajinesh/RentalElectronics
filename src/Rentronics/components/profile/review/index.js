@@ -4,9 +4,9 @@ const Reviews = ({review}) => {
 
   return(
       <>
-        <div className="mt-4 mb-4">
+        <div className="mb-4 ri_border border w-100 h-100 ms-0">
 
-          <div className="mt-2 d-flex flex-row">
+          <div className="mt-3 d-flex flex-row ps-3 pb-3 pe-3">
             <div className="col-10">
               <div>
                 <i className="fas fa-star"/>
@@ -26,11 +26,11 @@ const Reviews = ({review}) => {
             </div>
           </div>
 
-          <div className="mt-2">
+          <div className="mt-2 ps-3 pe-3">
             {review.review_body}
           </div>
 
-          <div className="row mt-3">
+          <div className="row mt-3 pe-3 ps-3">
             <div className="col-1 col-xl-1 col-lg-1 col-md-2 col-sm-2">
               <img className="pr-profile-pic-small" alt="" src={review.item_seller.seller_image}/>
             </div>

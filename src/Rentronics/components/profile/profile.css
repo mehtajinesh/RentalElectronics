@@ -2,23 +2,50 @@
   display: inline-block;
   margin: 6px;
   border-radius: 10px;
+  max-height: 475px;
 }
 
-.pr-profile-pic{
+.ri_border {
+  display: inline-block;
+  margin: 6px;
+  border-radius: 2px;
+}
+
+.ri-pic {
+  width: 120px;
+  height: 120px;
+  display: block;
+  border-radius: 5%;
+}
+
+.pr-profile-pic {
   width: 120px;
   height: 120px;
   display: block;
   border-radius: 50%;
 }
 
-.pr-profile-pic-small{
+.pr-profile-pic-small {
   width: 55px;
   height: 55px;
   display: block;
   border-radius: 50%;
 }
 
-.pr-rental-pic{
+.pr-rental-pic {
   width: 75px;
   height: 55px;
+}
+
+.pr-ri-pic {
+  width: 65px;
+  height: 45px;
+}
+
+.ri-price-font {
+  font-size: 14px;
+}
+
+.ri-listed-font {
+  font-size: 12px;
 }
