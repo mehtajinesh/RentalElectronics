@@ -1,15 +1,37 @@
 import "./profile.css";
+import { useEffect, useState } from 'react'
 import reviews from "../data/reviews.json";
 import {useSelector} from "react-redux";
 import Reviews from "./review";
-import {Link} from "react-router-dom";
+import {Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import * as authService from "../services/auth-service"
+import * as service from "../services/user-service"
+
 
 const ViewProfileBuyer = ({buyer}) => {
-  const user = useSelector(state => state.currentUser);
+  const [user, setUser] = useState();
+
+  const navigate = useNavigate();
+
+  const getProfile = async () => {
+    try {
+      const profile = await authService.profile();
+      const userData = await service.findUserById(profile._id);
+
+      setUser(userData);
+
+    } catch (e) {
+      navigate('/login')
+    }
+}
+
+useEffect(() => {getProfile()}, []);
 
   return(
+    <>
+    {user && 
       <div className="container-fluid">
-
         <div className="mt-5 ms-5 me-5">
           <h1 className="ms-2">Profile</h1>
           <div className="row">
@@ -81,6 +103,8 @@ const ViewProfileBuyer = ({buyer}) => {
         </div>
 
       </div>
+    }
+    </>
   );
 }
 export default ViewProfileBuyer;

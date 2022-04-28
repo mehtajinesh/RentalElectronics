@@ -1,67 +1,42 @@
-import {useEffect, useState} from 'react'
-import {Link} from 'react-router-dom'
-import {useDispatch, useSelector} from "react-redux";
-import { useNavigate , useLocation} from "react-router-dom";
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import * as service from '../services/auth-service'
 
 const Login = () => {
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     let loggedIn = useSelector(state => state.loggedIn);
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
 
-    const RegisteredUsers = useSelector(state => state.users);
-    
+    const handleLogin = async () => {
+        try {
+            await service.login(email, password);
+            
+            loggedIn = true;
 
-    //if user is already logged in, navigate to home page.
-    if (loggedIn){
-        navigate('/home');
-    }
+            dispatch({
+                type:'UPDATE_LOGIN_STATE',
+                loggedIn
+            });
 
-    const checkForValidUser = () => {
-        for(let i=0;i<RegisteredUsers.length;i++){
-            if (RegisteredUsers[i]["email"] === email && RegisteredUsers[i]["password"] === password)
-                return true;
+            // dispatch({
+            //     type:'SET_CURRENT_USER',
+            //     currentUser
+            // });
+
+            alert("Login Successful");
+            navigate('/');
+        } 
+        catch (error) {
+            console.log(error);
+            alert("Invalid email or password");
         }
-        return false;
-    }
-
-    const getValidUser = () => {
-        for(let i=0;i<RegisteredUsers.length;i++){
-            if (RegisteredUsers[i]["email"] === email && RegisteredUsers[i]["password"] === password)
-                return RegisteredUsers[i];
-        }
-    }
-
-    const handleLogin = (event) => {
-        // check if user is valid and authorized
-        loggedIn = checkForValidUser()
-        if (!loggedIn) {
-            alert("Invalid Email or password")
-            event.preventDefault();
-            return;
-        }
-        alert("Login Successful")
-        
-        //set the state to logged in
-        dispatch({
-            type:'UPDATE_LOGIN_STATE',
-            loggedIn
-        });
-
-        // set current user 
-        let currentUser = getValidUser();
-        console.log(currentUser);
-        dispatch({
-            type: 'SET_CURRENT_USER',
-            currentUser
-        })
-
-        //navigate the user to home page
-        navigate('/home');
     }
 
     return (
@@ -75,12 +50,6 @@ const Login = () => {
                     </div>
                     <div className="mx-4 mt-3 mb-2 fw-bold fs-large">
                         Welcome to Rentronics
-                        {/* {
-                            registerSuccess && 
-                            <div class="alert alert-success" role="alert">
-                                Your registration has been successful!
-                          </div>
-                        } */}
                     </div>
                     
                     <div className="mx-4 my-4">
@@ -102,6 +71,7 @@ const Login = () => {
                                     Please provide an email address.
                                 </div>
                             </div>
+
                             <div className="form-floating">
                                 <input
                                     type="password"
@@ -116,6 +86,7 @@ const Login = () => {
                                     Please provide a password.
                                 </div>
                             </div>
+
                             <div id="privacyText" className="form-text text-muted fs-6 ps-2">
                                 <small>Read our <Link to="/privacy">Privacy Policy</Link></small>
                             </div>

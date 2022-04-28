@@ -1,20 +1,19 @@
 import {Link, useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useState, useRef} from "react";
 import {useDispatch} from "react-redux";
+import * as service from '../services/auth-service'
 
 const Register = () => {
-
     const email_regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     // const password_regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     const empty_regex = /\S+/;
     const phoneNumber_regex = /^\(?(\d{3})\)?[-\. ]?(\d{3})[-\. ]?(\d{4})( x\d{4})?$/;
     const zipcode_regex = /^\d{5}$/;
 
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [firstname, setFirstname] = useState('');
-    const [lastname, setLastname] = useState('');
+    const [firstName, setFirstname] = useState('');
+    const [lastName, setlastName] = useState('');
     const [dob, setDOB] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [line1, setAddress1] = useState('');
@@ -25,11 +24,10 @@ const Register = () => {
     const [role, setRole] = useState('buyer');
     const [agreeToPrivacy, setAgreeToPrivacy] = useState(false);
 
-
     const [showEmailError, setShowEmailError] = useState(null);
     const [showPasswordError, setShowPasswordError] = useState(null);
     const [showFirstnameError, setShowFirstnameError] = useState(null);
-    const [showLastnameError, setShowLastnameError] = useState(null);
+    const [showlastNameError, setShowlastNameError] = useState(null);
     const [showDobError, setShowDobError] = useState(null);
     const [showPhoneNumberError, setShowPhoneNumberError] = useState(null);
     const [showLine1Error, setShowLine1Error] = useState(null);
@@ -67,7 +65,7 @@ const Register = () => {
 
     const checkFirstname = () => {
 
-        if (!empty_regex.test(firstname))
+        if (!empty_regex.test(firstName))
         {
             setShowFirstnameError(true);
         }
@@ -77,15 +75,15 @@ const Register = () => {
         }
     }
 
-    const checkLastname = () => {
+    const checklastName = () => {
 
-        if (!empty_regex.test(lastname))
+        if (!empty_regex.test(lastName))
         {
-            setShowLastnameError(true);
+            setShowlastNameError(true);
         }
         else 
         {
-            setShowLastnameError(false);
+            setShowlastNameError(false);
         }
         
     }
@@ -163,11 +161,39 @@ const Register = () => {
         }
     }
 
+    const handleRegister = async () => {
+        const newUser = {
+            email: email,
+            password: password,
+            firstName: firstName,
+            lastName: lastName,
+            DOB: dob,
+            address: {
+                line1: line1,
+                line2: line2,
+                city: city,
+                state: state,
+                zipcode: zipcode,
+            },
+            userType: role,
+        }
+
+        try {
+            const status = await service.register(newUser);
+            alert('Account Successfully Created!')
+            navigate('/login')
+        }
+        catch(error)
+        {
+            alert("Given email already exists!")
+        }
+
+    }
 
     
     const AddUser = () => {
 
-        if (showDobError == null && showPasswordError == null && showFirstnameError == null && showLastnameError == null && showDobError == null
+        if (showDobError == null && showPasswordError == null && showFirstnameError == null && showlastNameError == null && showDobError == null
             && showPhoneNumberError == null && showLine1Error == null && showCityError == null && showStateError == null && showZipcodeError == null && showAgreeToPrivacyError == null) {
                 setFillOutFormError(true);
                 return;
@@ -180,15 +206,15 @@ const Register = () => {
         }
 
 
-        if (showEmailError === false && showPasswordError === false && showFirstnameError === false && showLastnameError === false && showDobError === false 
+        if (showEmailError === false && showPasswordError === false && showFirstnameError === false && showlastNameError === false && showDobError === false 
             && showPhoneNumberError === false && showLine1Error === false && showCityError === false && showStateError === false && showZipcodeError === false 
             && showAgreeToPrivacyError === true) {
 
                 let newUser = {
                     email: email, 
                     password: password,
-                    firstName: firstname, 
-                    lastName: lastname, 
+                    firstName: firstName, 
+                    lastName: lastName, 
                     userType: role,
                     DOB: dob,
                     phoneNumber : phoneNumber,
@@ -218,6 +244,7 @@ const Register = () => {
             }
         
     }
+
     return (<div className="container my-6">
         <div className="row">
             <div className="col-xs-1 col-sm-1 col-md-1 col-lg-2 col-xl-3"/>
@@ -316,7 +343,7 @@ const Register = () => {
                                 !showFirstnameError && 
                                 <>
                                     <input type="text" className="form-control" id="InputFirstName" placeholder="First Name"
-                                        value={firstname} 
+                                        value={firstName} 
                                         onChange={(e) => setFirstname(e.target.value)} 
                                         onBlur={checkFirstname}
                                         required/>
@@ -327,7 +354,7 @@ const Register = () => {
                                 showFirstnameError &&
                                 <>
                                     <input type="text" className="form-control is-invalid" id="InputFirstName" placeholder="First Name"
-                                        value={firstname} 
+                                        value={firstName} 
                                         onChange={(e) => setFirstname(e.target.value)} 
                                         onBlur={checkFirstname}
                                         required/>
@@ -343,27 +370,27 @@ const Register = () => {
 
                         <div className="col form-floating mb-2">
                             {
-                                !showLastnameError && 
+                                !showlastNameError && 
                                 <>
-                                    <input type="text" className="form-control" id="InputLastName" placeholder="Last Name"
-                                        value={lastname} 
-                                        onChange={(e) => setLastname(e.target.value)} 
-                                        onBlur={checkLastname}
+                                    <input type="text" className="form-control" id="InputlastName" placeholder="Last Name"
+                                        value={lastName} 
+                                        onChange={(e) => setlastName(e.target.value)} 
+                                        onBlur={checklastName}
                                         required/>
-                                    <label htmlFor="InputLastName">Last Name</label>
+                                    <label htmlFor="InputlastName">Last Name</label>
                                 </>
                             }
                             {
-                                showLastnameError &&
+                                showlastNameError &&
                                 <>
-                                    <input type="text" className="form-control is-invalid" id="InputLastName" placeholder="Last Name"
-                                        value={lastname} 
-                                        onChange={(e) => setLastname(e.target.value)} 
-                                        onBlur={checkLastname}
+                                    <input type="text" className="form-control is-invalid" id="InputlastName" placeholder="Last Name"
+                                        value={lastName} 
+                                        onChange={(e) => setlastName(e.target.value)} 
+                                        onBlur={checklastName}
                                         required/>
-                                    <label htmlFor="InputLastName">Last Name</label>
+                                    <label htmlFor="InputlastName">Last Name</label>
                                     <div id="validationServer03Feedback" className="invalid-feedback">
-                                        Please provide a lastname
+                                        Please provide a lastName
                                     </div>
                                 </>
                             }
@@ -713,7 +740,7 @@ const Register = () => {
                     </form>
 
 
-                    <button type="button" onClick={AddUser} className="btn btn-primary w-100 my-4 px-2 py-2">Sign Up</button>
+                    <button type="button" onClick={handleRegister} className="btn btn-primary w-100 my-4 px-2 py-2">Sign Up</button>
                     <p id="createAccount" className="form-text text-center mb-4">Already have an account?<Link to="/login">Login</Link></p>
 
                 </div>

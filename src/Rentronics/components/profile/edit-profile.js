@@ -1,43 +1,90 @@
 import "./edit-profile.css";
 import "./profile.css";
-import {useDispatch, useSelector} from "react-redux";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
+import * as service from '../services/user-service'
+import * as authService from '../services/auth-service'
 
 const EditProfile = () => {
-  const profile = useSelector(state => state.currentUser);
-  let [firstName, setFirstName] = useState(profile.firstName);
-  let [lastName, setLastName] = useState(profile.lastName);
-  let [address, setAddress] = useState(profile.address.line1);
-  let [addressOptional, setAddressOptional] = useState(profile.address.line2);
-  let [city, setCity] = useState(profile.address.city);
-  let [state, setState] = useState(profile.address.state);
-  let [zipCode, setZipCode] = useState(profile.address.zipcode);
-  let [phoneNumber, setPhoneNumber] = useState(profile.phoneNumber);
-  let [email, setEmail] = useState(profile.email);
+  // let loggedIn = useSelector(state => state.loggedIn);
 
-  const dispatch = useDispatch();
+  // const profile = useSelector(state => state.currentUser);
+  const [currentUser, setCurrentUser] = useState();
+
+  let [firstName, setFirstName] = useState();
+  let [lastName, setLastName] = useState();
+  let [line1, setAddress] = useState();
+  let [line2, setAddressOptional] = useState();
+  let [city, setCity] = useState();
+  let [state, setState] = useState();
+  let [zipCode, setZipCode] = useState();
+  let [phoneNumber, setPhoneNumber] = useState();
+  let [email, setEmail] = useState();
+
   const navigate = useNavigate();
-  const saveClickHandler = () => {
+  
+  const getProfile = async () => {
+    try {
+      const profile = await authService.profile();
+
+      const userData = await service.findUserById(profile._id);
+      console.log(userData);
+      setCurrentUser(userData);
+
+      setFirstName(userData.firstName);
+      setLastName(userData.lastName);
+      setAddress(userData.address.line1);
+      setAddressOptional(userData.address.line2);
+      setCity(userData.address.city);
+      setState(userData.address.state);
+      setZipCode(userData.address.zipCode);
+      setPhoneNumber(userData.phoneNumber);
+      setEmail(userData.email);
+      
+    } catch (e) {
+        setCurrentUser();
+    }
+}
+
+useEffect(() => {
+        getProfile();
+  
+}, []);
+
+
+  const saveClickHandler = async () => {
     const updatedProfile = {
       email: email,
       firstName: firstName,
       lastName: lastName,
       phoneNumber: phoneNumber,
       address: {
-        line1: address,
-        line2: addressOptional,
+        line1: line1,
+        line2: line2,
         city: city,
         state: state,
         zipcode: zipCode
       }
     }
-    dispatch({type: 'UPDATE_CURRENT_USER_PROFILE', profile: updatedProfile});
-    navigate("/profile")
+
+    try {
+      await service.updateUser(currentUser._id, updatedProfile);
+      navigate("/profile")
+
+    }
+    catch (e) {
+
+    }
+
+
+    // dispatch({type: 'UPDATE_CURRENT_USER_PROFILE', profile: updatedProfile});
   }
 
 
   return(
+    <>
+
+    { currentUser &&
 
       <div className="mt-5">
         <h1 className="ps-3">Edit Profile</h1>
@@ -83,14 +130,14 @@ const EditProfile = () => {
             </div>
 
             <div className="form-floating mt-4">
-              <input value={address} placeholder="Address"
+              <input value={line1} placeholder="Address"
                      className="form-control bg-body border-1 border-dark"
                      onChange={(event) => setAddress(event.target.value)}/>
               <label>Address</label>
             </div>
 
             <div className="form-floating mt-4">
-              <input value={addressOptional} placeholder="Address (optional)"
+              <input value={line2} placeholder="Address (optional)"
                      className="form-control bg-body border-1 border-dark"
                      onChange={(event) => setAddressOptional(event.target.value)}/>
               <label>Address 2 (Optional)</label>
@@ -136,7 +183,8 @@ const EditProfile = () => {
         </div>
 
       </div>
-
+  }
+  </>
   );
 }
 export default EditProfile;

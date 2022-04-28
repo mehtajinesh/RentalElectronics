@@ -1,42 +1,59 @@
 import bootstrap from 'bootstrap'  // this is need for toggle down menu for profile
-
+import { useEffect, useState } from 'react'
 import {Link} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
+import * as authService from "../services/auth-service"
 
 const Header = () => {
     let loggedIn = useSelector(state => state.loggedIn);
-    let currentUser = useSelector(state => state.currentUser);
+    let user = useSelector(state => state.currentUser);
+    const [currentUser, setCurrentUser] = useState();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleLogout = (event) => {
+    const getProfile = async () => {
+        try {
+          const profile = await authService.profile();
+          console.log(profile);
+          setCurrentUser(profile);
+    
+        } catch (e) {
+            setCurrentUser();
+        }
+    }
+    
+    useEffect(() => {
+            getProfile();
+        // const interval = setInterval( () => {
+        //     getProfile()
+        //    }, 10000 / 10)
+            
+        //    return () => clearInterval(interval)
+      
+    }, [loggedIn]);
 
-        loggedIn = !loggedIn;
+    const handleLogout = async () => {
+        await authService.logout();
+
+        loggedIn = false;
 
         dispatch({
             type:'UPDATE_LOGIN_STATE',
             loggedIn
         });
 
-        //navigate the user to home page
-        navigate('/home');
+        setCurrentUser();
+        navigate('/login')
     }
 
-    const handleCart = (event) => {
-
-        // TODO: need to update route name for cart
-        if (loggedIn) {
-            navigate('/cart');
-        }
-        else{
-            navigate('/login');
-        } 
-
+    // TODO: need to fix handle cart component so that it doesn't use islogged in anymore
+    const handleCart = () => {
+        navigate('/cart');
     }
 
-    const handleAddItem = (event) => {
+    const handleAddItem = () => {
         navigate('/additem')
     }
 
@@ -55,22 +72,30 @@ const Header = () => {
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
 
                             {
-                                loggedIn && currentUser.userType === "buyer_seller" &&
+                                currentUser && currentUser.userType === "buyer_seller" &&
                                 <li className="nav-item">
                                     <button type="button" className="btn btn-outline-primary rounded-pill mt-2" onClick={handleAddItem}>Add Item</button>
                                 </li>
                             }  
 
+                            {
+                                currentUser && currentUser.userType === "Admin" &&
+                                <li className="nav-item">
+                                    <button type="button" className="btn btn-outline-primary rounded-pill mt-2">Manage Users</button>
+                                </li>
+                            }  
+
+
                             <li className="nav-item">     
                                 {
-                                    !loggedIn &&
+                                    !currentUser &&
                                     <button type="button" className="btn rounded-pill" onClick={handleCart}>
                                         <i className="fas fa-shopping-cart"></i> Cart   
                                     </button>
                                 }
                                 {
                                     // I had to do this to match the margins
-                                    loggedIn &&
+                                    currentUser &&
                                     <button type="button" className="btn rounded-pill mt-2" onClick={handleCart}>
                                         <i className="fas fa-shopping-cart"></i> Cart   
                                     </button>
@@ -80,16 +105,17 @@ const Header = () => {
 
 
                             {
-                                !loggedIn &&
+                                !currentUser &&
                                 <li className="nav-item">
                                     <Link to="login">
                                         <button type="button" className="btn btn-outline-primary rounded-pill px-4 mx-1">Login</button>
                                     </Link>
                                 </li>
                             }
+                            
 
                             { 
-                                loggedIn && currentUser.userType === 'buyer' &&
+                                currentUser && currentUser.userType === 'buyer' &&
 
                                 <li className="nav-item dropdown ms-3">
                                     <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-1 border-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -98,16 +124,18 @@ const Header = () => {
 
                                     <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <li><Link to="profile" className="dropdown-item">Profile</Link></li>
-                                        <li><Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link></li>
-                                        <li><hr className="dropdown-divider"/></li>
                                         <li><Link to="/additem" className="dropdown-item">Become Leaser</Link></li>
+                                        <li><hr className="dropdown-divider"/></li>
+
+                                        <li><Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link></li>
+
                                     </ul>
                                 </li>
                             }
 
 
                             {  
-                                loggedIn && currentUser.userType === 'buyer_seller' &&
+                                currentUser && currentUser.userType === 'buyer_seller' &&
 
                                 <li className="nav-item dropdown ms-3">
                                     <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-1 border-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -116,13 +144,34 @@ const Header = () => {
 
                                     <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <li><Link to="profile" className="dropdown-item">Profile</Link></li>
+                                        <li><Link to="/additem" className="dropdown-item">Add Item</Link></li>
+                                        <li><hr className="dropdown-divider"/></li>
+
+                                        <li><Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link></li>
+
+                                    </ul>
+                                </li>
+                            }
+                            
+                            {  
+                                currentUser && currentUser.userType === 'admin' &&
+
+                                <li className="nav-item dropdown ms-3">
+                                    <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-1 border-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i className="fas fa-user-circle fa-2x"></i>
+                                    </button>
+
+                                    <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <li><Link to="profile" className="dropdown-item">Profile</Link></li>
+                                        <li><Link to="/" className="dropdown-item" >Manage Users</Link></li>
+                                        <li><hr className="dropdown-divider"/></li>
                                         <li><Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link></li>
                                         {/* <li><hr className="dropdown-divider"/></li>
                                         <li><Link to="" className="dropdown-item">Something else here</Link></li> */}
                                     </ul>
                                 </li>
                             }
-                                
+                            
 
             
                         </ul>
