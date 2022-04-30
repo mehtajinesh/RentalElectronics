@@ -26,10 +26,10 @@ const MultiProductCarousel = ({items}) => {
 
                                         <div className="card">
                                             <Link to={`/viewItem/${itemData.item_id}`} state={{ itemData }} className="text-decoration-none">
-                                            <img src={itemData.item_images[0]} className="card-img-top p-4"/>
-                                            <div className="card-body">
-                                                <div className="fs-5 card-title text-black">{itemData.item_title}</div>
-                                            </div>
+                                                <img src={itemData.item_images[0]} className="card-img-top p-4"/>
+                                                <div className="card-body">
+                                                    <div className="fs-5 card-title text-black">{itemData.item_title}</div>
+                                                </div>
                                             </Link>
                                             <div className="card-footer">
                                                 <div className="d-flex flex-column justify-content-between">

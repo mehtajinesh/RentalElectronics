@@ -2,7 +2,7 @@
   display: inline-block;
   margin: 6px;
   border-radius: 10px;
-  max-height: 475px;
+  height: 475px;
 }
 
 .ri_border {
@@ -48,4 +48,9 @@
 
 .ri-listed-font {
   font-size: 12px;
+}
+
+body a {
+  color: inherit;
+  text-decoration: none;
 }

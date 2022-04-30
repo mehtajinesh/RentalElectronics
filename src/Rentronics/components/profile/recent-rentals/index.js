@@ -1,26 +1,40 @@
 import {useState} from "react";
+import {Link} from "react-router-dom";
 
-const RecentRentals = () => {
+const RecentRentals = ({rental, date}) => {
   const [review, setReview] = useState(null);
   const [reviewForm, setReviewForm] = useState(null);
+
+  const rentalItem = rental;
+  const rentalDate = date;
 
   return(
       <>
         <div className="ri_border border w-100 h-100 ms-0">
-          <div className="row">
+
+            <Link to={`/products/${rentalItem._id}/view`} className="text-decoration-none row">
+              <div className="row">
+
             <div className="col-2 mt-3 ps-4">
-              <img className="pr-ri-pic rounded" alt="" src="https://m.media-amazon.com/images/I/61cCf94xIEL._AC_SX679_.jpg"/>
+              <img className="pr-ri-pic rounded" alt="" src={rentalItem.productImages[0]}/>
             </div>
 
             <div className="col-8 mt-2 ps-4">
-              <div className="fs-6 fw-bold">Macbook Air 2021</div>
-              <div className="text-secondary fs-6">May 8, 2021 - Aug 20, 2021</div>
+              <div className="fs-6 fw-bold">{rentalItem.productName}</div>
+              <div className="text-secondary fs-6">{rentalDate}</div>
+              <div className="fs-6">{rentalItem.productDescription}</div>
             </div>
 
             <div className="col-2 mt-3">
-              <div className="ri-price-font fw-bold pe-2 float-start">USD 2000</div>
+              <div className="ri-price-font fw-bold pe-2 float-start">{rentalItem.price} </div>
+              <br/>
+              <div className="ri-price-font fw-bold pe-2 float-start">USD</div>
             </div>
-          </div>
+              </div>
+
+            </Link>
+
+
           <div className={`btn btn-outline-primary rounded-pill float-end mt-1 mb-2 me-2 ${reviewForm ? "d-none" : "d-block" }`} onClick={() => setReviewForm("review")}>Add review</div>
 
 

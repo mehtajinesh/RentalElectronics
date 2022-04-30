@@ -11,8 +11,8 @@ import Login from "./Rentronics/components/login";
 import Register from "./Rentronics/components/register";
 import AddItem from "./Rentronics/components/list-item/add-item";
 import EditItem from "./Rentronics/components/list-item/edit-item";
-import ViewProfile from "./Rentronics/components/profile/view-profile-buyer";
-import EditProfile from "./Rentronics/components/profile/edit-profile";
+import ViewProfile from "./Rentronics/components/profile/view-profile/viewProfile";
+import EditProfile from "./Rentronics/components/profile/edit-profile/editProfile";
 import ViewItem from "./Rentronics/components/view-item";
 import Cart from "./Rentronics/components/cart";
 // import OrderSummary from "./Rentronics/components/order-summary";
@@ -25,7 +25,7 @@ function App() {
           <Route path="/" element={<Rentronics/>}>
             <Route index element={<HomeScreen/>}/>
             <Route path="home" exact={true} element={<HomeScreen/>}/>
-            <Route path="login" exact={true} element={<Login/>}/>
+            <Route path="login" exact={true} element={<Login />}/>
             <Route path="register" exact={true} element={<Register/>}/>
             <Route path='additem' exact={true} element={<AddItem/>}/>
             <Route path='edititem/:id' exact={true} element={<EditItem/>}/>
