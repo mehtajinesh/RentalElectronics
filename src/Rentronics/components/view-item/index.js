@@ -19,7 +19,7 @@ const ViewItem = () => {
     // get userID from profile in state
     const profile = useSelector(state => state.profile);
     //TODO: Update profile ID fetching
-    const userID = "6268e055edc8db0cc41bf94e"//profile && profile.userID
+    const userID = profile && profile.userID
     const userIDProductID = {"userID":userID, "productID":id}
     useEffect(() => {
         const productIDData = {"productID": id}

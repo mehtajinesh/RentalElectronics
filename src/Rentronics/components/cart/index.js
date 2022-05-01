@@ -5,7 +5,7 @@ import {getUserCart, placeOrder, removeProductItemCart} from "../../actions/cart
 
 const Cart = () => {
     //TODO: Update profile ID fetching
-    const userID = "6268e055edc8db0cc41bf94e"//profile && profile.userID
+    const userID = profile && profile.userID
     const data = {"userID":userID}
     const navigate = useNavigate();
     const dispatch= useDispatch();
