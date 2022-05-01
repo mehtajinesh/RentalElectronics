@@ -1,11 +1,12 @@
 import Slider from 'react-slick'
 import './index.css'
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import Skeleton from 'react-loading-skeleton'
 
 
 const TreadingMultiProductCarousel = ({loading}) => {
+    const navigate = useNavigate();
     const items = useSelector(state => state.homeScreen.treadingItems);
     let settings = {
         infinite: false, speed: 1000, arrows: true, slidesToShow: 4, slidesToScroll: 4,
@@ -24,20 +25,17 @@ const TreadingMultiProductCarousel = ({loading}) => {
         {loading && <Skeleton height={260}/>}
         {!loading &&<Slider {...settings}>
             {items && items.map((itemData) => (<div className="p-2" key={itemData._id}>
-                <div className="card">
-                    <Link to={`/viewItem/${itemData._id}`} className="text-decoration-none">
+                <div className="card" onClick={() => {navigate(`/profile/${itemData.sellerID._id}`)}}>
                         <img src={itemData.productImages[0]} className="card-img-top p-4"/>
                         <div className="card-body">
                             <div className="fs-5 card-title text-black">{itemData.productName}</div>
                         </div>
-                    </Link>
                     <div className="card-footer">
                         <div className="d-flex flex-column justify-content-between">
                                                     <span className="text-muted my-auto fs-6">Seller:
-                                                        <Link to={`/profile/${itemData.sellerID._id}`}
-                                                              className="text-decoration-none">
+                                                        <span onClick={() => {navigate(`/profile/${itemData.sellerID._id}`)}}>
                                                         {itemData.sellerID.email}
-                                                        </Link>
+                                                        </span>
                                                     </span>
                             <div className="text-muted my-auto">{`Posted: ${itemData.postDate}`}</div>
                             <div
