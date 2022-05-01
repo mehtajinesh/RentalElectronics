@@ -30,7 +30,6 @@ function App() {
             <Route path='additem' exact={true} element={<AddItem/>}/>
             <Route path='edititem/:id' exact={true} element={<EditItem/>}/>
             <Route path="profile" exact={true} element={<ViewProfile/>}/>
-            <Route path="profile/:uid" exact={true} element={<ViewProfile/>}/>
             <Route path="editProfile" exact={true} element={<EditProfile/>}/>
             <Route path="viewItem/:id" exact={true} element={<ViewItem/>}/>
             <Route path="searchResults" exact={true} element={<SearchResults/>}/>

@@ -15,8 +15,6 @@ const RecentRentals = ({rental, date, userID}) => {
   const descriptionByUser = description;
 
   const rate = async () => {
-    console.log(userID)
-    console.log(typeof userID);
     await profileService.createReviewByUser(userID, rentalItem._id, descriptionByUser, reviewDate, ratingGiven);
     setDescription("");
     setRating(0);

@@ -17,38 +17,30 @@ const ViewProfile = () => {
   const [listings, setListings] = useState([]);
   const [wishlists, setWishlists] = useState([]);
   const [reviews, setReviews] = useState([]);
-  let userID;
 
   const getProfile = async () => {
     try {
       const profile = await authService.profile();
+      const userData = await service.findUserById(profile._id);
 
-      if(uid) {
-        userID = uid;
-      }
-      else {
-        userID = profile._id;
-      }
-
-      const userData = await service.findUserById(userID);
-      setUser(userData);
-      await profileService.findAllRentalsByUser(userID).then(async (orders) => {
+      await profileService.findAllRentalsByUser(profile._id).then(async (orders) => {
         orders.sort((order1, order2) =>
             new Date(order2.orderID.orderDate).getTime() -
             new Date(order1.orderID.orderDate).getTime());
         setOrders(orders);
       });
 
-      await profileService.findReviewsByUser(userID).then(async (reviews) => {
+      await profileService.findReviewsByUser(profile._id).then(async (reviews) => {
         reviews.sort((review1, review2) =>
             new Date(review2.reviewID.reviewDate).getTime() -
             new Date(review1.reviewID.reviewDate).getTime());
         setReviews(reviews);
       });
 
-      const listings = await profileService.findAllListingsByUser(userID);
-      const wishlist = await profileService.findWishlistByUser(userID);
+      const listings = await profileService.findAllListingsByUser(profile._id);
+      const wishlist = await profileService.findWishlistByUser(profile._id);
 
+      setUser(userData);
       setListings(listings);
       setWishlists(wishlist);
 
@@ -58,7 +50,7 @@ const ViewProfile = () => {
     }
   }
 
-  useEffect(() => {getProfile()}, [reviews, orders, listings, wishlists]);
+  useEffect(() => {getProfile()}, [orders, wishlists, reviews, listings]);
 
   return(
       <>
@@ -85,11 +77,11 @@ const ViewProfile = () => {
                     <div className="private-data">
                       <i className="mt-3 fas fa-map-marker-alt"/>
                       <span
-                          className={`ms-2 text-body ${uid ? `d-none` : ``}`}>{user.address.line1},
-                        <span className={`${uid ? `d-none` : ``} ${user.address.line2 ? `d-block` : `d-none`}`}>{user.address.line2},</span> {user.address.city}, {user.address.state}, {user.address.zipcode}</span>
+                          className="ms-2 text-body">{user.address.line1},
+                        <span className={`${user.address.line2 ? `d-block` : `d-none`}`}>{user.address.line2},</span> {user.address.city}, {user.address.state}, {user.address.zipcode}</span>
                       <br/>
                       <i className="mt-3 fas fa-mobile-alt"/>
-                      <span className={`${uid ? `d-none` : ``} ms-2 text-body`}>{user.phoneNumber}</span>
+                      <span className="ms-2 text-body">{user.phoneNumber}</span>
                       <br/>
                       <i className="mt-3 fas fa-envelope"/>
                       <span className="ms-2 text-body">{user.email}</span>
@@ -147,10 +139,9 @@ const ViewProfile = () => {
                       : `d-none`}`}>
                     <h5>My Recent Rentals</h5>
                     {orders.map((order) => (
-                        <Orders userID={userID} order={order} key={order._id}/>
+                        <Orders userID={user._id} order={order} key={order._id}/>
                     ))}
                   </div>
-
 
                   <div className={`mt-4 ${active === "listed_items" ? `d-block`
                       : `d-none`}`}>
@@ -159,7 +150,6 @@ const ViewProfile = () => {
                         <ListedItems listing={listing} key={listing._id}/>)}
                   </div>
 
-
                   <div className={`mt-4 ${active === "wishlist" ? `d-block`
                       : `d-none`}`}>
                     <h5>My Wishlist</h5>
@@ -167,11 +157,10 @@ const ViewProfile = () => {
                         <Wishlist wishlist={wishlist} key={wishlist._id}/>)}
                   </div>
 
-
                   <div className={`mt-4 ${active === "reviews" ? `d-block`
                       : `d-none`}`}>
                     <h5>My Reviews</h5>
-                    {reviews.map(review => <Reviews review={review}/>)}
+                    {reviews.map(review => <Reviews review={review} key={review._id}/>)}
                   </div>
 
 
