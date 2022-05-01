@@ -8,10 +8,13 @@ export const getCategoryIdByName = async (name) => {
 
 export const getAllBrands = async (cid) => {
     const response = await axios.get(`${CATEGORY_API}/brands/${cid}`)
-    return response.data
+    return response.data;
 }
 
-
+export const addProductCategory = async (productCategory) => {
+    const response = await axios.post(`${CATEGORY_API}/productCategory`, productCategory)
+    return response.data;
+}
 
 
 

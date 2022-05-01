@@ -1,13 +1,16 @@
-import { useNavigate, useLocation}  from "react-router-dom";
+import { useNavigate }  from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as service from '../services/best-buy-api-service.js'
 import * as productService from '../services/product-service.js'
 import * as categoryService from "../services/category-service.js"
+import * as featureService from "../services/features-service.js"
+
 import availableFilters from "../data/available-filters.json"
 import ResultItem from "./result-item.js";
 
 const AddItem = () => {
+  let loggedIn = useSelector(state => state.loggedIn);
 
   let currentUser = useSelector(state => state.currentUser);
   // let listedProducts = useSelector(state => state.listedProducts);
@@ -22,7 +25,7 @@ const AddItem = () => {
   const [productName, setProductName] = useState('');
   const [brand, setBrand] = useState('');
   const [productDescription, setProductDescription] = useState('');
-  const [productImages, setProductImages] = useState([]);
+  // const [productImages, setProductImages] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [fetchingAPI, setFetchAPI] = useState(false);
 
@@ -33,7 +36,7 @@ const AddItem = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const CalculateRentDuration = () => {
+  const calculateRentDuration = () => {
     const start = new Date(startDate);
     const end = new Date(endDate);
 
@@ -44,15 +47,18 @@ const AddItem = () => {
     const categoryData = await categoryService.getCategoryIdByName(category);
     setCategoryId(categoryData[0]._id)
     // console.log(categoryData[0]);
-
-    const brands = await categoryService.getAllBrands(categoryData[0]._id);
-    console.log(brands);
-
-    setCategoryBrands(brands)
+    // const brands = await categoryService.getAllBrands(categoryData[0]._id);
+    setCategoryBrands(['Apple', 'Samsung', 'Sony', 'LG'])
   }
 
-  useEffect(() => {handleCategory()}, [category]);
+  useEffect(() => {
+    
+    if (!loggedIn) 
+      navigate('/login');
 
+    else
+      handleCategory()}, [category]);
+    
 
   const callAPI = async () => {
     let search_terms = {
@@ -60,6 +66,7 @@ const AddItem = () => {
       category: category.toLowerCase(),
       keywords: productName.trim().toLowerCase(),
     }
+
     console.log(search_terms);
     setFetchAPI(true);
     const searchResult = await service.searchProduct(search_terms);
@@ -77,20 +84,60 @@ const AddItem = () => {
 
   const addItem = async () => {
     let newItem = { 
-      productName: productName,
+      productName: productName === '' ? chosenProduct.name : productName,
       productDescription: productDescription,
-      duration: CalculateRentDuration(),
+      duration: calculateRentDuration(),
       location: currentUser.address.city,
       postDate: new Date(),
       sellerID: currentUser._id,
       price: 3,
-      productImages: productImages,
+      productImages: chosenProduct.images,
       totalAvailable: 1,
       totalSold: 0
     }
-
+  
+  
+  
     try {
-      const response = await productService.addItem(newItem);
+      // return product id
+      console.log(newItem);
+      const insertedItem = await productService.addItem(newItem);
+      const productId = insertedItem._id;
+
+      const modelNumber = chosenProduct.modelNumber;
+      const sku = chosenProduct.sku;
+
+      // add start and end duration just for edit now
+      const startDateFeature = await featureService.addFeature({FeatureName: "startDate", FeatureValue: startDate})
+      const endDateFeature = await featureService.addFeature({FeatureName: "endDate", FeatureValue: endDate})
+
+
+      // create features and get all the feature ids
+      const feature1 = await featureService.addFeature({FeatureName: "modelNumber", FeatureValue: modelNumber})
+      const feature2 = await featureService.addFeature({FeatureName: "sku", FeatureValue: sku})
+      const feature3 = await featureService.addFeature({FeatureName: "condition", FeatureValue: condition});
+
+      const featuresId = await Promise.all(chosenProduct.details.map(async (feature) => {
+        const insertedFeature = await featureService.addFeature({FeatureName: feature.name, FeatureValue: feature.value})
+        return insertedFeature;
+      }));
+
+      featuresId.push(feature1);
+      featuresId.push(feature2);
+      featuresId.push(feature3);
+      featuresId.push(startDateFeature);
+      featuresId.push(endDateFeature);
+
+      // send product and category
+      await categoryService.addProductCategory({productID: productId, categoryID: categoryId})
+
+      // send product and features 
+      const output = await Promise.all(featuresId.map(async (featureID) => {
+        const insertedFeature = await featureService.addProductFeature({productID: productId, featureID: featureID})
+        return insertedFeature;
+      }));
+
+      console.log(output);
 
       resetChosenProduct();
       navigate('/profile');
@@ -169,7 +216,7 @@ const AddItem = () => {
                         </div>
                       }
                       {
-                        searchResults.length > 1 &&
+                        searchResults.length >= 1 &&
                         <ResultItem products={searchResults}/>
                       }
                     </div>

@@ -4,9 +4,10 @@ import {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import * as service from '../services/user-service'
 import * as authService from '../services/auth-service'
+import {useDispatch, useSelector} from "react-redux";
 
 const EditProfile = () => {
-  // let loggedIn = useSelector(state => state.loggedIn);
+  let loggedIn = useSelector(state => state.loggedIn);
 
   // const profile = useSelector(state => state.currentUser);
   const [currentUser, setCurrentUser] = useState();
@@ -47,8 +48,11 @@ const EditProfile = () => {
 }
 
 useEffect(() => {
-        getProfile();
-  
+  if (!loggedIn) {
+    navigate('/login')
+  } else {
+    getProfile();
+  }  
 }, []);
 
 
@@ -69,6 +73,11 @@ useEffect(() => {
 
     try {
       await service.updateUser(currentUser._id, updatedProfile);
+
+      await 
+
+
+
       navigate("/profile")
 
     }

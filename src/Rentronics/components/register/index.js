@@ -88,6 +88,7 @@ const Register = () => {
         
     }
 
+    // TODO: Error in checking
 
     const checkDOB = () => {
 
@@ -137,6 +138,7 @@ const Register = () => {
         }
     }
 
+    // TODO: Error in checking
     const checkState = () => {
 
         if (!empty_regex.test(state))
@@ -178,26 +180,12 @@ const Register = () => {
             userType: role,
         }
 
-        try {
-            const status = await service.register(newUser);
-            alert('Account Successfully Created!')
-            navigate('/login')
-        }
-        catch(error)
-        {
-            alert("Given email already exists!")
-        }
-
-    }
-
-    
-    const AddUser = () => {
-
         if (showDobError == null && showPasswordError == null && showFirstnameError == null && showlastNameError == null && showDobError == null
             && showPhoneNumberError == null && showLine1Error == null && showCityError == null && showStateError == null && showZipcodeError == null && showAgreeToPrivacyError == null) {
                 setFillOutFormError(true);
                 return;
             }
+
 
         if (!agreeToPrivacy)
         {
@@ -206,44 +194,24 @@ const Register = () => {
         }
 
 
+
         if (showEmailError === false && showPasswordError === false && showFirstnameError === false && showlastNameError === false && showDobError === false 
             && showPhoneNumberError === false && showLine1Error === false && showCityError === false && showStateError === false && showZipcodeError === false 
-            && showAgreeToPrivacyError === true) {
+            && agreeToPrivacy === true) {
 
-                let newUser = {
-                    email: email, 
-                    password: password,
-                    firstName: firstName, 
-                    lastName: lastName, 
-                    userType: role,
-                    DOB: dob,
-                    phoneNumber : phoneNumber,
-                    address: {
-                        line1: line1,
-                        line2: line2,
-                        city: city,
-                        state: state,
-                        zipcode: zipcode
-                    },
-                    reviews: [],
-                    listed_item: []
-                }
-        
-                
-                dispatch({
-                    type:'ADD_USER',
-                    newUser
-                });
-                
-                alert('Registeration Successful!');
-                navigate('/login');
-            } 
-            else {
-                setFillOutFormError(false);
-
+            try {
+                const status = await service.register(newUser);
+                alert('Account Successfully Created!')
+                navigate('/login')
             }
-        
+            catch(error)
+            {
+                alert("Email already exists!")
+            }
+        }
+
     }
+
 
     return (<div className="container my-6">
         <div className="row">

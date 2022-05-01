@@ -5,6 +5,9 @@ const API_KEY = 'qhqws47nyvgze2mq3qx4jadt';
 
 export const searchProduct = async (search_terms) => {
     let search_query = createSearchQuery(search_terms);
+
+    console.log(search_query);
+
     const response = await axios.get(API + search_query);
     
     console.log(response.data.products);
@@ -14,6 +17,13 @@ export const searchProduct = async (search_terms) => {
 
 const createSearchQuery = (search_terms) => {
     let splitTerms;
+
+    console.log(search_terms.category);
+
+    if (search_terms.category=== 'any') {
+        search_terms.category = '';
+    }
+
     if (search_terms.keywords !== '') {
         splitTerms = search_terms.keywords.split(' ');
         splitTerms.push(search_terms.category);
@@ -32,7 +42,7 @@ const createSearchQuery = (search_terms) => {
     
     search_query += 'search=' + splitTerms[i] + ")";
     search_query += '&manufacturer=' + search_terms.brand;
-    search_query += "&type=HardGood)?apiKey="+ API_KEY +"&show=details.value,image,name,sku&format=json"
+    search_query += "&type=HardGood)?apiKey="+ API_KEY +"&show=details.value,images,image,name,modelNumber,sku&format=json"
     
     return search_query;
 }

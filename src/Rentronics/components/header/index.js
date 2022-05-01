@@ -7,8 +7,8 @@ import * as authService from "../services/auth-service"
 
 const Header = () => {
     let loggedIn = useSelector(state => state.loggedIn);
-    // let currentUser = useSelector(state => state.currentUser);
-    const [currentUser, setCurrentUser] = useState();
+    let currentUser = useSelector(state => state.currentUser);
+    const [user, setUser] = useState();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -27,7 +27,7 @@ const Header = () => {
               currentUser
           })
 
-          setCurrentUser(currentUser);
+          setUser(currentUser);
 
           loggedIn = true;
           dispatch({
@@ -63,7 +63,7 @@ const Header = () => {
             type: 'REMOVE_CURRENT_USER',
         })
 
-        setCurrentUser();
+        setUser();
 
         navigate('/login')
     }
@@ -99,14 +99,14 @@ const Header = () => {
 
                             <li className="nav-item">     
                                 {
-                                    !currentUser &&
+                                    !user &&
                                     <button type="button" className="btn rounded-pill" onClick={handleCart}>
                                         <i className="fas fa-shopping-cart"></i> Cart   
                                     </button>
                                 }
                                 {
                                     // I had to do this to match the margins
-                                    currentUser &&
+                                    user &&
                                     <button type="button" className="btn rounded-pill mt-2" onClick={handleCart}>
                                         <i className="fas fa-shopping-cart"></i> Cart   
                                     </button>
@@ -116,7 +116,7 @@ const Header = () => {
 
 
                             {
-                                !currentUser &&
+                                !user &&
                                 <li className="nav-item">
                                     <Link to="login">
                                         <button type="button" className="btn btn-outline-primary rounded-pill px-4 mx-1">Login</button>
@@ -126,7 +126,7 @@ const Header = () => {
                             
 
                             { 
-                                currentUser && currentUser.userType === 'buyer' &&
+                                user && user.userType === 'buyer' &&
 
                                 <li className="nav-item dropdown ms-3">
                                     <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-1 border-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -146,7 +146,7 @@ const Header = () => {
 
 
                             {  
-                                currentUser && currentUser.userType === 'buyer_seller' &&
+                                user && user.userType === 'buyer_seller' &&
 
                                 <li className="nav-item dropdown ms-3">
                                     <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-1 border-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -165,7 +165,7 @@ const Header = () => {
                             }
                             
                             {  
-                                currentUser && currentUser.userType === 'admin' &&
+                                user && user.userType === 'admin' &&
 
                                 <li className="nav-item dropdown ms-3">
                                     <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-1 border-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -174,7 +174,8 @@ const Header = () => {
 
                                     <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <li><Link to="profile" className="dropdown-item">Profile</Link></li>
-                                        {/* <li><Link to="/" className="dropdown-item" >Manage Users</Link></li> */}
+                                        <li><Link to="admin" className="dropdown-item" >Manage Users</Link></li>
+                                        <li><Link to="/additem" className="dropdown-item" onClick={handleAddItem}>Add Item</Link></li>
                                         <li><hr className="dropdown-divider"/></li>
                                         <li><Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link></li>
                                         {/* <li><hr className="dropdown-divider"/></li>

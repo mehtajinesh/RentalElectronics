@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as service from '../services/best-buy-api-service.js'
 import * as productService from '../services/product-service.js'
+import * as featuresService from '../services/features-service.js'
+
 import { useParams } from 'react-router';
 
 import availableFilters from "../data/available-filters.json"
@@ -15,14 +17,14 @@ const EditItem = () => {
   // let currentUser = useSelector(state => state.currentUser);
   // let [currentUser, setCurrentUser] = useState();
   // let listedProducts = useSelector(state => state.listedProducts);
-  let [product, setProduct]= useState();
   let [chosenProduct, setChosenProduct] = useState();
+  let [productFeatures, setProductFeatures]= useState();
 
   // const newId = listedProducts.length + 1;
 
-  const [category, setCategory] = useState(product.category);
-  const [productName, setProductName] = useState(product.category.productName);
-  const [productDescription, setProductDescription] = useState(product.productDescription);
+  const [category, setCategory] = useState('Laptops');
+  const [productName, setProductName] = useState();
+  const [productDescription, setProductDescription] = useState();
   const [brand, setBrand] = useState('');
   // const [brand, setBrand] = useState('');
 
@@ -39,15 +41,36 @@ const EditItem = () => {
 
   const getItem = async () => {
     try {
-      const returnProduct = await productService.findItemById(pid);
-      console.log(returnProduct);
-      setProduct(returnProduct);
+      // get product 
+      const productToEdit = await productService.findItemById(pid);
+      console.log(productToEdit);
+      setChosenProduct(productToEdit);
+      setProductName(productToEdit.productName);
+      setProductDescription(productToEdit.productDescription);
+
+      // get features
+      const productFeaturesId = await featuresService.getAllFeaturesIDsForProduct(pid);
+
+      const productFeatures = await Promise.all(productFeaturesId.map(async (featureID) => {
+        const feature = await featuresService.getFeatureById(featureID)
+        return feature;
+      }));
+
+      setProductFeatures(productFeatures);
+      setStartDate(productFeatures[0].FeatureValue);
+      setEndDate(productFeatures[1].FeatureValue);
+      setCondition(productFeatures[4].FeatureValue);
+
+      console.log(productFeatures);
+
     } catch (e) {
-      setProduct();
+      setChosenProduct();
     }
   }
 
+
   useEffect(() => {
+
     if (!loggedIn) {
         navigate('/login');
     }
@@ -73,8 +96,6 @@ const EditItem = () => {
       keywords: productName.trim().toLowerCase(),
     }
 
-    console.log(search_terms);
-
     setFetchAPI(true);
     const searchResult = await service.searchProduct(search_terms);
     setSearchResults(searchResult);
@@ -90,13 +111,24 @@ const EditItem = () => {
   }
 
   const handleUpdate = async () => {
-
+    let updateProduct = { 
+      productName: productName,
+      productDescription: productDescription,
+      duration: calculateRentDuration()
+    }
+  
     try {
-      const insertedItem = await productService.addItem();
+      const insertedItem = await productService.updateProduct(pid, updateProduct);
       console.log(insertedItem);
 
-      //TODO: move to product details page
-      navigate('/')
+      // update the features
+      await featuresService.updateFeature(productFeatures[0]._id, {FeatureName: 'startDate', FeatureValue: startDate}); // start date
+      await featuresService.updateFeature(productFeatures[1]._id, {FeatureName: 'endDate', FeatureValue: endDate}); // end date
+      await featuresService.updateFeature(productFeatures[4]._id, {FeatureName: 'condition', FeatureValue: condition}); // condition
+
+      console.log(productFeatures[0].FeatureValue);
+
+      navigate('/profile')
     }
     catch (e) 
     {
@@ -104,7 +136,13 @@ const EditItem = () => {
     }
   }
 
+  const handleRemove = async () => {
+
+  }
+
   return (
+    <>
+      {chosenProduct && productFeatures &&
 
       <div className="container my-5">
   
@@ -114,113 +152,41 @@ const EditItem = () => {
   
         <div className="col-sm-9 col-md-9 col-lg-8 col-xl-8 px-5 py-2"> 
   
-        <h3>List Your Item to Rent Out</h3>
-        {/* <small className="text-muted">Rent out electronics and make extra cash!</small> */}
-  
-        <form>
-    
-          <label for="category" className="text-muted mb-1">Step 1 : Seach for Your Product</label>
-  
-          <div className="form-floating mb-4">
-              <select className="form-select" id="floatingSelect" aria-label="Floating label select example" value={category} onChange={(e) => setCategory(e.target.value)} required>
-                <option selected>Open this to select category</option>
-                <option value="Laptops">Laptops</option>
-                <option value="Phones">Phones</option>
-                <option value="Monitors">Monitors</option>
-              </select>
-              <label for="floatingSelect">Product Category</label>
+        <h3>Edit Item</h3>
+      
 
-              <div className="form-floating mb-2 mt-2">
-                <select className="form-select" id="floatingSelect" aria-label="Floating label select example" value={brand} onChange={(e) => setBrand(e.target.value)} required>
-                  <option selected>Open this to select category</option>
-                  {
-                      availableFilters[category].filter((value) => value.label === 'Brand')[0].values.map(
-                        brand => { 
-                          return (
-                            <option value={brand}> {brand} </option>
-                          )
-                        }
-                      )
-                  }
-                </select>
-                  <label for="product-detail">Brand</label>
-              </div>
-
-              <div className="col form-floating mb-2">
-                  <input type="text" className="form-control" id="product-detail" placeholder="Product Name" value={productName} onChange={(e) => setProductName(e.target.value)} required/>
-                  <label for="product-detail">Product Name</label>
-              </div>
-
-              <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button className="btn btn-primary px-5 py-2" type="button" onClick={callAPI}> Search on Best Buy</button>
-              </div>
-
-          </div>
-
-          <div className="search-result">
-          <label for="category" className="text-muted mb-1">Step 2 : Find Your Item from Search Results</label>
-            { !fetchingAPI && 
-                <div className="border rounded bg-light mb-3">
-
-                  <div className="mx-5 my-5 text-center">
-                    <h5>Search your item by providing category, brand, product name above!</h5>
-                  </div>
-                </div>
-            }
-
-            {
-              fetchingAPI && chosenProduct === null &&
-              <>
-                    <br/>
-                    <div className="border rounded bg-light">
-
-                      {
-                        searchResults.length === 0&& 
-                        <div className="mx-5 my-5 text-center">
-                          <h5>There are no matched results :( ... Try another search query!</h5>
-                        </div>
-                      }
-                      {
-                        searchResults.length > 1 &&
-                        <ResultItem products={searchResults}/>
-                      }
-                    </div>
-              </>
-          }
-
-          </div>
-          {
-            chosenProduct !== null && 
-            <>  
-            <div className="card shadow-sm mb-4">
+              <div className="card mb-3 shadow-sm py-4 px-2">
                 <div className="row g-0">
-                    <label for="category" className="mb-1 px-4 py-2">Item Selected</label>
-                    <hr></hr>
                     <div className="col-md-4">
-                    <img src={chosenProduct.image} className="img-fluid rounded-start mx-1 my-2" alt="..."/>
+                    <img src={chosenProduct.productImages[0]['href']} className="img-fluid rounded-start mx-1 my-2" alt="..."/>
                 </div>
 
                 <div className="col-md-8">
                     <div className="card-body">    
-                        <h5>{chosenProduct.name}</h5>
+                        <h5 className="card-title">{chosenProduct.productName}</h5>
+                        <p class="card-text">{productFeatures[2].FeatureName}: {productFeatures[2].FeatureValue}</p>
                     </div>
-                    <div className="d-grid gap-2 d-md-flex justify-content-md-end mx-3">
-                      <button className="btn btn-danger px-2 py-2"
-                          type="button" 
-                          onClick={resetChosenProduct}> 
-                          Remove
-                      </button>
-                    </div>
-
                 </div>
-
-                </div>
+              </div>
             </div> 
-            </>
-        }
-  
-            <label for="category" className="text-muted">Step 3 : Lease Details</label>
-            <br></br>
+
+
+            <label for="product-detail" className="text-muted mb-1 mt-2">Product Name</label>
+
+            <div className="form-floating mb-3">              
+              <div className="col form-floating mb-2">
+                  <input type="text" className="form-control" id="product-detail" placeholder="Product Name" value={productName} onChange={(e) => setProductName(e.target.value)} required/>
+                  <label for="product-detail">Product Name</label>
+              </div>
+          </div>
+
+
+          <label className="text-muted" for="floatingTextarea2">Product Description</label>
+
+          <div className="form-floating mb-2">
+            <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{"height": "200px"}} value={productDescription} onChange={(e) => setProductDescription(e.target.value)}></textarea>
+          </div>
+
 
             <label for="condition" className="text-muted mb-1 mt-2">Condition</label>
 
@@ -254,11 +220,10 @@ const EditItem = () => {
 
              </div>
 
-          </form>
 
           <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button className="btn btn-secondary me-md-2 px-5 py-2" type="button">Save</button>
-            <button className="btn btn-primary px-5 py-2" type="button" onClick={handleUpdate}>Post</button>
+            {/* <button className="btn btn-outline-danger me-md-2 px-5 py-2" onClick={handleRemove} type="button">Remove</button> */}
+            <button className="btn btn-primary px-5 py-2" type="button" onClick={handleUpdate}>Update</button>
           </div>
   
         </div>
@@ -267,6 +232,8 @@ const EditItem = () => {
   
         </div>
       </div>
+      }
+      </>
   )
 }
 

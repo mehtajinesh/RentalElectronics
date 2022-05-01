@@ -15,6 +15,7 @@ import ViewProfile from "./Rentronics/components/profile/view-profile-buyer";
 import EditProfile from "./Rentronics/components/profile/edit-profile";
 import ViewItem from "./Rentronics/components/view-item";
 import Cart from "./Rentronics/components/cart";
+import Admin from "./Rentronics/components/admin"
 // import OrderSummary from "./Rentronics/components/order-summary";
 import SearchResults from "./Rentronics/components/search-results";
 
@@ -35,6 +36,7 @@ function App() {
             <Route path="searchResults" exact={true} element={<SearchResults/>}/>
             {/*<Route path="orderSummary" exact={true} element={<OrderSummary/>}/>*/}
             <Route path="cart" exact={true} element={<Cart/>}/>
+            <Route path="admin" exact={true} element={<Admin/>}/>
             {/*<Route path="privacy" exact={true} element={<Privacy/>}/>*/}
           </Route>
         </Routes>
