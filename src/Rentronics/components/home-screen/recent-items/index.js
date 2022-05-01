@@ -1,7 +1,6 @@
-import itemDataList from "../../data/recently-viewed.json";
-import MultiProductCarousel from "../product-multi-carousel";
+import RecentMultiProductCarousel from "./recently-viewed-multi-carousel";
 
-const RecentItems = () => {
+const RecentItems = ({loading}) => {
     return (<div className="d-flex flex-column p-3">
         <div className="d-flex mb-2 ms-3">
             <h1 className="fs-4 my-auto">Recently Viewed Items</h1>
@@ -10,7 +9,7 @@ const RecentItems = () => {
             </div>
         </div>
         <div className="d-flex">
-            <MultiProductCarousel items={itemDataList}/>
+            <RecentMultiProductCarousel loading={loading}/>
         </div>
     </div>);
 }

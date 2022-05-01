@@ -1,7 +1,6 @@
-import itemDataList from "../../data/popular-reviews.json";
-import ReviewMultiCarousel from "../review-multi-carousel";
+import ReviewMultiCarousel from "./review-multi-carousel";
 
-const PopularReviews = () => {
+const PopularReviews = ({loading}) => {
     return (
         <div className="d-flex flex-column p-3">
             <div className="d-flex mb-2 ms-3">
@@ -11,7 +10,7 @@ const PopularReviews = () => {
                 </div>
             </div>
             <div className="d-flex">
-                <ReviewMultiCarousel items={itemDataList}/>
+                <ReviewMultiCarousel loading={loading}/>
             </div>
         </div>
     );
