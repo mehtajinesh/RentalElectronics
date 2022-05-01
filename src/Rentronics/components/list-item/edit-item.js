@@ -1,91 +1,150 @@
-import { useNavigate, useParams }  from "react-router-dom";
-import { useState } from "react";
+import { useNavigate}  from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import * as service from '../services/best-buy-api-service.js'
+import * as productService from '../services/product-service.js'
+import * as featuresService from '../services/features-service.js'
+
+import { useParams } from 'react-router';
+
+import availableFilters from "../data/available-filters.json"
+import ResultItem from "./result-item.js";
 
 const EditItem = () => {
-  const { id } = useParams();
-  let item = useSelector(state => state.listedProducts[id - 1]);
+  const { pid } = useParams();
 
-  const item_title = item.item_title;
-  const item_description = item.item_description;
-  const item_location = item.item_location;
-  const item_post_date = item.item_post_date;
-  const item_seller_name = item.item_seller_name;
-  const item_price = item.item_price;
+  let loggedIn = useSelector(state => state.loggedIn);
+  // let currentUser = useSelector(state => state.currentUser);
+  // let [currentUser, setCurrentUser] = useState();
+  // let listedProducts = useSelector(state => state.listedProducts);
+  let [chosenProduct, setChosenProduct] = useState();
+  let [productFeatures, setProductFeatures]= useState();
 
-  const item_seller_profile_url = item.item_seller_profile_url;
-  const item_primary_image = item.item_primary_image;
+  // const newId = listedProducts.length + 1;
 
-  const [category, setCategory] = useState(item.item_properties.category);
-  const [productName, setProductName] = useState(item.item_properties.product_name);
-  const [brand, setBrand] = useState(item.item_properties.brand);
-  const [modelNumber, setModelNumber] = useState(item.item_properties.model_number);
-  const [useRemoteAPI, setRemoteAPI] = useState(item.item_properties.useRemoteAPI);
-  const [features, setFeatures] = useState(item.item_properties.features);
-  const [dimensions, setDimensions] = useState(item.item_properties.dimensions);
-  const [description, setDescription] = useState(item.item_properties.description);
-  const [condition, setCondition] = useState(item.item_properties.condition);
-  const [startDate, setStartDate] = useState(item.item_properties.start_date);
-  const [endDate, setEndDate] = useState(item.item_properties.end_date);
+  const [category, setCategory] = useState('Laptops');
+  const [productName, setProductName] = useState();
+  const [productDescription, setProductDescription] = useState();
+  const [brand, setBrand] = useState('');
+  // const [brand, setBrand] = useState('');
+
+  const [searchResults, setSearchResults] = useState([]);
+  const [fetchingAPI, setFetchAPI] = useState(false);
+
+  const [condition, setCondition] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
 
-  const CalculateRentDuration = () => {
+  const getItem = async () => {
+    try {
+      // get product 
+      const productToEdit = await productService.findItemById(pid);
+      console.log(productToEdit);
+      setChosenProduct(productToEdit);
+      setProductName(productToEdit.productName);
+      setProductDescription(productToEdit.productDescription);
+
+      // get features
+      const productFeaturesId = await featuresService.getAllFeaturesIDsForProduct(pid);
+
+      const productFeatures = await Promise.all(productFeaturesId.map(async (featureID) => {
+        const feature = await featuresService.getFeatureById(featureID)
+        return feature;
+      }));
+
+      setProductFeatures(productFeatures);
+      setStartDate(productFeatures[0].FeatureValue);
+      setEndDate(productFeatures[1].FeatureValue);
+      setCondition(productFeatures[4].FeatureValue);
+
+      console.log(productFeatures);
+
+    } catch (e) {
+      setChosenProduct();
+    }
+  }
+
+
+  useEffect(() => {
+    getItem();
+
+    // if (!loggedIn) {
+    //     navigate('/login');
+    // }
+    // else {
+    //   getItem();
+    // }
+    
+    }, []);
+
+  
+
+  const calculateRentDuration = () => {
     const start = new Date(startDate);
     const end = new Date(endDate);
 
     return (end - start) / (1000 * 3600 * 24);
   }
 
-
-  const UpdateItem = () => {
-    let updatedItem = { 
-      item_id : id.toString(),
-      item_title: item_title,
-      item_description: item_description,
-      item_location: item_location,
-      item_post_date: item_post_date,
-      item_seller_name: item_seller_name,
-      item_price: item_price,
-      item_rent_duration: CalculateRentDuration(),
-      item_properties: {
-        category: category,
-        product_name: productName,
-        brand: brand,
-        model_number: modelNumber,
-        features: features,
-        dimensions: dimensions,
-        description: description,
-        condition: condition,
-        start_date: startDate,
-        end_date: endDate
-      },
-      item_seller_profile_url: item_seller_profile_url,
-      item_primary_image: item_primary_image
+  const callAPI = async () => {
+    let search_terms = {
+      brand: brand.toLowerCase(),
+      category: category.toLowerCase(),
+      keywords: productName.trim().toLowerCase(),
     }
 
-    dispatch({
-      type: 'EDIT_ITEM',
-      updatedItem
-    });
-
-    navigate('/profile');
+    setFetchAPI(true);
+    const searchResult = await service.searchProduct(search_terms);
+    setSearchResults(searchResult);
   }
 
-  const DeleteItem = () => {
-    let item_id = id;
+  const resetChosenProduct = () => {
     dispatch({
-      type: 'DELETE_ITEM',
-      item_id
-    });
+      type: 'RESET_PRODUCT',
+    })
+    setBrand('');
+    setProductName('');
+    setSearchResults([])
+  }
 
-    navigate("/profile");
+  const handleUpdate = async () => {
+    let updateProduct = { 
+      productName: productName,
+      productDescription: productDescription,
+      duration: calculateRentDuration()
+    }
+  
+    try {
+      const insertedItem = await productService.updateProduct(pid, updateProduct);
+      console.log(insertedItem);
+
+      // update the features
+      await featuresService.updateFeature(productFeatures[0]._id, {FeatureName: 'startDate', FeatureValue: startDate}); // start date
+      await featuresService.updateFeature(productFeatures[1]._id, {FeatureName: 'endDate', FeatureValue: endDate}); // end date
+      await featuresService.updateFeature(productFeatures[4]._id, {FeatureName: 'condition', FeatureValue: condition}); // condition
+
+      console.log(productFeatures[0].FeatureValue);
+
+      navigate('/profile')
+    }
+    catch (e) 
+    {
+      throw e
+    }
+  }
+
+  const handleRemove = async () => {
+
   }
 
   return (
-    
+    <>
+      {chosenProduct && productFeatures &&
+
       <div className="container my-5">
   
         <div className="row">
@@ -95,65 +154,42 @@ const EditItem = () => {
         <div className="col-sm-9 col-md-9 col-lg-8 col-xl-8 px-5 py-2"> 
   
         <h3>Edit Item</h3>
-        {/* <small className="text-muted">Rent out electronics and make extra cash!</small> */}
-  
-        <form>
-    
-          <label for="category" className="text-muted mb-1">Choose Category</label>
-  
-          <div className="form-floating mb-4">
-              <select className="form-select" id="floatingSelect" aria-label="Floating label select example" value={category} onChange={(e) => setCategory(e.target.value)} required>
-                <option selected>Open this to select category</option>
-                <option value="laptop">Laptop</option>
-                <option value="display">Display</option>
-                <option value="smart-device">Smart Device</option>
-              </select>
-              <label for="floatingSelect">Product Category</label>
-          </div>
+      
 
-  
-          <label for="product-detail" className="text-muted mb-1">Product Detail</label>
-  
+              <div className="card mb-3 shadow-sm py-4 px-2">
+                <div className="row g-0">
+                    <div className="col-md-4">
+                    <img src={chosenProduct.productImages[0]['href']} className="img-fluid rounded-start mx-1 my-2" alt="..."/>
+                </div>
+
+                <div className="col-md-8">
+                    <div className="card-body">    
+                        <h5 className="card-title">{chosenProduct.productName}</h5>
+                        <p class="card-text">{productFeatures[2].FeatureName}: {productFeatures[2].FeatureValue}</p>
+                    </div>
+                </div>
+              </div>
+            </div> 
+
+
+            <label for="product-detail" className="text-muted mb-1 mt-2">Product Name</label>
+
+            <div className="form-floating mb-3">              
               <div className="col form-floating mb-2">
                   <input type="text" className="form-control" id="product-detail" placeholder="Product Name" value={productName} onChange={(e) => setProductName(e.target.value)} required/>
                   <label for="product-detail">Product Name</label>
               </div>
+          </div>
 
-              <div className="col form-floating mb-2">
-                  <input type="text" className="form-control" id="product-detail" placeholder="Brand" value={brand} onChange={(e) => setBrand(e.target.value)} required/>
-                  <label for="product-detail">Brand</label>
-              </div>
-  
-              <div className="col form-floating mb-3">
-                  <input type="text" className="form-control" id="product-detail" placeholder="Model Number" value={modelNumber} onChange={(e) => setModelNumber(e.target.value)} required/>
-                  <label for="product-detail">Model Number</label>
-              </div>
-  
-              <div className="form-check">
 
-                <input className="form-check-input" type="checkbox" id="flexCheckChecked" value={useRemoteAPI} onChange={(e) => setRemoteAPI(e.target.value)}/>
-                <small className="form-check-label text-muted" for="flexCheckChecked">
-                  Use Product Detail from Amazon
-                </small>
-              </div>
-  
-              <div className="col form-floating mb-2">
-                <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "5em"}} value={features} onChange={(e) => setFeatures(e.target.value)}></textarea>
-                <label for="product-detail">Features</label>
-              </div>
-  
-              <div className="col form-floating mb-2">
-                <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "5em"}} value={dimensions} onChange={(e) => setDimensions(e.target.value)}></textarea>
-                <label for="product-detail">Dimensions</label>
-              </div>
-  
-              <div className="col form-floating mb-4">
-                <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "10em"}} value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
-                <label for="product-detail">Description</label>
-              </div>
-  
-  
-            <label for="condition" className="text-muted mb-1">Condition</label>
+          <label className="text-muted" for="floatingTextarea2">Product Description</label>
+
+          <div className="form-floating mb-2">
+            <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{"height": "200px"}} value={productDescription} onChange={(e) => setProductDescription(e.target.value)}></textarea>
+          </div>
+
+
+            <label for="condition" className="text-muted mb-1 mt-2">Condition</label>
 
             <div className="form-floating mb-4">
               <select className="form-select" id="floatingSelect" aria-label="Floating label select example" value={condition} onChange={(e) => setCondition(e.target.value)}>
@@ -180,29 +216,25 @@ const EditItem = () => {
                   <label for="endDate" className="text-muted mb-1">End Date</label>
                   <input type="date" className="form-control" id="endDate" placeholder="endDate" value={endDate} onChange={(e) => setEndDate(e.target.value)} required/>
                 </div>
-          </div>
 
-        </div>
+              </div>
 
-          <div className="mb-3">
-            <label for="formFileMultiple" className="form-label text-muted">Upload Product Photos</label>
-            <input className="form-control" type="file" id="formFileMultiple" multiple/>
-          </div>
-  
-          </form>
-          
+             </div>
+
+
           <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button className="btn btn-secondary me-md-2 px-5 py-2" type="button" onClick={DeleteItem}>Remove</button>
-            <button className="btn btn-primary px-5 py-2" type="button" onClick={UpdateItem}>Update</button>
+            {/* <button className="btn btn-outline-danger me-md-2 px-5 py-2" onClick={handleRemove} type="button">Remove</button> */}
+            <button className="btn btn-primary px-5 py-2" type="button" onClick={handleUpdate}>Update</button>
           </div>
   
         </div>
   
         <div className="col-sm-1 col-md-1 col-lg-2 col-xl-2"> </div>
   
-  
         </div>
       </div>
+      }
+      </>
   )
 }
 

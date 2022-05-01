@@ -7,6 +7,7 @@ const Cart = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     let loggedIn = useSelector(state => state.loggedIn);
+    
     useEffect(() => {    if (!loggedIn) {
         navigate('/login');
     }})

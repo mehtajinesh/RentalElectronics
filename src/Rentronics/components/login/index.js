@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -25,19 +25,20 @@ const Login = () => {
                 loggedIn
             });
 
-            // dispatch({
-            //     type:'SET_CURRENT_USER',
-            //     currentUser
-            // });
-
             alert("Login Successful");
-            navigate('/');
+            // navigate('/');
         } 
         catch (error) {
             console.log(error);
             alert("Invalid email or password");
         }
     }
+
+    useEffect(() => { 
+        if (loggedIn) {
+        navigate('/');
+    }})
+
 
     return (
     

@@ -14,12 +14,12 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [firstName, setFirstname] = useState('');
     const [lastName, setlastName] = useState('');
-    const [dob, setDOB] = useState('');
+    const [dob, setDOB] = useState(new Date().toString());
     const [phoneNumber, setPhoneNumber] = useState('');
     const [line1, setAddress1] = useState('');
     const [line2, setAddress2] = useState('');
     const [city, setCity] = useState('');
-    const [state, setState] = useState('');
+    const [state, setState] = useState('Alaska');
     const [zipcode, setZipcode] = useState('');
     const [role, setRole] = useState('buyer');
     const [agreeToPrivacy, setAgreeToPrivacy] = useState(false);
@@ -87,7 +87,6 @@ const Register = () => {
         }
         
     }
-
 
     const checkDOB = () => {
 
@@ -179,26 +178,12 @@ const Register = () => {
             userType: role,
         }
 
-        try {
-            const status = await service.register(newUser);
-            alert('Account Successfully Created!')
-            navigate('/login')
-        }
-        catch(error)
-        {
-            alert("Given email already exists!")
-        }
-
-    }
-
-    
-    const AddUser = () => {
-
         if (showDobError == null && showPasswordError == null && showFirstnameError == null && showlastNameError == null && showDobError == null
             && showPhoneNumberError == null && showLine1Error == null && showCityError == null && showStateError == null && showZipcodeError == null && showAgreeToPrivacyError == null) {
                 setFillOutFormError(true);
                 return;
             }
+
 
         if (!agreeToPrivacy)
         {
@@ -207,44 +192,24 @@ const Register = () => {
         }
 
 
+
         if (showEmailError === false && showPasswordError === false && showFirstnameError === false && showlastNameError === false && showDobError === false 
             && showPhoneNumberError === false && showLine1Error === false && showCityError === false && showStateError === false && showZipcodeError === false 
-            && showAgreeToPrivacyError === true) {
+            && agreeToPrivacy === true) {
 
-                let newUser = {
-                    email: email, 
-                    password: password,
-                    firstName: firstName, 
-                    lastName: lastName, 
-                    userType: role,
-                    DOB: dob,
-                    phoneNumber : phoneNumber,
-                    address: {
-                        line1: line1,
-                        line2: line2,
-                        city: city,
-                        state: state,
-                        zipcode: zipcode
-                    },
-                    reviews: [],
-                    listed_item: []
-                }
-        
-                
-                dispatch({
-                    type:'ADD_USER',
-                    newUser
-                });
-                
-                alert('Registeration Successful!');
-                navigate('/login');
-            } 
-            else {
-                setFillOutFormError(false);
-
+            try {
+                const status = await service.register(newUser);
+                alert('Account Successfully Created!')
+                navigate('/login')
             }
-        
+            catch(error)
+            {
+                alert("Email already exists!")
+            }
+        }
+
     }
+
 
     return (<div className="container my-6">
         <div className="row">
@@ -535,7 +500,7 @@ const Register = () => {
                                     onChange={(e) => setState(e.target.value)}
                                     onBlur={checkState}
                                     required>
-                                    <option value="">N/A</option>
+                                    <option value="" selected>N/A</option>
                                     <option value="AK">Alaska</option>
                                     <option value="AL">Alabama</option>
                                     <option value="AR">Arkansas</option>

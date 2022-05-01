@@ -1,10 +1,10 @@
 [
     { "item_id": "2",
-      "item_title": "Macbook Pro 2018 14 Inch Intel",
+      "item_title": "Macbook Pro 2018 14Inch Intel",
       "item_description": "This is description for item-1",
-      "item_location": "Location",
-      "item_post_date": "Date",
-      "item_seller_name": "admin",
+      "item_location": "Boston",
+      "item_post_date": "2022-03-31",
+      "item_seller_name": "John Doe",
       "item_price": 3,
       "item_rent_duration": 7,
       "item_properties": {
@@ -13,12 +13,12 @@
         "brand": "Apple",
         "model_number": "A2338 (EMC 3578)",
         "useRemoteAPI": false,
-        "features": "",
-        "dimensions": "",
-        "description": "",
-        "condition": "",
-        "start_date": "",
-        "end_date": ""
+        "features": "Retina Display\n Intel Chip",
+        "dimensions": "14 inch, 1kg",
+        "description": "Macbook pro with touch bar",
+        "condition": "Brand New",
+        "start_date": "2022-04-01",
+        "end_date": "2022-04-30"
       },
       "item_seller_profile_url": "https://jineshmehta.com",
       "item_primary_image": "https://shorturl.at/bA023"

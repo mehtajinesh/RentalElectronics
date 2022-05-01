@@ -15,6 +15,7 @@ import ViewProfile from "./Rentronics/components/profile/view-profile/viewProfil
 import EditProfile from "./Rentronics/components/profile/edit-profile/editProfile";
 import ViewItem from "./Rentronics/components/view-item";
 import Cart from "./Rentronics/components/cart";
+import Admin from "./Rentronics/components/admin"
 // import OrderSummary from "./Rentronics/components/order-summary";
 import SearchResults from "./Rentronics/components/search-results";
 import ViewPublicProfile
@@ -30,7 +31,7 @@ function App() {
             <Route path="login" exact={true} element={<Login />}/>
             <Route path="register" exact={true} element={<Register/>}/>
             <Route path='additem' exact={true} element={<AddItem/>}/>
-            <Route path='edititem/:id' exact={true} element={<EditItem/>}/>
+            <Route path='edititem/:pid' exact={true} element={<EditItem/>}/>
             <Route path="profile" exact={true} element={<ViewProfile/>}/>
             <Route path="profile/:uid" exact={true} element={<ViewPublicProfile/>}/>
             <Route path="editProfile" exact={true} element={<EditProfile/>}/>
@@ -38,6 +39,7 @@ function App() {
             <Route path="searchResults" exact={true} element={<SearchResults/>}/>
             {/*<Route path="orderSummary" exact={true} element={<OrderSummary/>}/>*/}
             <Route path="cart" exact={true} element={<Cart/>}/>
+            <Route path="admin" exact={true} element={<Admin/>}/>
             {/*<Route path="privacy" exact={true} element={<Privacy/>}/>*/}
           </Route>
         </Routes>
