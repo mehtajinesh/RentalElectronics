@@ -1,11 +1,12 @@
 import "./profile.css";
 import { useEffect, useState } from 'react'
 import Reviews from "../review";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import * as service from "../../services/user-service"
 import * as profileService from "../../services/profile-service"
 import ListedItems from "../listed-items";
 import Wishlist from "../wishlist";
+import * as authService from "../../services/auth-service";
 
 const ViewPublicProfile = () => {
   const {uid} = useParams();
@@ -16,23 +17,32 @@ const ViewPublicProfile = () => {
   const [listings, setListings] = useState([]);
   const [wishlists, setWishlists] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const navigate = useNavigate();
 
   const getPublicProfile = async () => {
     try {
-      await service.findUserById(uid).then((userData) => setUser(userData));
+      const profile = await authService.profile();
+      const loggedInUser = await service.findUserById(profile._id);
 
-      await profileService.findReviewsByUser(uid).then(async (reviews) => {
-        reviews.sort((review1, review2) =>
-            new Date(review2.reviewID.reviewDate).getTime() -
-            new Date(review1.reviewID.reviewDate).getTime());
-        setReviews(reviews);
-      });
+      if(profile._id === uid) {
+        navigate('/profile');
+      }
+      else {
+        await service.findUserById(uid).then((userData) => setUser(userData));
 
-      const listings = await profileService.findAllListingsByUser(uid);
-      const wishlist = await profileService.findWishlistByUser(uid);
+        await profileService.findReviewsByUser(uid).then(async (reviews) => {
+          reviews.sort((review1, review2) =>
+              new Date(review2.reviewID.reviewDate).getTime() -
+              new Date(review1.reviewID.reviewDate).getTime());
+          setReviews(reviews);
+        });
 
-      setListings(listings);
-      setWishlists(wishlist);
+        const listings = await profileService.findAllListingsByUser(uid);
+        const wishlist = await profileService.findWishlistByUser(uid);
+
+        setListings(listings);
+        setWishlists(wishlist);
+      }
 
     } catch (e) {
       console.log(e);

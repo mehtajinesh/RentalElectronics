@@ -1,7 +1,7 @@
 import "./profile.css";
 import { useEffect, useState } from 'react'
 import Reviews from "../review";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import * as authService from "../../services/auth-service"
 import * as service from "../../services/user-service"
 import * as profileService from "../../services/profile-service"
