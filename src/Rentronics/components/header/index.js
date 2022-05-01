@@ -47,25 +47,33 @@ const Header = () => {
     }
     
     useEffect(() => {
-        checkIsLoggedIn()}, [loggedIn, currentUser]);
+        checkIsLoggedIn()}, [loggedIn]);
 
     const handleLogout = async () => {
-        await authService.logout();
 
-        loggedIn = false;
+        try {
 
-        dispatch({
-            type:'UPDATE_LOGIN_STATE',
-            loggedIn
-        });
+            await authService.logout();
 
-        dispatch({
-            type: 'REMOVE_CURRENT_USER',
-        })
+            loggedIn = false;
+    
+            dispatch({
+                type:'UPDATE_LOGIN_STATE',
+                loggedIn
+            });
+    
+            dispatch({
+                type: 'REMOVE_CURRENT_USER',
+            })
+    
+            setUser();
+    
+            navigate('/login')
+        }
+        catch (e) {
 
-        setUser();
+        }
 
-        navigate('/login')
     }
 
     const handleCart = () => {
@@ -85,14 +93,17 @@ const Header = () => {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light border-bottom bg-white sticky-top py-3 px-5">
-            <div className="container-fluid">
-                <Link to="/" style={{ textDecoration: 'none' }}>
-                    <div className="navbar-brand">Rentronics</div>
-                </Link>
+                <div className="container-fluid">
+                    <Link to="/" style={{ textDecoration: 'none' }}>
+                        <div className="navbar-brand">Rentronics</div>
+                    </Link>
 
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <div className="collapse navbar-collapse " id="navbarSupportedContent">
+                        <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
 
                             <li className="nav-item">     
                                 {
@@ -109,22 +120,9 @@ const Header = () => {
                                     </button>
                                 }
 
-                        {
-                            currentUser && currentUser.userType === "buyer_seller" &&
-                            <li className="nav-item">
-                                <button type="button" className="btn btn-outline-primary rounded-pill mt-2" onClick={handleAddItem}>Add Item</button>
                             </li>
-                        }
-
-                        {
-                            currentUser && currentUser.userType === "Admin" &&
-                            <li className="nav-item">
-                                <button type="button" className="btn btn-outline-primary rounded-pill mt-2">Manage Users</button>
-                            </li>
-                        }
 
 
-                        <li className="nav-item">
                             {
                                 !user &&
                                 <li className="nav-item">
@@ -177,6 +175,10 @@ const Header = () => {
                             {  
                                 user && user.userType === 'admin' &&
 
+                                <li className="nav-item dropdown ms-3">
+                                    <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-1 border-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i className="fas fa-user-circle fa-2x"></i>
+                                    </button>
 
                                     <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <li><Link to="profile" className="dropdown-item">Profile</Link></li>
@@ -191,10 +193,13 @@ const Header = () => {
                             }
                             
 
+            
+                        </ul>
+            
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
     )
 }
 
-export default Header;
+export default Header

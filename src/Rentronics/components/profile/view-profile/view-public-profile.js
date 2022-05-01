@@ -7,9 +7,13 @@ import * as profileService from "../../services/profile-service"
 import ListedItems from "../listed-items";
 import Wishlist from "../wishlist";
 import * as authService from "../../services/auth-service";
+import {useSelector, useDispatch} from "react-redux";
 
 const ViewPublicProfile = () => {
   const {uid} = useParams();
+
+  let update_profile = useSelector(state => state.updateReducer);
+
   console.log("UID");
   console.log(uid);
   const [user, setUser] = useState();
@@ -49,7 +53,7 @@ const ViewPublicProfile = () => {
     }
   }
 
-  useEffect(() => {getPublicProfile()}, [wishlists, reviews, listings]);
+  useEffect(() => {getPublicProfile()}, [update_profile]);
 
   return(
 

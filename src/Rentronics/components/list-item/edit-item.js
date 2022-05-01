@@ -129,6 +129,13 @@ const EditItem = () => {
 
       console.log(productFeatures[0].FeatureValue);
 
+      const update = true;
+
+      dispatch({
+        type: "UPDATE_PROFILE",
+        update
+      })
+
       navigate('/profile')
     }
     catch (e) 

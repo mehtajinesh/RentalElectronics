@@ -1,9 +1,12 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import * as profileService from "../../services/profile-service"
+import { useDispatch, useSelector } from "react-redux";
 
 const RecentRentals = ({rental, date, userID}) => {
-  const [description, setDescription] = useState(null);
+  const dispatch = useDispatch();
+  let update = useSelector(state => state.updateReducer);
+  const [description, setDescription] = useState('');
   const [reviewForm, setReviewForm] = useState(null);
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
@@ -16,6 +19,14 @@ const RecentRentals = ({rental, date, userID}) => {
 
   const rate = async () => {
     await profileService.createReviewByUser(userID, rentalItem._id, descriptionByUser, reviewDate, ratingGiven);
+
+    update = !update;
+
+    dispatch({
+      type: 'UPDATE_PROFILE',
+      update
+    })
+
     setDescription("");
     setRating(0);
     setHover(0);
@@ -30,7 +41,7 @@ const RecentRentals = ({rental, date, userID}) => {
               <div className="row">
 
             <div className="col-2 mt-3 ps-4">
-              <img className="pr-ri-pic rounded" alt="" src={rentalItem.productImages[0]}/>
+              <img className="pr-ri-pic rounded" alt="" src={rentalItem.productImages[8]}/>
             </div>
 
             <div className="col-8 mt-2 ps-4">

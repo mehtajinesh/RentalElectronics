@@ -4,9 +4,11 @@ import {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import * as service from '../../services/user-service'
 import * as authService from '../../services/auth-service'
+import {useSelector} from "react-redux";
 
 const EditProfile = () => {
-  // let loggedIn = useSelector(state => state.loggedIn);
+  let loggedIn = useSelector(state => state.loggedIn);
+  const navigate = useNavigate();
 
   // const profile = useSelector(state => state.currentUser);
   const [currentUser, setCurrentUser] = useState();
@@ -22,7 +24,6 @@ const EditProfile = () => {
   let [email, setEmail] = useState();
   let [profilePicture, setProfilePicture] = useState();
 
-  const navigate = useNavigate();
 
   const getProfile = async () => {
     try {
@@ -49,7 +50,12 @@ const EditProfile = () => {
   }
 
   useEffect(() => {
-    getProfile();
+    if (!loggedIn) {
+      navigate('/login')
+    }
+    else {
+      getProfile();
+    }
 
   }, []);
 

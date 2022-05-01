@@ -11,12 +11,9 @@ import ResultItem from "./result-item.js";
 
 const AddItem = () => {
   let loggedIn = useSelector(state => state.loggedIn);
-
   let currentUser = useSelector(state => state.currentUser);
-  // let listedProducts = useSelector(state => state.listedProducts);
   let chosenProduct = useSelector(state => state.chooseProduct);
-
-  // const newId = listedProducts.length + 1;
+  let update = useSelector(state => state.updateReducer);
 
   const [category, setCategory] = useState('Any');
   const [categoryId, setCategoryId] = useState();
@@ -43,11 +40,10 @@ const AddItem = () => {
     return (end - start) / (1000 * 3600 * 24);
   }
 
+  // TODO: category controller needed
   const handleCategory = async () => {
     const categoryData = await categoryService.getCategoryIdByName(category);
     setCategoryId(categoryData[0]._id)
-    // console.log(categoryData[0]);
-    // const brands = await categoryService.getAllBrands(categoryData[0]._id);
     setCategoryBrands(['Apple', 'Samsung', 'Sony', 'LG'])
   }
 
@@ -57,8 +53,10 @@ const AddItem = () => {
       navigate('/login');
 
     else
-      handleCategory()}, [category]);
+      handleCategory()}, [category]
     
+    ); 
+  
 
   const callAPI = async () => {
     let search_terms = {
@@ -67,7 +65,6 @@ const AddItem = () => {
       keywords: productName.trim().toLowerCase(),
     }
 
-    console.log(search_terms);
     setFetchAPI(true);
     const searchResult = await service.searchProduct(search_terms);
     setSearchResults(searchResult);
@@ -83,6 +80,9 @@ const AddItem = () => {
   }
 
   const addItem = async () => {
+    const productImages = chosenProduct.images.map(image => image.href);
+    // console.log(productImages);
+
     let newItem = { 
       productName: productName === '' ? chosenProduct.name : productName,
       productDescription: productDescription,
@@ -91,12 +91,10 @@ const AddItem = () => {
       postDate: new Date(),
       sellerID: currentUser._id,
       price: 3,
-      productImages: chosenProduct.images,
+      productImages: productImages,
       totalAvailable: 1,
       totalSold: 0
     }
-  
-  
   
     try {
       // return product id
@@ -110,7 +108,6 @@ const AddItem = () => {
       // add start and end duration just for edit now
       const startDateFeature = await featureService.addFeature({FeatureName: "startDate", FeatureValue: startDate})
       const endDateFeature = await featureService.addFeature({FeatureName: "endDate", FeatureValue: endDate})
-
 
       // create features and get all the feature ids
       const feature1 = await featureService.addFeature({FeatureName: "modelNumber", FeatureValue: modelNumber})
@@ -137,7 +134,11 @@ const AddItem = () => {
         return insertedFeature;
       }));
 
-      console.log(output);
+      update = !update;
+      dispatch({
+        type: "UPDATE_PROFILE",
+        update
+      })
 
       resetChosenProduct();
       navigate('/profile');

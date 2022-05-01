@@ -4,6 +4,7 @@ import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import * as authService from "../services/auth-service"
 import * as service from "../services/user-service.js";
+import { useDispatch } from "react-redux";
 
 
 const Admin = () => {
@@ -11,6 +12,7 @@ const Admin = () => {
   let currentUser = useSelector(state => state.currentUser);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [users, setUsers] = useState([]);
   let userRoles = new Array(users.length);
@@ -52,6 +54,13 @@ useEffect(() => {
 
     // update user
     const updatedUser = await service.updateUser(users[index]._id, users[index]);
+
+    dispatch({
+      type: "SET_CURRENT_USER",
+      currentUser
+    })
+
+
     alert(users[index].firstName + "'s role has been updated!")
 
   }

@@ -8,14 +8,20 @@ import * as profileService from "../../services/profile-service"
 import ListedItems from "../listed-items";
 import Wishlist from "../wishlist";
 import Orders from "../review/orders";
+import {useSelector, useDispatch} from "react-redux";
 
 const ViewProfile = () => {
+  let update_profile = useSelector(state => state.updateReducer);
+  const navigate = useNavigate();
+  let loggedIn = useSelector(state => state.loggedIn);
+
   const [user, setUser] = useState();
   const [active, setActive] = useState("rentals");
   const [orders, setOrders] = useState([]);
   const [listings, setListings] = useState([]);
   const [wishlists, setWishlists] = useState([]);
   const [reviews, setReviews] = useState([]);
+
 
   const getProfile = async () => {
     try {
@@ -49,8 +55,15 @@ const ViewProfile = () => {
     }
   }
 
-  useEffect(() => {getProfile()}, [orders, wishlists, reviews, listings]);
+  useEffect(() => {
+          
+  if (!loggedIn) 
+    navigate('/login');
 
+  else
+  getProfile()}, [update_profile]
+  
+  ); 
   return(
       <>
       {user &&
