@@ -47,7 +47,7 @@ const Header = () => {
     }
     
     useEffect(() => {
-        checkIsLoggedIn()}, [loggedIn]);
+        checkIsLoggedIn()}, [loggedIn, currentUser]);
 
     const handleLogout = async () => {
         await authService.logout();

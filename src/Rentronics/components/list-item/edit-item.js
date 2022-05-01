@@ -70,13 +70,14 @@ const EditItem = () => {
 
 
   useEffect(() => {
+    getItem();
 
-    if (!loggedIn) {
-        navigate('/login');
-    }
-    else {
-      getItem();
-    }
+    // if (!loggedIn) {
+    //     navigate('/login');
+    // }
+    // else {
+    //   getItem();
+    // }
     
     }, []);
 

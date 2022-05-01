@@ -14,12 +14,12 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [firstName, setFirstname] = useState('');
     const [lastName, setlastName] = useState('');
-    const [dob, setDOB] = useState('');
+    const [dob, setDOB] = useState(new Date().toString());
     const [phoneNumber, setPhoneNumber] = useState('');
     const [line1, setAddress1] = useState('');
     const [line2, setAddress2] = useState('');
     const [city, setCity] = useState('');
-    const [state, setState] = useState('');
+    const [state, setState] = useState('Alaska');
     const [zipcode, setZipcode] = useState('');
     const [role, setRole] = useState('buyer');
     const [agreeToPrivacy, setAgreeToPrivacy] = useState(false);
