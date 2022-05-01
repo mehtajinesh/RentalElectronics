@@ -4,7 +4,7 @@ import PopularReviews from "./popular-reviews";
 import SearchBox from "../search-box";
 import {useDispatch, useSelector} from "react-redux";
 import {getHomePageData} from "../../actions/home-screen-actions";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 
 const HomeScreen = () => {
     const loading = useSelector(state => state.loading);

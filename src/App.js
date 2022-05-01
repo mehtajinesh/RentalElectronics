@@ -29,7 +29,7 @@ function App() {
                     <Route path="login" exact={true} element={<Login/>}/>
                     <Route path="register" exact={true} element={<Register/>}/>
                     <Route path='additem' exact={true} element={<AddItem/>}/>
-                    <Route path='edititem/:id' exact={true} element={<EditItem/>}/>
+                    <Route path='edititem/:productID' exact={true} element={<EditItem/>}/>
                     {/*<Route path="viewProfile" exact={true} element={<ViewProfile/>}/>*/}
                     {/*<Route path="editProfile" exact={true} element={<EditProfile/>}/>*/}
                     <Route path="viewItem/:id" exact={true} element={<ViewItem/>}/>

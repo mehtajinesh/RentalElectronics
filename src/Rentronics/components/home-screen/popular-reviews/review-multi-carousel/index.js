@@ -3,8 +3,10 @@ import './index.css'
 import {useSelector} from "react-redux";
 import Rating from "react-rating";
 import Skeleton from "react-loading-skeleton";
+import {useNavigate} from "react-router-dom";
 
 const MultiReviewCarousel = ({loading}) => {
+    const navigate = useNavigate();
     const popularReviews = useSelector(state => state.homeScreen.popularReviews);
     let settings = {
         infinite: false, speed: 1000, arrows: true, slidesToShow: 5, slidesToScroll: 4,
@@ -19,41 +21,39 @@ const MultiReviewCarousel = ({loading}) => {
             },
         },],
     };
-    return (
-        <div className="container">
-            {loading && <Skeleton height={260}/>}
-            {
-                !loading && <Slider {...settings}>
-                    {
-                        popularReviews.map((itemData) => (
-                                <div className="out p-2" key={itemData.reviewID._id}>
-                                    <div className="card text-dark bg-light mb-3">
-                                        <div className="card-header">{itemData.productID.productName}</div>
-                                        <div className="card-body">
-                                            <h5 className="card-title">{itemData.reviewID.reviewTitle}</h5>
-                                            <Rating
-                                                style={{
-                                                    fontSize: `12px`,
-                                                    color: 'gold',
-                                                }}
-                                                emptySymbol="far fa-star fa-2x"
-                                                fullSymbol="fas fa-star fa-2x"
-                                                initialRating={itemData.reviewID.reviewRating}
-                                                readonly
-                                            />
-                                            <p className="card-text">{itemData.reviewID.reviewDescription}</p>
-                                        </div>
-                                        <a className="card-footer bg-transparent"
-                                           href={itemData.item_buyer_profile_url}>{itemData.userID.email}</a>
-                                    </div>
-                                </div>
-                            )
-                        )
-                    }
-                </Slider>
-            }
-        </div>
-    );
+    return (<div className="container">
+        {loading && <Skeleton height={260}/>}
+        {!loading && <Slider {...settings}>
+            {popularReviews.map((itemData) => (<div className="out p-2" key={itemData.reviewID._id}>
+                <div className="card text-dark bg-light mb-3">
+                    <div className="card-header" onClick={() => {
+                        navigate(`/viewItem/${itemData.productID._id}`);
+                    }}>{itemData.productID.productName}</div>
+                    <div className="card-body">
+                        <h5 className="card-title" >{itemData.reviewID.reviewTitle}</h5>
+                        <Rating
+                            style={{
+                                fontSize: `12px`, color: 'gold',
+                            }}
+                            emptySymbol="far fa-star fa-2x"
+                            fullSymbol="fas fa-star fa-2x"
+                            initialRating={itemData.reviewID.reviewRating}
+                            readonly
+                        />
+                        <p className="card-text">{itemData.reviewID.reviewDescription}</p>
+                    </div>
+                    <div className="card-footer">
+                        <span className="text-muted my-auto fs-6">{`Reviewer: `}
+                            <span onClick={() => {
+                                navigate(`/profile/${itemData.userID._id}`);
+                            }}>{itemData.userID.email}
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>))}
+        </Slider>}
+    </div>);
 }
 
 export default MultiReviewCarousel;

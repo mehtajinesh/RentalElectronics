@@ -10,10 +10,11 @@ import listedProducts from './components/reducers/listed-product-reducer'
 import searchReducer from "./components/reducers/search-reducer";
 import homeScreenReducer from "./components/reducers/home-screen-reducer";
 import LoadingReducer from "./components/reducers/loading-reducer";
+import productPageReducer from "./components/reducers/product-page-reducer";
 
 const reducer = combineReducers({
     loggedIn: loginReducer, users: userReducer, currentUser: currentUserReducer, listedProducts: listedProducts, activeSearch: searchReducer,
-    homeScreen: homeScreenReducer, loading:LoadingReducer
+    homeScreen: homeScreenReducer, loading:LoadingReducer, productDetails:productPageReducer
 });
 
 const store = createStore(reducer,  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

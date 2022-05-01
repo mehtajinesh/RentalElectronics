@@ -1,9 +1,8 @@
 import Slider from 'react-slick'
 import './index.css'
-import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import Skeleton from 'react-loading-skeleton'
-
+import {useNavigate} from "react-router-dom";
 
 const TreadingMultiProductCarousel = ({loading}) => {
     const navigate = useNavigate();
@@ -23,18 +22,21 @@ const TreadingMultiProductCarousel = ({loading}) => {
     };
     return (<div className="container">
         {loading && <Skeleton height={260}/>}
-        {!loading &&<Slider {...settings}>
+        {!loading && <Slider {...settings}>
             {items && items.map((itemData) => (<div className="p-2" key={itemData._id}>
-                <div className="card" onClick={() => {navigate(`/profile/${itemData.sellerID._id}`)}}>
-                        <img src={itemData.productImages[0]} className="card-img-top p-4"/>
-                        <div className="card-body">
-                            <div className="fs-5 card-title text-black">{itemData.productName}</div>
-                        </div>
+                <div className="card" onClick={() => {
+                    navigate(`/viewItem/${itemData._id}`);
+                }}>
+                    <img src={itemData.productImages[0]} className="card-img-top p-4"/>
+                    <div className="card-body">
+                        <div className="fs-5 card-title text-black">{itemData.productName}</div>
+                    </div>
                     <div className="card-footer">
                         <div className="d-flex flex-column justify-content-between">
-                                                    <span className="text-muted my-auto fs-6">Seller:
-                                                        <span onClick={() => {navigate(`/profile/${itemData.sellerID._id}`)}}>
-                                                        {itemData.sellerID.email}
+                                                    <span className="text-muted my-auto fs-6">{`Seller: `}
+                                                        <span onClick={() => {
+                                                            navigate(`/profile/${itemData.sellerID._id}`);
+                                                        }}>{itemData.sellerID.email}
                                                         </span>
                                                     </span>
                             <div className="text-muted my-auto">{`Posted: ${itemData.postDate}`}</div>
