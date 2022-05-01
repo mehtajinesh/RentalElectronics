@@ -1,28 +1,30 @@
 import { useNavigate, useLocation}  from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import * as service from '../services/amazon-api-service.js'
 import * as service from '../services/best-buy-api-service.js'
+import * as productService from '../services/product-service.js'
+import * as categoryService from "../services/category-service.js"
 import availableFilters from "../data/available-filters.json"
 import ResultItem from "./result-item.js";
 
 const AddItem = () => {
 
   let currentUser = useSelector(state => state.currentUser);
-  let listedProducts = useSelector(state => state.listedProducts);
+  // let listedProducts = useSelector(state => state.listedProducts);
   let chosenProduct = useSelector(state => state.chooseProduct);
 
-  const newId = listedProducts.length + 1;
+  // const newId = listedProducts.length + 1;
 
-  const [category, setCategory] = useState('Laptops');
+  const [category, setCategory] = useState('Any');
+  const [categoryId, setCategoryId] = useState();
+  const [categoryBrands, setCategoryBrands] = useState([]);
+
   const [productName, setProductName] = useState('');
   const [brand, setBrand] = useState('');
-
+  const [productDescription, setProductDescription] = useState('');
+  const [productImages, setProductImages] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-
-  const [useRemoteAPI, setRemoteAPI] = useState(true);
   const [fetchingAPI, setFetchAPI] = useState(false);
-
 
   const [condition, setCondition] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -37,6 +39,20 @@ const AddItem = () => {
 
     return (end - start) / (1000 * 3600 * 24);
   }
+
+  const handleCategory = async () => {
+    const categoryData = await categoryService.getCategoryIdByName(category);
+    setCategoryId(categoryData[0]._id)
+    // console.log(categoryData[0]);
+
+    const brands = await categoryService.getAllBrands(categoryData[0]._id);
+    console.log(brands);
+
+    setCategoryBrands(brands)
+  }
+
+  useEffect(() => {handleCategory()}, [category]);
+
 
   const callAPI = async () => {
     let search_terms = {
@@ -59,36 +75,30 @@ const AddItem = () => {
     setSearchResults([])
   }
 
-  const AddItem = () => {
+  const addItem = async () => {
     let newItem = { 
-      item_id: newId.toString(), 
-      // item_title: brand.concat(" ", productName, " ", modelNumber),
-      // item_description: description,
-      item_location: currentUser.address,
-      item_post_date: new Date(),
-      item_seller_name: currentUser.firstName,
-      item_price: 3,
-      item_rent_duration: CalculateRentDuration(),
-      item_properties: {
-        category: category,
-        product_name: productName,
-        brand: brand,
-        sku: chosenProduct.sku,
-        condition: condition,
-        start_date: startDate,
-        end_date: endDate
-      },
-      item_seller_profile_url: "https://jineshmehta.com",
-      item_primary_image: "https://shorturl.at/bA023"
+      productName: productName,
+      productDescription: productDescription,
+      duration: CalculateRentDuration(),
+      location: currentUser.address.city,
+      postDate: new Date(),
+      sellerID: currentUser._id,
+      price: 3,
+      productImages: productImages,
+      totalAvailable: 1,
+      totalSold: 0
     }
 
-    dispatch({
-      type: 'ADD_ITEM',
-      newItem
-    });
+    try {
+      const response = await productService.addItem(newItem);
 
+      resetChosenProduct();
+      navigate('/profile');
+    }
+    catch (e) {
 
-    navigate('/profile');
+    }
+
   }
 
   return (
@@ -110,7 +120,7 @@ const AddItem = () => {
   
           <div className="form-floating mb-4">
               <select className="form-select" id="floatingSelect" aria-label="Floating label select example" value={category} onChange={(e) => setCategory(e.target.value)} required>
-                <option selected>Open this to select category</option>
+                <option value="Any" selected>All</option>
                 <option value="Laptops">Laptops</option>
                 <option value="Phones">Phones</option>
                 <option value="Monitors">Monitors</option>
@@ -121,8 +131,7 @@ const AddItem = () => {
                 <select className="form-select" id="floatingSelect" aria-label="Floating label select example" value={brand} onChange={(e) => setBrand(e.target.value)} required>
                   <option selected>Open this to select category</option>
                   {
-                      availableFilters[category].filter((value) => value.label === 'Brand')[0].values.map(
-                        brand => { 
+                     categoryBrands.map( brand => { 
                           return (
                             <option value={brand}> {brand} </option>
                           )
@@ -166,6 +175,19 @@ const AddItem = () => {
                     </div>
               </>
           }
+            {
+              !fetchingAPI &&
+              <>
+                    <br/>
+                    <div className="border rounded bg-light mb-5">
+                      
+                        <div className="mx-5 my-5 text-center">
+                          <h5> No search results yet..</h5>
+                        </div>
+                  
+                    </div>
+              </>
+          }
 
           </div>
           {
@@ -195,11 +217,18 @@ const AddItem = () => {
 
                 </div>
             </div> 
+
             </>
         }
   
-            <label for="category" className="text-muted">Step 3 : Lease Details</label>
+            <label for="category" className="text-muted mb-2">Step 3 : Lease Details</label>
             <br></br>
+
+            <label className="text-muted" for="floatingTextarea2">Product Description</label>
+
+            <div className="form-floating">
+              <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{"height": "200px"}} value={productDescription} onChange={(e) => setProductDescription(e.target.value)}></textarea>
+            </div>
 
             <label for="condition" className="text-muted mb-1 mt-2">Condition</label>
 
@@ -237,8 +266,8 @@ const AddItem = () => {
 
           
           <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button className="btn btn-secondary me-md-2 px-5 py-2" type="button">Save</button>
-            <button className="btn btn-primary px-5 py-2" type="button" onClick={AddItem}>Post</button>
+            {/* <button className="btn btn-secondary me-md-2 px-5 py-2" type="button">Save</button> */}
+            <button className="btn btn-primary px-5 py-2" type="button" onClick={addItem}>Post</button>
           </div>
   
         </div>

@@ -1,4 +1,4 @@
-import bootstrap from 'bootstrap'  // this is need for toggle down menu for profile
+import bootstrap from 'bootstrap';
 import { useEffect, useState } from 'react'
 import {Link} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
@@ -7,32 +7,47 @@ import * as authService from "../services/auth-service"
 
 const Header = () => {
     let loggedIn = useSelector(state => state.loggedIn);
-    let user = useSelector(state => state.currentUser);
+    // let currentUser = useSelector(state => state.currentUser);
     const [currentUser, setCurrentUser] = useState();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const getProfile = async () => {
+    const handleProfile = async () => {
+        navigate('/profile')
+    }
+
+    const checkIsLoggedIn = async () => {
         try {
-          const profile = await authService.profile();
-          console.log(profile);
-          setCurrentUser(profile);
+          const currentUser = await authService.profile();
+          console.log(currentUser);
+
+          dispatch({
+              type: 'SET_CURRENT_USER',
+              currentUser
+          })
+
+          setCurrentUser(currentUser);
+
+          loggedIn = true;
+          dispatch({
+            type:'UPDATE_LOGIN_STATE',
+            loggedIn
+        });
     
         } catch (e) {
-            setCurrentUser();
+            
+            loggedIn = false;
+
+            dispatch({
+              type:'UPDATE_LOGIN_STATE',
+              loggedIn
+          });
         }
     }
     
     useEffect(() => {
-            getProfile();
-        // const interval = setInterval( () => {
-        //     getProfile()
-        //    }, 10000 / 10)
-            
-        //    return () => clearInterval(interval)
-      
-    }, [loggedIn]);
+        checkIsLoggedIn()}, [loggedIn]);
 
     const handleLogout = async () => {
         await authService.logout();
@@ -44,16 +59,27 @@ const Header = () => {
             loggedIn
         });
 
+        dispatch({
+            type: 'REMOVE_CURRENT_USER',
+        })
+
         setCurrentUser();
+
         navigate('/login')
     }
 
-    // TODO: need to fix handle cart component so that it doesn't use islogged in anymore
     const handleCart = () => {
         navigate('/cart');
     }
 
-    const handleAddItem = () => {
+    const handleAddItem = async () => {
+
+        // if (currentUser.userType === 'buyer') {
+        //     await userService.updateUser(currentUser._id, {userType: 'buyer_seller'});
+        //     setUpdate(true);
+        // }
+
+        const uid = currentUser._id;
         navigate('/additem')
     }
 
@@ -70,21 +96,6 @@ const Header = () => {
                     
                     <div className="collapse navbar-collapse " id="navbarSupportedContent">
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-
-                            {
-                                currentUser && currentUser.userType === "buyer_seller" &&
-                                <li className="nav-item">
-                                    <button type="button" className="btn btn-outline-primary rounded-pill mt-2" onClick={handleAddItem}>Add Item</button>
-                                </li>
-                            }  
-
-                            {
-                                currentUser && currentUser.userType === "Admin" &&
-                                <li className="nav-item">
-                                    <button type="button" className="btn btn-outline-primary rounded-pill mt-2">Manage Users</button>
-                                </li>
-                            }  
-
 
                             <li className="nav-item">     
                                 {
@@ -123,8 +134,8 @@ const Header = () => {
                                     </button>
 
                                     <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <li><Link to="profile" className="dropdown-item">Profile</Link></li>
-                                        <li><Link to="/additem" className="dropdown-item">Become Leaser</Link></li>
+                                        <li><Link to="profile" className="dropdown-item" onClick={handleProfile}>Profile</Link></li>
+                                        <li><Link to="/additem" className="dropdown-item" onClick={handleAddItem}>Become Leaser</Link></li>
                                         <li><hr className="dropdown-divider"/></li>
 
                                         <li><Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link></li>
@@ -143,8 +154,8 @@ const Header = () => {
                                     </button>
 
                                     <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <li><Link to="profile" className="dropdown-item">Profile</Link></li>
-                                        <li><Link to="/additem" className="dropdown-item">Add Item</Link></li>
+                                        <li><Link to="profile" className="dropdown-item" onClick={handleProfile}>Profile</Link></li>
+                                        <li><Link to="/additem" className="dropdown-item" onClick={handleAddItem}>Add Item</Link></li>
                                         <li><hr className="dropdown-divider"/></li>
 
                                         <li><Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link></li>
@@ -163,7 +174,7 @@ const Header = () => {
 
                                     <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <li><Link to="profile" className="dropdown-item">Profile</Link></li>
-                                        <li><Link to="/" className="dropdown-item" >Manage Users</Link></li>
+                                        {/* <li><Link to="/" className="dropdown-item" >Manage Users</Link></li> */}
                                         <li><hr className="dropdown-divider"/></li>
                                         <li><Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link></li>
                                         {/* <li><hr className="dropdown-divider"/></li>

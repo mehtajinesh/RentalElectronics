@@ -1,7 +1,8 @@
 import axios from "axios";
-const USER_API = 'http://localhost:4000/api/users';
+const USER_API = 'http://localhost:4000/api/users'
+// const USER_API = process.env.LOCAL_DB_API + '/users';
 
-export const findAllUsers = async (dispatch) => {
+export const findAllUsers = async () => {
     const response = await axios.get(USER_API);
     const users = response.data;
     return users;

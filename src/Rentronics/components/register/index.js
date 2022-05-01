@@ -534,7 +534,7 @@ const Register = () => {
                                     onChange={(e) => setState(e.target.value)}
                                     onBlur={checkState}
                                     required>
-                                    <option value="">N/A</option>
+                                    <option value="" selected>N/A</option>
                                     <option value="AK">Alaska</option>
                                     <option value="AL">Alabama</option>
                                     <option value="AR">Arkansas</option>

@@ -1,6 +1,7 @@
 import axios from "axios"
-const API = 'https://api.bestbuy.com/v1/products';
 
+const API = 'https://api.bestbuy.com/v1/products';
+const API_KEY = 'qhqws47nyvgze2mq3qx4jadt';
 
 export const searchProduct = async (search_terms) => {
     let search_query = createSearchQuery(search_terms);
@@ -31,7 +32,7 @@ const createSearchQuery = (search_terms) => {
     
     search_query += 'search=' + splitTerms[i] + ")";
     search_query += '&manufacturer=' + search_terms.brand;
-    search_query += "&type=HardGood)?apiKey=qhqws47nyvgze2mq3qx4jadt&show=details.value,image,name,sku&format=json"
+    search_query += "&type=HardGood)?apiKey="+ API_KEY +"&show=details.value,image,name,sku&format=json"
     
     return search_query;
 }
