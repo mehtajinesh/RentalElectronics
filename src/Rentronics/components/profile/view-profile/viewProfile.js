@@ -1,7 +1,7 @@
 import "./profile.css";
 import { useEffect, useState } from 'react'
 import Reviews from "../review";
-import {Link, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 import * as authService from "../../services/auth-service"
 import * as service from "../../services/user-service"
 import * as profileService from "../../services/profile-service"
@@ -10,7 +10,6 @@ import Wishlist from "../wishlist";
 import Orders from "../review/orders";
 
 const ViewProfile = () => {
-  const {uid} = useParams();
   const [user, setUser] = useState();
   const [active, setActive] = useState("rentals");
   const [orders, setOrders] = useState([]);

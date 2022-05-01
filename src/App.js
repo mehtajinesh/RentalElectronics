@@ -17,6 +17,8 @@ import ViewItem from "./Rentronics/components/view-item";
 import Cart from "./Rentronics/components/cart";
 // import OrderSummary from "./Rentronics/components/order-summary";
 import SearchResults from "./Rentronics/components/search-results";
+import ViewPublicProfile
+  from "./Rentronics/components/profile/view-profile/view-public-profile";
 
 function App() {
   return (
@@ -30,6 +32,7 @@ function App() {
             <Route path='additem' exact={true} element={<AddItem/>}/>
             <Route path='edititem/:id' exact={true} element={<EditItem/>}/>
             <Route path="profile" exact={true} element={<ViewProfile/>}/>
+            <Route path="profile/:uid" exact={true} element={<ViewPublicProfile/>}/>
             <Route path="editProfile" exact={true} element={<EditProfile/>}/>
             <Route path="viewItem/:id" exact={true} element={<ViewItem/>}/>
             <Route path="searchResults" exact={true} element={<SearchResults/>}/>
