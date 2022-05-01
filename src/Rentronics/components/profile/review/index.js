@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 
 const Reviews = ({review}) => {
 
-  const date = (review.reviewID.reviewDate.toString().substring(4,7)+", "+review.reviewID.reviewDate.toString().substring(11,16));
+  const date = (review.reviewID.reviewDate.toString().substring(0,10));
 
   return(
       <>

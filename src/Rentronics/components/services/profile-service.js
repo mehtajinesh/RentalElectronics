@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const USER_API = 'http://localhost:4000/api/users';
+export const api = axios.create({withCredentials: true});
 
 export const findAllRentalsByUser = async (uid) => {
   const response = await axios.get(`${USER_API}/${uid}/rentals`);
@@ -19,5 +20,15 @@ export const findWishlistByUser = async (uid) => {
 
 export const findReviewsByUser = async (uid) => {
   const response = await axios.get(`${USER_API}/${uid}/reviews`);
+  return response.data;
+};
+
+export const createReviewByUser = async (uid, pid, description, date, rating) => {
+  const reviewParams = {
+    reviewDescription: description,
+    reviewDate: date,
+    reviewRating: rating
+  };
+  const response = await axios.post(`${USER_API}/${uid}/products/${pid}/reviews`, reviewParams);
   return response.data;
 };

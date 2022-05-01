@@ -1,8 +1,7 @@
 import "./profile.css";
 import { useEffect, useState } from 'react'
 import Reviews from "../review";
-import {Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import * as authService from "../../services/auth-service"
 import * as service from "../../services/user-service"
 import * as profileService from "../../services/profile-service"
@@ -11,35 +10,55 @@ import Wishlist from "../wishlist";
 import Orders from "../review/orders";
 
 const ViewProfile = () => {
+  const {uid} = useParams();
   const [user, setUser] = useState();
   const [active, setActive] = useState("rentals");
   const [orders, setOrders] = useState([]);
   const [listings, setListings] = useState([]);
   const [wishlists, setWishlists] = useState([]);
   const [reviews, setReviews] = useState([]);
-  const navigate = useNavigate();
+  let userID;
 
   const getProfile = async () => {
     try {
       const profile = await authService.profile();
-      const userData = await service.findUserById(profile._id);
-      const orders = await profileService.findAllRentalsByUser(profile._id);
-      const listings = await profileService.findAllListingsByUser(profile._id);
-      const wishlist = await profileService.findWishlistByUser(profile._id);
-      const reviews = await profileService.findReviewsByUser(profile._id);
 
+      if(uid) {
+        userID = uid;
+      }
+      else {
+        userID = profile._id;
+      }
+
+      const userData = await service.findUserById(userID);
       setUser(userData);
-      setOrders(orders);
+      await profileService.findAllRentalsByUser(userID).then(async (orders) => {
+        orders.sort((order1, order2) =>
+            new Date(order2.orderID.orderDate).getTime() -
+            new Date(order1.orderID.orderDate).getTime());
+        setOrders(orders);
+      });
+
+      await profileService.findReviewsByUser(userID).then(async (reviews) => {
+        reviews.sort((review1, review2) =>
+            new Date(review2.reviewID.reviewDate).getTime() -
+            new Date(review1.reviewID.reviewDate).getTime());
+        setReviews(reviews);
+      });
+
+      const listings = await profileService.findAllListingsByUser(userID);
+      const wishlist = await profileService.findWishlistByUser(userID);
+
       setListings(listings);
       setWishlists(wishlist);
-      setReviews(reviews);
+
 
     } catch (e) {
       console.log(e);
     }
   }
 
-  useEffect(() => {getProfile()}, []);
+  useEffect(() => {getProfile()}, [reviews, orders, listings, wishlists]);
 
   return(
       <>
@@ -66,11 +85,11 @@ const ViewProfile = () => {
                     <div className="private-data">
                       <i className="mt-3 fas fa-map-marker-alt"/>
                       <span
-                          className="ms-2 text-body">{user.address.line1},
-                        <span className={`${user.address.line2 ? `d-block` : `d-none`}`}>{user.address.line2},</span> {user.address.city}, {user.address.state}, {user.address.zipcode}</span>
+                          className={`ms-2 text-body ${uid ? `d-none` : ``}`}>{user.address.line1},
+                        <span className={`${uid ? `d-none` : ``} ${user.address.line2 ? `d-block` : `d-none`}`}>{user.address.line2},</span> {user.address.city}, {user.address.state}, {user.address.zipcode}</span>
                       <br/>
                       <i className="mt-3 fas fa-mobile-alt"/>
-                      <span className="ms-2 text-body">{user.phoneNumber}</span>
+                      <span className={`${uid ? `d-none` : ``} ms-2 text-body`}>{user.phoneNumber}</span>
                       <br/>
                       <i className="mt-3 fas fa-envelope"/>
                       <span className="ms-2 text-body">{user.email}</span>
@@ -108,17 +127,17 @@ const ViewProfile = () => {
                       <li className={`nav-item ${user.userType === 'buyer' ? 'd-none' : 'd-block'}`}
                           onClick={() => setActive("listed_items")}>
                         <a className={`nav-link ${active === "listed_items"
-                        && `active`}`} href="#">Listed Items</a>
+                        && `active`}`} >Listed Items</a>
                       </li>
                       <li className="nav-item"
                           onClick={() => setActive("wishlist")}>
                         <a className={`nav-link ${active === "wishlist"
-                        && `active`}`} href="#">Wishlist</a>
+                        && `active`}`}>Wishlist</a>
                       </li>
                       <li className="nav-item"
                           onClick={() => setActive("reviews")}>
                         <a className={`nav-link ${active === "reviews"
-                        && `active`}`} href="#">Reviews</a>
+                        && `active`}`}>Reviews</a>
                       </li>
                     </ul>
                   </div>
@@ -128,7 +147,7 @@ const ViewProfile = () => {
                       : `d-none`}`}>
                     <h5>My Recent Rentals</h5>
                     {orders.map((order) => (
-                        <Orders order={order} key={order._id}/>
+                        <Orders userID={userID} order={order} key={order._id}/>
                     ))}
                   </div>
 

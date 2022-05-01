@@ -1,12 +1,28 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
+import * as profileService from "../../services/profile-service"
 
-const RecentRentals = ({rental, date}) => {
-  const [review, setReview] = useState(null);
+const RecentRentals = ({rental, date, userID}) => {
+  const [description, setDescription] = useState(null);
   const [reviewForm, setReviewForm] = useState(null);
+  const [rating, setRating] = useState(0);
+  const [hover, setHover] = useState(0);
 
   const rentalItem = rental;
   const rentalDate = date;
+  const reviewDate = Date.now();
+  const ratingGiven = rating;
+  const descriptionByUser = description;
+
+  const rate = async () => {
+    console.log(userID)
+    console.log(typeof userID);
+    await profileService.createReviewByUser(userID, rentalItem._id, descriptionByUser, reviewDate, ratingGiven);
+    setDescription("");
+    setRating(0);
+    setHover(0);
+    setReviewForm(null);
+  }
 
   return(
       <>
@@ -39,17 +55,27 @@ const RecentRentals = ({rental, date}) => {
 
 
           <div className={`mt-4 ${reviewForm ? "d-block" : "d-none"}`}>
-            <div className="ps-3">
-              <i className="fas fa-star"/>
-              <i className="fas fa-star"/>
-              <i className="fas fa-star"/>
-              <i className="fas fa-star"/>
-              <i className="fas fa-star"/>
+            <div className="ps-3 star-rating">
+              {[...Array(5)].map((star, index) => {
+                index += 1;
+                return (
+                    <button
+                        type="button"
+                        key={index}
+                        className={`button-star ${index <= (hover || rating) ? `on` : `off`}`}
+                        onClick={() => setRating(index)}
+                        onMouseEnter={() => setHover(index)}
+                        onMouseLeave={() => setHover(rating)}
+                    >
+                      <span className="star">&#9733;</span>
+                    </button>
+                );
+              })}
             </div>
             <div className="ps-3 pe-3 mt-2">
-            <textarea placeholder="Please leave review" className="w-100 border" value={review}
-                      onChange={(event) => setReview(event.target.value)}/>
-            <div className="btn btn-outline-primary rounded-pill float-end mt-1 mb-2 me-2">Add review</div>
+            <textarea placeholder="Please leave review" className="w-100 border" value={description}
+                      onChange={(event) => setDescription(event.target.value)}/>
+            <div className="btn btn-outline-primary rounded-pill float-end mt-1 mb-2 me-2" onClick={rate}>Add review</div>
             </div>
 
           </div>

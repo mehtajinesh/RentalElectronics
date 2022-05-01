@@ -16,7 +16,7 @@ const Header = () => {
     const getProfile = async () => {
         try {
             const profile = await authService.profile();
-            console.log(profile);
+            //console.log(profile);
             setCurrentUser(profile);
 
         } catch (e) {

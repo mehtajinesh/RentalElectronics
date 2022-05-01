@@ -54,3 +54,16 @@ body a {
   color: inherit;
   text-decoration: none;
 }
+
+.button-star {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.on {
+  color: #000;
+}
+.off {
+  color: #ccc;
+}
