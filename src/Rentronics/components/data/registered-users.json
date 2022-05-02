@@ -8,6 +8,7 @@
     "userType": "buyer_seller",
     "DOB": "1970-04-20",
     "phoneNumber": "857-123-345",
+    "profilePicture": "https://12ax7web.s3.amazonaws.com/accounts/1/products/1986199880924/Boba-Stitch_800x800_SEPS-1000x1000.jpg",
     "address": {
       "line1": "123 Boylston St",
       "line2": "Apt 1",
@@ -18,9 +19,7 @@
     "reviews": [],
     "listed_item_ids": [
       "1",
-      "2",
-      "3",
-      "4"
+      "2"
     ],
     "cart": [],
     "wishlist": []
@@ -34,6 +33,7 @@
     "userType": "buyer_seller",
     "DOB": "1972-04-19",
     "phoneNumber": "857-123-345",
+    "profilePicture": "https://12ax7web.s3.amazonaws.com/accounts/1/products/1986199880924/Boba-Stitch_800x800_SEPS-1000x1000.jpg",
     "address": {
       "line1": "1 Boylston St",
       "line2": "10",
@@ -86,6 +86,7 @@
     "userType": "buyer_seller",
     "DOB": "2022-04-20",
     "phoneNumber": "857-123-345",
+    "profilePicture": "https://12ax7web.s3.amazonaws.com/accounts/1/products/1986199880924/Boba-Stitch_800x800_SEPS-1000x1000.jpg",
     "address": {
       "line1": "55 Huntington Ave",
       "line2": "12",
@@ -94,7 +95,10 @@
       "zipcode": "02115"
     },
     "reviews": [],
-    "listed_item": [],
+    "listed_item": [
+      "1",
+      "2"
+    ],
     "cart": [],
     "wishlist": []
   },
@@ -107,6 +111,7 @@
     "userType": "buyer",
     "DOB": "2022-04-20",
     "phoneNumber": "857-123-345",
+    "profilePicture": "https://12ax7web.s3.amazonaws.com/accounts/1/products/1986199880924/Boba-Stitch_800x800_SEPS-1000x1000.jpg",
     "address": {
       "line1": "55 Huntington Ave",
       "line2": "12",

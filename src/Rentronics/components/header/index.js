@@ -1,42 +1,93 @@
-import bootstrap from 'bootstrap'  // this is need for toggle down menu for profile
-
+import bootstrap from 'bootstrap';
+import { useEffect, useState } from 'react'
 import {Link} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
+import * as authService from "../services/auth-service"
 
 const Header = () => {
     let loggedIn = useSelector(state => state.loggedIn);
     let currentUser = useSelector(state => state.currentUser);
+    const [user, setUser] = useState();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleLogout = (event) => {
+    const handleProfile = async () => {
+        navigate('/profile')
+    }
 
-        loggedIn = !loggedIn;
+    const checkIsLoggedIn = async () => {
+        try {
+          const currentUser = await authService.profile();
+          console.log(currentUser);
 
-        dispatch({
+          dispatch({
+              type: 'SET_CURRENT_USER',
+              currentUser
+          })
+
+          setUser(currentUser);
+
+          loggedIn = true;
+          dispatch({
             type:'UPDATE_LOGIN_STATE',
             loggedIn
         });
+    
+        } catch (e) {
+            
+            loggedIn = false;
 
-        //navigate the user to home page
-        navigate('/home');
-    }
-
-    const handleCart = (event) => {
-
-        // TODO: need to update route name for cart
-        if (loggedIn) {
-            navigate('/cart');
+            dispatch({
+              type:'UPDATE_LOGIN_STATE',
+              loggedIn
+          });
         }
-        else{
-            navigate('/login');
-        } 
+    }
+    
+    useEffect(() => {
+        checkIsLoggedIn()}, [loggedIn]);
+
+    const handleLogout = async () => {
+
+        try {
+
+            await authService.logout();
+
+            loggedIn = false;
+    
+            dispatch({
+                type:'UPDATE_LOGIN_STATE',
+                loggedIn
+            });
+    
+            dispatch({
+                type: 'REMOVE_CURRENT_USER',
+            })
+    
+            setUser();
+    
+            navigate('/login')
+        }
+        catch (e) {
+
+        }
 
     }
 
-    const handleAddItem = (event) => {
+    const handleCart = () => {
+        navigate('/cart');
+    }
+
+    const handleAddItem = async () => {
+
+        // if (currentUser.userType === 'buyer') {
+        //     await userService.updateUser(currentUser._id, {userType: 'buyer_seller'});
+        //     setUpdate(true);
+        // }
+
+        const uid = currentUser._id;
         navigate('/additem')
     }
 
@@ -54,23 +105,16 @@ const Header = () => {
                     <div className="collapse navbar-collapse " id="navbarSupportedContent">
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
 
-                            {
-                                loggedIn && currentUser.userType === "buyer_seller" &&
-                                <li className="nav-item">
-                                    <button type="button" className="btn btn-outline-primary rounded-pill mt-2" onClick={handleAddItem}>Add Item</button>
-                                </li>
-                            }  
-
                             <li className="nav-item">     
                                 {
-                                    !loggedIn &&
+                                    !user &&
                                     <button type="button" className="btn rounded-pill" onClick={handleCart}>
                                         <i className="fas fa-shopping-cart"></i> Cart   
                                     </button>
                                 }
                                 {
                                     // I had to do this to match the margins
-                                    loggedIn &&
+                                    user &&
                                     <button type="button" className="btn rounded-pill mt-2" onClick={handleCart}>
                                         <i className="fas fa-shopping-cart"></i> Cart   
                                     </button>
@@ -80,16 +124,17 @@ const Header = () => {
 
 
                             {
-                                !loggedIn &&
+                                !user &&
                                 <li className="nav-item">
                                     <Link to="login">
                                         <button type="button" className="btn btn-outline-primary rounded-pill px-4 mx-1">Login</button>
                                     </Link>
                                 </li>
                             }
+                            
 
                             { 
-                                loggedIn && currentUser.userType === 'buyer' &&
+                                user && user.userType === 'buyer' &&
 
                                 <li className="nav-item dropdown ms-3">
                                     <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-1 border-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -97,17 +142,38 @@ const Header = () => {
                                     </button>
 
                                     <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <li><Link to="profile" className="dropdown-item">Profile</Link></li>
-                                        <li><Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link></li>
+                                        <li><Link to="profile" className="dropdown-item" onClick={handleProfile}>Profile</Link></li>
+                                        <li><Link to="/additem" className="dropdown-item" onClick={handleAddItem}>Become Leaser</Link></li>
                                         <li><hr className="dropdown-divider"/></li>
-                                        <li><Link to="/additem" className="dropdown-item">Become Leaser</Link></li>
+
+                                        <li><Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link></li>
+
                                     </ul>
                                 </li>
                             }
 
 
                             {  
-                                loggedIn && currentUser.userType === 'buyer_seller' &&
+                                user && user.userType === 'buyer_seller' &&
+
+                                <li className="nav-item dropdown ms-3">
+                                    <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-1 border-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i className="fas fa-user-circle fa-2x"></i>
+                                    </button>
+
+                                    <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <li><Link to="profile" className="dropdown-item" onClick={handleProfile}>Profile</Link></li>
+                                        <li><Link to="/additem" className="dropdown-item" onClick={handleAddItem}>Add Item</Link></li>
+                                        <li><hr className="dropdown-divider"/></li>
+
+                                        <li><Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link></li>
+
+                                    </ul>
+                                </li>
+                            }
+                            
+                            {  
+                                user && user.userType === 'admin' &&
 
                                 <li className="nav-item dropdown ms-3">
                                     <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-1 border-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -116,13 +182,16 @@ const Header = () => {
 
                                     <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <li><Link to="profile" className="dropdown-item">Profile</Link></li>
+                                        <li><Link to="admin" className="dropdown-item" >Manage Users</Link></li>
+                                        <li><Link to="/additem" className="dropdown-item" onClick={handleAddItem}>Add Item</Link></li>
+                                        <li><hr className="dropdown-divider"/></li>
                                         <li><Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link></li>
                                         {/* <li><hr className="dropdown-divider"/></li>
                                         <li><Link to="" className="dropdown-item">Something else here</Link></li> */}
                                     </ul>
                                 </li>
                             }
-                                
+                            
 
             
                         </ul>

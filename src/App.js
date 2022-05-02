@@ -12,35 +12,40 @@ import Login from "./Rentronics/components/login";
 import Register from "./Rentronics/components/register";
 import AddItem from "./Rentronics/components/list-item/add-item";
 import EditItem from "./Rentronics/components/list-item/edit-item";
-// import ViewProfile from "./Rentronics/components/view-profile";
-// import EditProfile from "./Rentronics/components/edit-profile";
+import ViewProfile from "./Rentronics/components/profile/view-profile/viewProfile";
+import EditProfile from "./Rentronics/components/profile/edit-profile/editProfile";
 import ViewItem from "./Rentronics/components/view-item";
 import Cart from "./Rentronics/components/cart";
+import Admin from "./Rentronics/components/admin"
 // import OrderSummary from "./Rentronics/components/order-summary";
 import SearchResults from "./Rentronics/components/search-results";
+import ViewPublicProfile
+  from "./Rentronics/components/profile/view-profile/view-public-profile";
 
 function App() {
-    return (
-        <BrowserRouter forceRefresh={true}>
-            <Routes>
-                <Route path="/" element={<Rentronics/>}>
-                    <Route index element={<HomeScreen/>}/>
-                    <Route path="home" exact={true} element={<HomeScreen/>}/>
-                    <Route path="login" exact={true} element={<Login/>}/>
-                    <Route path="register" exact={true} element={<Register/>}/>
-                    <Route path='additem' exact={true} element={<AddItem/>}/>
-                    <Route path='edititem/:productID' exact={true} element={<EditItem/>}/>
-                    {/*<Route path="viewProfile" exact={true} element={<ViewProfile/>}/>*/}
-                    {/*<Route path="editProfile" exact={true} element={<EditProfile/>}/>*/}
-                    <Route path="viewItem/:id" exact={true} element={<ViewItem/>}/>
-                    <Route path="searchResults" exact={true} element={<SearchResults/>}/>
-                    {/*<Route path="orderSummary" exact={true} element={<OrderSummary/>}/>*/}
-                    <Route path="cart" exact={true} element={<Cart/>}/>
-                    {/*<Route path="privacy" exact={true} element={<Privacy/>}/>*/}
-                </Route>
-            </Routes>
-        </BrowserRouter>
-    );
+  return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Rentronics/>}>
+            <Route index element={<HomeScreen/>}/>
+            <Route path="home" exact={true} element={<HomeScreen/>}/>
+            <Route path="login" exact={true} element={<Login />}/>
+            <Route path="register" exact={true} element={<Register/>}/>
+            <Route path='additem' exact={true} element={<AddItem/>}/>
+            <Route path='edititem/:pid' exact={true} element={<EditItem/>}/>
+            <Route path="profile" exact={true} element={<ViewProfile/>}/>
+            <Route path="profile/:uid" exact={true} element={<ViewPublicProfile/>}/>
+            <Route path="editProfile" exact={true} element={<EditProfile/>}/>
+            <Route path="viewItem/:id" exact={true} element={<ViewItem/>}/>
+            <Route path="searchResults" exact={true} element={<SearchResults/>}/>
+            {/*<Route path="orderSummary" exact={true} element={<OrderSummary/>}/>*/}
+            <Route path="cart" exact={true} element={<Cart/>}/>
+            <Route path="admin" exact={true} element={<Admin/>}/>
+            {/*<Route path="privacy" exact={true} element={<Privacy/>}/>*/}
+          </Route>
+        </Routes>
+      </BrowserRouter>
+  );
 }
 
 export default App;

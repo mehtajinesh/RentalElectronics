@@ -1,21 +1,31 @@
-import { useNavigate}  from "react-router-dom";
-import { useState } from "react";
+import { useNavigate }  from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import * as service from '../services/best-buy-api-service.js'
+import * as productService from '../services/product-service.js'
+import * as categoryService from "../services/category-service.js"
+import * as featureService from "../services/features-service.js"
+
+import availableFilters from "../data/available-filters.json"
+import ResultItem from "./result-item.js";
 
 const AddItem = () => {
-  
+  let loggedIn = useSelector(state => state.loggedIn);
   let currentUser = useSelector(state => state.currentUser);
-  let listedProducts = useSelector(state => state.listedProducts);
-  const newId = listedProducts.length + 1;
+  let chosenProduct = useSelector(state => state.chooseProduct);
+  let update = useSelector(state => state.updateReducer);
 
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState('Any');
+  const [categoryId, setCategoryId] = useState();
+  const [categoryBrands, setCategoryBrands] = useState([]);
+
   const [productName, setProductName] = useState('');
   const [brand, setBrand] = useState('');
-  const [modelNumber, setModelNumber] = useState('');
-  const [useRemoteAPI, setRemoteAPI] = useState(false);
-  const [features, setFeatures] = useState('');
-  const [dimensions, setDimensions] = useState('');
-  const [description, setDescription] = useState('');
+  const [productDescription, setProductDescription] = useState('');
+  // const [productImages, setProductImages] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [fetchingAPI, setFetchAPI] = useState(false);
+
   const [condition, setCondition] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -23,58 +33,120 @@ const AddItem = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const CalculateRentDuration = () => {
+  const calculateRentDuration = () => {
     const start = new Date(startDate);
     const end = new Date(endDate);
 
     return (end - start) / (1000 * 3600 * 24);
   }
 
-  const AddItem = () => {
-    let newItem = { 
-      item_id: newId.toString(), 
-      item_title: brand.concat(" ", productName, " ", modelNumber),
-      item_description: description,
-      item_location: currentUser.address,
-      item_post_date: new Date(),
-      item_seller_name: currentUser.firstName,
-      item_price: 3,
-      item_rent_duration: CalculateRentDuration(),
-      item_properties: {
-        category: category,
-        product_name: productName,
-        brand: brand,
-        model_number: modelNumber,
-        useRemoteAPI: useRemoteAPI,
-        features: features,
-        dimensions: dimensions,
-        description: description,
-        condition: condition,
-        start_date: startDate,
-        end_date: endDate
-      },
-      item_seller_profile_url: "https://jineshmehta.com",
-      item_primary_image: "https://shorturl.at/bA023"
+  // TODO: category controller needed
+  const handleCategory = async () => {
+    const categoryData = await categoryService.getCategoryIdByName(category);
+    setCategoryId(categoryData[0]._id)
+    setCategoryBrands(['Apple', 'Samsung', 'Sony', 'LG'])
+  }
+
+  useEffect(() => {
+    
+    if (!loggedIn) 
+      navigate('/login');
+
+    else
+      handleCategory()}, [category]
+    
+    ); 
+  
+
+  const callAPI = async () => {
+    let search_terms = {
+      brand: brand.toLowerCase(),
+      category: category.toLowerCase(),
+      keywords: productName.trim().toLowerCase(),
     }
 
+    setFetchAPI(true);
+    const searchResult = await service.searchProduct(search_terms);
+    setSearchResults(searchResult);
+  }
+
+  const resetChosenProduct = () => {
     dispatch({
-      type: 'ADD_ITEM',
-      newItem
-    });
+      type: 'RESET_PRODUCT',
+    })
+    setBrand('');
+    setProductName('');
+    setSearchResults([])
+  }
 
+  const addItem = async () => {
+    const productImages = chosenProduct.images.map(image => image.href);
+    // console.log(productImages);
 
-    // if (currentUser.userType === 'buyer') {
-    //   let updateUserRole = 'buyer_seller';
+    let newItem = { 
+      productName: productName === '' ? chosenProduct.name : productName,
+      productDescription: productDescription,
+      duration: calculateRentDuration(),
+      location: currentUser.address.city,
+      postDate: new Date(),
+      sellerID: currentUser._id,
+      price: 3,
+      productImages: productImages,
+      totalAvailable: 1,
+      totalSold: 0
+    }
+  
+    try {
+      // return product id
+      console.log(newItem);
+      const insertedItem = await productService.addItem(newItem);
+      const productId = insertedItem._id;
 
-    //   dispatch({
-    //     type: 'UPDATE_USER',
-    //     updateUserRole
-    //   })
-    // }
+      const modelNumber = chosenProduct.modelNumber;
+      const sku = chosenProduct.sku;
 
+      // add start and end duration just for edit now
+      const startDateFeature = await featureService.addFeature({FeatureName: "startDate", FeatureValue: startDate})
+      const endDateFeature = await featureService.addFeature({FeatureName: "endDate", FeatureValue: endDate})
 
-    // TODO: go to product detail page
-    navigate('/product');
+      // create features and get all the feature ids
+      const feature1 = await featureService.addFeature({FeatureName: "modelNumber", FeatureValue: modelNumber})
+      const feature2 = await featureService.addFeature({FeatureName: "sku", FeatureValue: sku})
+      const feature3 = await featureService.addFeature({FeatureName: "condition", FeatureValue: condition});
+
+      const featuresId = await Promise.all(chosenProduct.details.map(async (feature) => {
+        const insertedFeature = await featureService.addFeature({FeatureName: feature.name, FeatureValue: feature.value})
+        return insertedFeature;
+      }));
+
+      featuresId.push(feature1);
+      featuresId.push(feature2);
+      featuresId.push(feature3);
+      featuresId.push(startDateFeature);
+      featuresId.push(endDateFeature);
+
+      // send product and category
+      await categoryService.addProductCategory({productID: productId, categoryID: categoryId})
+
+      // send product and features 
+      const output = await Promise.all(featuresId.map(async (featureID) => {
+        const insertedFeature = await featureService.addProductFeature({productID: productId, featureID: featureID})
+        return insertedFeature;
+      }));
+
+      update = !update;
+      dispatch({
+        type: "UPDATE_PROFILE",
+        update
+      })
+
+      resetChosenProduct();
+      navigate('/profile');
+    }
+    catch (e) {
+
+    }
+
   }
 
   return (
@@ -87,65 +159,126 @@ const AddItem = () => {
   
         <div className="col-sm-9 col-md-9 col-lg-8 col-xl-8 px-5 py-2"> 
   
-        <h3>Add Item</h3>
+        <h3>List Your Item to Rent Out</h3>
         {/* <small className="text-muted">Rent out electronics and make extra cash!</small> */}
   
         <form>
     
-          <label for="category" className="text-muted mb-1">Choose Category</label>
+          <label for="category" className="text-muted mb-1">Step 1 : Seach for Your Product</label>
   
           <div className="form-floating mb-4">
               <select className="form-select" id="floatingSelect" aria-label="Floating label select example" value={category} onChange={(e) => setCategory(e.target.value)} required>
-                <option selected>Open this to select category</option>
-                <option value="laptop">Laptop</option>
-                <option value="display">Display</option>
-                <option value="smart-device">Smart Device</option>
+                <option value="Any" selected>All</option>
+                <option value="Laptops">Laptops</option>
+                <option value="Phones">Phones</option>
+                <option value="Monitors">Monitors</option>
               </select>
               <label for="floatingSelect">Product Category</label>
-          </div>
 
-  
-          <label for="product-detail" className="text-muted mb-1">Product Detail</label>
-  
+              <div className="form-floating mb-2 mt-2">
+                <select className="form-select" id="floatingSelect" aria-label="Floating label select example" value={brand} onChange={(e) => setBrand(e.target.value)} required>
+                  <option selected>Open this to select category</option>
+                  {
+                     categoryBrands.map( brand => { 
+                          return (
+                            <option value={brand}> {brand} </option>
+                          )
+                        }
+                      )
+                  }
+                </select>
+                  <label for="product-detail">Brand</label>
+              </div>
+
               <div className="col form-floating mb-2">
                   <input type="text" className="form-control" id="product-detail" placeholder="Product Name" value={productName} onChange={(e) => setProductName(e.target.value)} required/>
                   <label for="product-detail">Product Name</label>
               </div>
 
-              <div className="col form-floating mb-2">
-                  <input type="text" className="form-control" id="product-detail" placeholder="Brand" value={brand} onChange={(e) => setBrand(e.target.value)} required/>
-                  <label for="product-detail">Brand</label>
+              <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button className="btn btn-primary px-5 py-2" type="button" onClick={callAPI}> Search </button>
               </div>
+
+          </div>
+
+          <div className="search-result">
+          <label for="category" className="text-muted mb-1">Step 2 : Find Your Item from Search Results</label>
+
+            {
+              fetchingAPI && chosenProduct === null &&
+              <>
+                    <br/>
+                    <div className="border rounded bg-light">
+
+                      {
+                        searchResults.length === 0&& 
+                        <div className="mx-5 my-5 text-center">
+                          <h5>There are no matched results :( ... Try another search query!</h5>
+                        </div>
+                      }
+                      {
+                        searchResults.length >= 1 &&
+                        <ResultItem products={searchResults}/>
+                      }
+                    </div>
+              </>
+          }
+            {
+              !fetchingAPI &&
+              <>
+                    <br/>
+                    <div className="border rounded bg-light mb-5">
+                      
+                        <div className="mx-5 my-5 text-center">
+                          <h5> No search results yet..</h5>
+                        </div>
+                  
+                    </div>
+              </>
+          }
+
+          </div>
+          {
+            chosenProduct !== null && 
+            <>  
+            <div className="card shadow-sm mb-4">
+                <div className="row g-0">
+                    <label for="category" className="mb-1 px-4 py-2">Item Selected</label>
+                    <hr></hr>
+                    <div className="col-md-4">
+                    <img src={chosenProduct.image} className="img-fluid rounded-start mx-1 my-2" alt="..."/>
+                </div>
+
+                <div className="col-md-8">
+                    <div className="card-body">    
+                        <h5>{chosenProduct.name}</h5>
+                    </div>
+                    <div className="d-grid gap-2 d-md-flex justify-content-md-end mx-3">
+                      <button className="btn btn-danger px-2 py-2"
+                          type="button" 
+                          onClick={resetChosenProduct}> 
+                          Remove
+                      </button>
+                    </div>
+
+                </div>
+
+                </div>
+            </div> 
+
+            </>
+        }
   
-              <div className="col form-floating mb-3">
-                  <input type="text" className="form-control" id="product-detail" placeholder="Model Number" value={modelNumber} onChange={(e) => setModelNumber(e.target.value)} required/>
-                  <label for="product-detail">Model Number</label>
-              </div>
-  
-              <div className="form-check">
-                <input className="form-check-input" type="checkbox" id="flexCheckChecked" value={useRemoteAPI} onChange={(e) => setRemoteAPI(e.target.value)}/>
-                <small className="form-check-label text-muted" for="flexCheckChecked">
-                  Use Product Detail from Amazon
-                </small>
-              </div>
-  
-              <div className="col form-floating mb-2">
-                <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "5em"}} value={features} onChange={(e) => setFeatures(e.target.value)}></textarea>
-                <label for="product-detail">Features</label>
-              </div>
-  
-              <div className="col form-floating mb-2">
-                <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "5em"}} value={dimensions} onChange={(e) => setDimensions(e.target.value)}></textarea>
-                <label for="product-detail">Dimensions</label>
-              </div>
-  
-              <div className="col form-floating mb-4">
-                <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "10em"}} value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
-                <label for="product-detail">Description</label>
-              </div>
-  
-  
-            <label for="condition" className="text-muted mb-1">Condition</label>
+            <label for="category" className="text-muted mb-2">Step 3 : Lease Details</label>
+            <br></br>
+
+            <label className="text-muted" for="floatingTextarea2">Product Description</label>
+
+            <div className="form-floating">
+              <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{"height": "200px"}} value={productDescription} onChange={(e) => setProductDescription(e.target.value)}></textarea>
+            </div>
+
+            <label for="condition" className="text-muted mb-1 mt-2">Condition</label>
 
             <div className="form-floating mb-4">
               <select className="form-select" id="floatingSelect" aria-label="Floating label select example" value={condition} onChange={(e) => setCondition(e.target.value)}>
@@ -176,16 +309,13 @@ const AddItem = () => {
 
         </div>
 
-          <div className="mb-3">
-            <label for="formFileMultiple" className="form-label text-muted">Upload Product Photos</label>
-            <input className="form-control" type="file" id="formFileMultiple" multiple/>
-          </div>
   
           </form>
+
           
           <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button className="btn btn-secondary me-md-2 px-5 py-2" type="button">Save</button>
-            <button className="btn btn-primary px-5 py-2" type="button" onClick={AddItem}>Post</button>
+            {/* <button className="btn btn-secondary me-md-2 px-5 py-2" type="button">Save</button> */}
+            <button className="btn btn-primary px-5 py-2" type="button" onClick={addItem}>Post</button>
           </div>
   
         </div>

@@ -14,10 +14,15 @@ import productPageReducer from "./components/reducers/product-page-reducer";
 import cartReducer from "./components/reducers/user-cart-reducer";
 import searchResultsReducer from "./components/reducers/search-results-reducer";
 import availableCategoryDataReducer from "./components/reducers/available-category-data-reducer";
+import searchReducer from "./components/reducers/search-reducer";
+import chooseProductReducer from "./components/reducers/choose-product-reducer";
+import updateReducer from "./components/reducers/profile-update-reducer";
 
 const reducer = combineReducers({
     loggedIn: loginReducer, users: userReducer, currentUser: currentUserReducer, listedProducts: listedProducts, activeSearch: activeSearchReducer,
-    homeScreen: homeScreenReducer, loading:LoadingReducer, productDetails:productPageReducer, cartDetails:cartReducer, searchResults:searchResultsReducer, availableCategoryData:availableCategoryDataReducer
+    homeScreen: homeScreenReducer, loading:LoadingReducer, productDetails:productPageReducer, cartDetails:cartReducer, searchResults:searchResultsReducer, availableCategoryData:availableCategoryDataReducer,
+    chooseProduct: chooseProductReducer, updateReducer: updateReducer
+
 });
 
 const store = createStore(reducer,  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

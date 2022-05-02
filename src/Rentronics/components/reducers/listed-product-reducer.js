@@ -3,7 +3,7 @@ import ListedProductItems from '../data/listed-product-items.json'
 const productReducer = (state = ListedProductItems, action) => {
     switch (action.type) {
         case 'ADD_ITEM':
-            return [...state, action.newItem];
+            return [action.newItem, ...state];
         
         case 'EDIT_ITEM':
             const newListedItems = state.map(item => {
