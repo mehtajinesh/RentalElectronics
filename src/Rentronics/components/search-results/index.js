@@ -3,7 +3,7 @@ import FilterItem from "./filter-item";
 import ResultsPage from "./result-page";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {getSearchResults} from "../../actions/search-actions";
+import {GET_SEARCH_RESULTS, getSearchResults} from "../../actions/search-actions";
 
 const SearchResults = () => {
     const dispatch = useDispatch();
@@ -30,7 +30,22 @@ const SearchResults = () => {
                             }}>Apply</button>
                         </div>
                         {
-                            categoryAllFilters.map(filter => <FilterItem filter={filter} checked={activeCategoryFilters.includes(filter)}/>)
+                            categoryAllFilters.map(filter => <FilterItem filter={filter} checked={activeCategoryFilters.includes(filter)} onChange={(event) => {
+                                console.log(event,filter)
+                                if(event.target.checked){
+                                    //add
+                                    dispatch({
+                                        type: 'ADD_FILTER', filter
+                                    });
+                                }
+                                else{
+                                    //remove
+                                    dispatch({
+                                        type: 'REMOVE_FILTER', filter
+                                    });
+                                }
+                            }
+                            }/>)
                         }
                     </div>
                     <div className="col-md-9 rounded">

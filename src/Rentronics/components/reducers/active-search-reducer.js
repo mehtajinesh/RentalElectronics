@@ -16,15 +16,17 @@ const activeSearchReducer = (state = {
                 "searchKeyword": action.searchWord,
             };
         case 'ADD_FILTER':
+            const newFilters = [...state["activeFeatureFilterIDs"], action.filter]
             return {
                 ...state,
-                "activeFeatureFilterIDs": action.searchWord,
-            };
+                "activeFeatureFilterIDs": newFilters
+            }
         case 'REMOVE_FILTER':
+            const updatedFilterIDs = state["activeFeatureFilterIDs"].filter(filterID => filterID !== action.filter)
             return {
                 ...state,
-                "activeFeatureFilterIDs": action.searchWord,
-            };
+                "activeFeatureFilterIDs": updatedFilterIDs
+            }
         default:
             return state;
     }
