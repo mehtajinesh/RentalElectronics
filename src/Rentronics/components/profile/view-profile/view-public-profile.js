@@ -25,13 +25,14 @@ const ViewPublicProfile = () => {
 
   const getPublicProfile = async () => {
     try {
-      const profile = await authService.profile();
-      const loggedInUser = await service.findUserById(profile._id);
+      
+      // const profile = await authService.profile();
+      // const loggedInUser = await service.findUserById(profile._id);
 
-      if(profile._id === uid) {
-        navigate('/profile');
-      }
-      else {
+      // if(profile._id === uid) {
+      //   navigate('/profile');
+      // }
+      // else {
         await service.findUserById(uid).then((userData) => setUser(userData));
 
         await profileService.findReviewsByUser(uid).then(async (reviews) => {
@@ -46,10 +47,10 @@ const ViewPublicProfile = () => {
 
         setListings(listings);
         setWishlists(wishlist);
-      }
+      // }
 
     } catch (e) {
-      console.log(e);
+
     }
   }
 
