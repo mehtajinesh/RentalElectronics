@@ -8,11 +8,14 @@ import {useEffect} from "react";
 
 const HomeScreen = () => {
     const loading = useSelector(state => state.loading);
-    //TODO: update this once you have profile reducer linked
     // const profile = useSelector(state => state.profile);
-    const profile = {"_id": "6268e055edc8db0cc41bf94e"}
+    // const profile = {"_id": "6268e055edc8db0cc41bf94e"}
+    let currentUser = useSelector(state => state.currentUser);
+
+    // const profile = useSelector(state => state.profile);
+    const userID = currentUser && currentUser._id
     const dispatch = useDispatch();
-    const data = profile && {"userID": profile._id}
+    const data = currentUser && {"userID": currentUser._id}
     useEffect(() => {
         getHomePageData(dispatch, data)
     }, []);
@@ -22,7 +25,7 @@ const HomeScreen = () => {
             <div className="mt-4">
                 <TrendingItems loading={loading}/>
                 <PopularReviews loading={loading}/>
-                {profile && <RecentItems loading={loading}/>}
+                {currentUser && <RecentItems loading={loading}/>}
             </div>
         </div>
     );

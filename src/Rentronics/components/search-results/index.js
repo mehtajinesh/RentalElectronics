@@ -13,7 +13,7 @@ const SearchResults = () => {
     const activeCategoryFilters = data && data["activeFeatureFilterIDs"]
     const categoryAllFilters = categoryFilters && categoryFilters[data["category"]]
     console.log(categoryAllFilters)
-    console.log(categoryFilters)
+    console.log(activeCategoryFilters)
     useEffect(() => {
         getSearchResults(dispatch, data)
     }, []);
@@ -26,7 +26,8 @@ const SearchResults = () => {
                         <div className=" d-flex mb-2">
                             <i className="fas fa-filter my-auto"/>
                             <div className="fs-5 my-auto ms-2">Filters</div>
-                            <button className="btn btn-outline-secondary ms-auto">Apply</button>
+                            <button className="btn btn-outline-secondary ms-auto" onClick={() => {getSearchResults(dispatch, data)
+                            }}>Apply</button>
                         </div>
                         {
                             categoryAllFilters.map(filter => <FilterItem filter={filter} checked={activeCategoryFilters.includes(filter)}/>)

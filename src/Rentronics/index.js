@@ -14,7 +14,7 @@ import productPageReducer from "./components/reducers/product-page-reducer";
 import cartReducer from "./components/reducers/user-cart-reducer";
 import searchResultsReducer from "./components/reducers/search-results-reducer";
 import availableCategoryDataReducer from "./components/reducers/available-category-data-reducer";
-import searchReducer from "./components/reducers/search-reducer";
+// import searchReducer from "./components/reducers/search-reducer";
 import chooseProductReducer from "./components/reducers/choose-product-reducer";
 import updateReducer from "./components/reducers/profile-update-reducer";
 

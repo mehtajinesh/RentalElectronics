@@ -3,9 +3,13 @@ import {addProductToCart} from "../../actions/view-item-actions";
 import {useNavigate} from "react-router-dom";
 
 const ResultsPage = ({items}) => {
-    const profile = useSelector(state => state.profile);
-    //TODO: Update profile ID fetching
-    const userID = profile && profile.userID
+    let currentUser = useSelector(state => state.currentUser);
+
+    // const profile = useSelector(state => state.profile);
+    const userID = currentUser && currentUser._id
+    // const profile = useSelector(state => state.profile);
+    // //TODO: Update profile ID fetching
+    // const userID = profile && profile.userID
     const navigate =useNavigate()
     const handleAddToCart = ({item}) => {
         if (userID) {

@@ -7,7 +7,7 @@ const ListedItems = ({listing}) => {
   return(
       <>
         <div className="ri_border border w-100 h-100 ms-0">
-          <Link to={`/products/${listing._id}/view`} className="text-decoration-none row">
+          <Link to={`/viewItem/${listing._id}`} className="text-decoration-none row">
           <div className="row">
             <div className="col-2 mt-3 mb-3 ps-4">
               <img className="pr-ri-pic rounded" alt="" src={listing.productImages[0]}/>

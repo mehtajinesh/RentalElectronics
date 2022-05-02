@@ -16,9 +16,14 @@ const ViewItem = () => {
     // put loading on
     //fetch product details from backend based on productID
     // get userID from profile in state
-    const profile = useSelector(state => state.profile);
-    //TODO: Update profile ID fetching
-    const userID = profile && profile.userID
+    let currentUser = useSelector(state => state.currentUser);
+
+    // const profile = useSelector(state => state.profile);
+    const userID = currentUser && currentUser._id
+
+    // const profile = useSelector(state => state.profile);
+    // //TODO: Update profile ID fetching
+    // const userID = profile && profile.userID
     const userIDProductID = {"userID":userID, "productID":id}
     useEffect(() => {
         const productIDData = {"productID": id}

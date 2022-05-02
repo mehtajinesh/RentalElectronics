@@ -12,7 +12,7 @@ const RecentRentals = ({rental, date, userID}) => {
   const [hover, setHover] = useState(0);
 
   const rentalItem = rental;
-  const rentalDate = date;
+  const rentalDate = new Date(date).toDateString();
   const reviewDate = Date.now();
   const ratingGiven = rating;
   const descriptionByUser = description;
@@ -37,7 +37,7 @@ const RecentRentals = ({rental, date, userID}) => {
       <>
         <div className="ri_border border w-100 h-100 ms-0">
 
-            <Link to={`/products/${rentalItem._id}/view`} className="text-decoration-none row">
+            <Link to={`/viewItem/${rentalItem._id}`} className="text-decoration-none row">
               <div className="row">
 
             <div className="col-2 mt-3 ps-4">

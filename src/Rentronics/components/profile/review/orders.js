@@ -2,7 +2,9 @@
 import RecentRentals from "../recent-rentals";
 
 const Orders = ({order, userID}) => {
-  const date = (order.orderID.orderDate.toString().substring(4,7)+", "+order.orderID.orderDate.toString().substring(11,16));
+
+
+  const date = order.orderID.orderDate;
   const rentals = order.orderID.productID;
   const uid = userID;
 

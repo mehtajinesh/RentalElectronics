@@ -2,7 +2,7 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {getCategoryFeaturesIDs} from "../../actions/search-actions";
+import {getCategoryFeaturesIDs, getSearchResults} from "../../actions/search-actions";
 
 const SearchBox = () => {
     const [newSearchValue, updateNewSearchValue] = useState("");
@@ -46,7 +46,10 @@ const SearchBox = () => {
             </ul>
             <input type="text" placeholder="Search Products" className="shadow-none form-control"
                    aria-label="Search input with category dropdown" defaultValue={activeSearch['searchKeyword']} onChange={onSearchValueChange}/>
-            <button className="btn btn-primary rounded ms-2" onClick={() => {navigate('/searchResults')}}> Search</button>
+            <button className="btn btn-primary rounded ms-2" onClick={() => {
+                getSearchResults(dispatch, activeSearch)
+                navigate('/searchResults')
+            }}> Search</button>
         </div>
     );
 };

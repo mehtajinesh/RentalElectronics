@@ -2,7 +2,11 @@ import {Link} from "react-router-dom";
 
 const Reviews = ({review}) => {
 
-  const date = (review.reviewID.reviewDate.toString().substring(0,10));
+  const date =  new Date(review.reviewID.reviewDate).toDateString();
+  console.log(date);
+
+  // const mydate = new Date(date);
+  // console.log(mydate.toDateString());
 
   return(
       <>
@@ -17,14 +21,14 @@ const Reviews = ({review}) => {
                 <span className={`fas fa-star ${review.reviewID.reviewRating < 4 ? `d-none`: ``}`}/>
                 <span className={`fas fa-star ${review.reviewID.reviewRating < 5 ? `d-none`: ``}`}/>
               </div>
-              <Link to={`/products/${review.productID._id}/view`} className="text-decoration-none row">
+              <Link to={`/viewItem/${review.productID._id}`} className="text-decoration-none row">
               <h6 className="mb-0 mt-2">{review.productID.productName}</h6>
               <div className="text-secondary">{date}</div>
               </Link>
             </div>
 
             <div className="col-2 col-xl-2 col-lg-2 col-md-3 col-sm-4">
-              <Link to={`/products/${review.productID._id}/view`} className="text-decoration-none row">
+              <Link to={`/viewItem/${review.productID._id}`} className="text-decoration-none row">
               <div className="align-self-center">
                 <img className="pr-rental-pic rounded me-2" alt="" src={review.productID.productImages[0]}/>
               </div>
