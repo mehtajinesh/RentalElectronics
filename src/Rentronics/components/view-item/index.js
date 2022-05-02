@@ -14,7 +14,6 @@ const ViewItem = () => {
     const dispatch = useDispatch();
     const {id} = useParams()
     // put loading on
-    const loadingState = true
     //fetch product details from backend based on productID
     // get userID from profile in state
     const profile = useSelector(state => state.profile);

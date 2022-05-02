@@ -21,7 +21,7 @@ import SearchResults from "./Rentronics/components/search-results";
 
 function App() {
     return (
-        <BrowserRouter>
+        <BrowserRouter forceRefresh={true}>
             <Routes>
                 <Route path="/" element={<Rentronics/>}>
                     <Route index element={<HomeScreen/>}/>

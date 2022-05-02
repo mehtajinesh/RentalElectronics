@@ -1,33 +1,39 @@
 import SearchBox from "../search-box";
-import availableFilters from "../data/available-filters.json"
 import FilterItem from "./filter-item";
 import ResultsPage from "./result-page";
-import {useLocation} from "react-router-dom";
-import AvailableItems from './../data/available-items.json'
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {getSearchResults} from "../../actions/search-actions";
 
 const SearchResults = () => {
-    const location = useLocation()
-    const currCategory = location.state.selectedCategory
-    // const results = location.state.searchItems
-    let categoryFilters = availableFilters[currCategory];
+    const dispatch = useDispatch();
+    const data = useSelector(state => state.activeSearch);
+    const searchResults = useSelector(state => state.searchResults);
+    const categoryFilters = useSelector(state => state.availableCategoryData);
+    const activeCategoryFilters = data && data["activeFeatureFilterIDs"]
+    const categoryAllFilters = categoryFilters && categoryFilters[data["category"]]
+    console.log(categoryAllFilters)
+    console.log(categoryFilters)
+    useEffect(() => {
+        getSearchResults(dispatch, data)
+    }, []);
     return (
         <div>
             <SearchBox/>
-            <div className="container-fluid">
+            <div className="container-fluid p-3">
                 <div className="row pt-4">
                     <div className="col-md-3 rounded">
                         <div className=" d-flex mb-2">
                             <i className="fas fa-filter my-auto"/>
                             <div className="fs-5 my-auto ms-2">Filters</div>
                             <button className="btn btn-outline-secondary ms-auto">Apply</button>
-                            <button className="btn btn-outline-secondary ms-2">Reset</button>
                         </div>
                         {
-                            categoryFilters.map(filter => <FilterItem filter={filter}/>)
+                            categoryAllFilters.map(filter => <FilterItem filter={filter} checked={activeCategoryFilters.includes(filter)}/>)
                         }
                     </div>
                     <div className="col-md-9 rounded">
-                        <ResultsPage items={AvailableItems}/>
+                        <ResultsPage items={searchResults}/>
                     </div>
                 </div>
             </div>

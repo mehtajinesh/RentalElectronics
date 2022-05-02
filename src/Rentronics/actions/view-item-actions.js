@@ -1,5 +1,4 @@
 import * as service from "../services/view-item-services";
-import {addProductToRecentItems} from "../services/view-item-services";
 
 export const GET_ITEM_DATA = 'FETCH_ITEM_DATA';
 
