@@ -199,9 +199,14 @@ const ViewItem = () => {
                         </div>
                         <ul className="list-group pt-2">
                             <li className="list-group-item bg-light">
+                            <span onClick={() => {
+                                                        navigate(`/profile/${item["productDetails"]["sellerID"]["_id"]}`);
+                                                    }}>
+
                                 <a href={item["productDetails"]["sellerID"]["_id"]}>
                                     {item["productDetails"]["sellerID"]["email"]}
                                 </a>
+                                </span>
                             </li>
                         </ul>
                     </div>

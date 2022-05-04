@@ -27,10 +27,10 @@ const ViewPublicProfile = () => {
 
   const getPublicProfile = async () => {
     try {
-      if (currentUser._id === uid) {
-        navigate('/profile')
-      }
-      else {
+      // if (currentUser._id === uid) {
+      //   navigate('/profile')
+      // }
+      // else {
         await service.findUserById(uid).then((userData) => setUser(userData));
 
         await profileService.findReviewsByUser(uid).then(async (reviews) => {
@@ -48,7 +48,7 @@ const ViewPublicProfile = () => {
 
         setWishlists(wishlist);
 
-    }
+    // }
     }
     catch (e) {
 
