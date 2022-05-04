@@ -23,6 +23,11 @@ export const findReviewsByUser = async (uid) => {
   return response.data;
 };
 
+export const findReviewsBySeller = async (uid) => {
+  const response = await axios.get(`${USER_API}/${uid}/products/reviews`);
+  return response.data;
+};
+
 export const createReviewByUser = async (uid, pid, description, date, rating) => {
   const reviewParams = {
     reviewDescription: description,

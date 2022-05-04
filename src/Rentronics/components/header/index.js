@@ -154,7 +154,7 @@ const Header = () => {
 
 
                             {  
-                                user && user.userType === 'buyer_seller' &&
+                                user && user.userType === 'seller' &&
 
                                 <li className="nav-item dropdown ms-3">
                                     <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-1 border-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
