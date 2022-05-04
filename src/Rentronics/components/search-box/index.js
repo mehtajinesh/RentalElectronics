@@ -8,6 +8,7 @@ const SearchBox = () => {
     const [newSearchValue, updateNewSearchValue] = useState("");
     const activeSearch = useSelector(state => state.activeSearch);
     const availableCategoryData = useSelector(state => state.availableCategoryData);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     useEffect(() => {
@@ -48,7 +49,10 @@ const SearchBox = () => {
                    aria-label="Search input with category dropdown" defaultValue={activeSearch['searchKeyword']} onChange={onSearchValueChange}/>
             <button className="btn btn-primary rounded ms-2" onClick={() => {
                 getSearchResults(dispatch, activeSearch)
-                navigate('/searchResults')
+                navigate({
+                    pathname: '/searchResults',
+                    search: `searchKeyword=${activeSearch && activeSearch['searchKeyword']}&category=${activeSearch && activeSearch['category']}`,
+                })
             }}> Search</button>
         </div>
     );
