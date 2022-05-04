@@ -2,55 +2,56 @@ import "./profile.css";
 import { useEffect, useState } from 'react'
 import Reviews from "../review";
 import {Link, useNavigate} from "react-router-dom";
-import * as authService from "../../services/auth-service"
-import * as service from "../../services/user-service"
 import * as profileService from "../../services/profile-service"
-import ListedItems from "../listed-items";
 import Wishlist from "../wishlist";
 import Orders from "../review/orders";
 import {useSelector, useDispatch} from "react-redux";
+import ReviewList from "../review/reviewList";
 
 const ViewProfile = () => {
   const navigate = useNavigate();
 
   let update_profile = useSelector(state => state.updateReducer);
   let loggedIn = useSelector(state => state.loggedIn);
+  let currentUser = useSelector(state => state.currentUser);
 
   const [user, setUser] = useState();
-  const [active, setActive] = useState("rentals");
+  const [active, setActive] = useState("");
   const [orders, setOrders] = useState([]);
-  const [listings, setListings] = useState([]);
+  const [sellerReviews, setSellerReviews] = useState([]);
   const [wishlists, setWishlists] = useState([]);
   const [reviews, setReviews] = useState([]);
 
 
   const getProfile = async () => {
     try {
-      const profile = await authService.profile();
-      const userData = await service.findUserById(profile._id);
+      const userId = currentUser._id;
+      currentUser.userType === "buyer" ? setActive("rentals") : setActive("listed_items");
 
-      await profileService.findAllRentalsByUser(profile._id).then(async (orders) => {
+      await profileService.findAllRentalsByUser(userId).then(async (orders) => {
         orders.sort((order1, order2) =>
             new Date(order2.orderID.orderDate).getTime() -
             new Date(order1.orderID.orderDate).getTime());
         setOrders(orders);
       });
 
-      await profileService.findReviewsByUser(profile._id).then(async (reviews) => {
+      await profileService.findReviewsBySeller(userId).then(async (reviews) => {
+        setSellerReviews(reviews);
+      });
+
+      await profileService.findReviewsByUser(userId).then(async (reviews) => {
         reviews.sort((review1, review2) =>
             new Date(review2.reviewID.reviewDate).getTime() -
             new Date(review1.reviewID.reviewDate).getTime());
         setReviews(reviews);
       });
 
-      // const listings = await profileService.findAllListingsByUser(profile._id);
-          
-      const wishlist = await profileService.findWishlistByUser(profile._id);
+      const listings = await profileService.findAllListingsByUser(userId);
+      const wishlist = await profileService.findWishlistByUser(userId);
 
-      setUser(userData);
-      setListings(listings);
+
+      setUser(currentUser);
       setWishlists(wishlist);
-
 
     } catch (e) {
       console.log(e);
@@ -125,22 +126,18 @@ const ViewProfile = () => {
 
                   <div>
                     <ul className="nav nav-tabs nav-fill">
-                      <li className="nav-item"
+                      <li className={`nav-item ${user.userType === "buyer" ? 'd-block': 'd-none'}`}
                           onClick={() => setActive("rentals")}>
                         <a className={`nav-link ${active === "rentals"
                         && `active`}`} aria-current="page">Last rentals</a>
                       </li>
-                      {/* <li className={`nav-item ${user.userType === 'buyer' ? 'd-none' : 'd-block'}`}
-                          onClick={() => setActive("listed_items")}>
-                        <a className={`nav-link ${active === "listed_items"
-                        && `active`}`} >Listed Items</a>
-                      </li> */}
-                      <li className="nav-item"
+
+                      <li className={`nav-item ${user.userType === "buyer" ? 'd-block': 'd-none'}`}
                           onClick={() => setActive("wishlist")}>
                         <a className={`nav-link ${active === "wishlist"
                         && `active`}`}>Wishlist</a>
                       </li>
-                      <li className="nav-item"
+                      <li className={`nav-item ${user.userType === "buyer" ? 'd-block': 'd-none'}`}
                           onClick={() => setActive("reviews")}>
                         <a className={`nav-link ${active === "reviews"
                         && `active`}`}>Reviews</a>
@@ -157,12 +154,12 @@ const ViewProfile = () => {
                     ))}
                   </div>
 
-                  {/* <div className={`mt-4 ${active === "listed_items" ? `d-block`
-                      : `d-none`}`}>
-                    <h5>My Listed Items</h5>
-                    {listings.map((listing) =>
-                        <ListedItems listing={listing} key={listing._id}/>)}
-                  </div> */}
+
+                    <h5 className={`mt-3 ${user.userType === "seller" ? 'd-block': 'd-none'}`}>Reviews</h5>
+                  {sellerReviews.map((review) => (
+                      <ReviewList reviewList={review} key={review._id}/>
+                  ))}
+
 
                   <div className={`mt-4 ${active === "wishlist" ? `d-block`
                       : `d-none`}`}>

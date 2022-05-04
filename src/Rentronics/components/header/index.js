@@ -190,6 +190,7 @@ const Header = () => {
 
 
                             {  
+
                                 currentUser && currentUser.userType === 'seller' && 
 
                                 <li className="nav-item dropdown ms-3">

@@ -1,38 +1,36 @@
 import "./profile.css";
 import { useEffect, useState } from 'react'
 import Reviews from "../review";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import * as service from "../../services/user-service"
 import * as profileService from "../../services/profile-service"
 import ListedItems from "../listed-items";
 import Wishlist from "../wishlist";
 import * as authService from "../../services/auth-service";
 import {useSelector, useDispatch} from "react-redux";
+import Orders from "../review/orders";
+import ReviewList from "../review/reviewList";
 
 const ViewPublicProfile = () => {
   const {uid} = useParams();
 
   let update_profile = useSelector(state => state.updateReducer);
+  let loggedIn = useSelector(state => state.loggedIn);
+  let currentUser = useSelector(state => state.currentUser);
 
-  console.log("UID");
-  console.log(uid);
   const [user, setUser] = useState();
   const [active, setActive] = useState("wishlist");
-  const [listings, setListings] = useState([]);
   const [wishlists, setWishlists] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [sellerReviews, setSellerReviews] = useState([]);
   const navigate = useNavigate();
 
   const getPublicProfile = async () => {
     try {
-      
-      // const profile = await authService.profile();
-      // const loggedInUser = await service.findUserById(profile._id);
-
-      // if(profile._id === uid) {
-      //   navigate('/profile');
-      // }
-      // else {
+      if (currentUser._id === uid) {
+        navigate('/profile')
+      }
+      else {
         await service.findUserById(uid).then((userData) => setUser(userData));
 
         await profileService.findReviewsByUser(uid).then(async (reviews) => {
@@ -42,14 +40,17 @@ const ViewPublicProfile = () => {
           setReviews(reviews);
         });
 
-        const listings = await profileService.findAllListingsByUser(uid);
+      await profileService.findReviewsBySeller(uid).then(async (reviews) => {
+        setSellerReviews(reviews);
+      });
+
         const wishlist = await profileService.findWishlistByUser(uid);
 
-        setListings(listings);
         setWishlists(wishlist);
-      // }
 
-    } catch (e) {
+    }
+    }
+    catch (e) {
 
     }
   }
@@ -91,6 +92,10 @@ const ViewPublicProfile = () => {
                     <div className="col-10 mb-0">
                       <h4 className="mb-0">{user.firstName} {user.lastName}</h4>
 
+                      <Link to="/editProfile"
+                            className="mt-0 text-secondary text-decoration-underline">
+                        Edit profile
+                      </Link>
                     </div>
 
                   </div>
@@ -100,19 +105,12 @@ const ViewPublicProfile = () => {
 
                     <div>
                       <ul className="nav nav-tabs nav-fill">
-
-                        <li className={`nav-item ${user.userType === 'buyer'
-                            ? 'd-none' : 'd-block'}`}
-                            onClick={() => setActive("listed_items")}>
-                          <a className={`nav-link ${active === "listed_items"
-                          && `active`}`}>Listed Items</a>
-                        </li>
-                        <li className="nav-item"
+                        <li className={`nav-item ${user.userType === "buyer" ? 'd-block': 'd-none'}`}
                             onClick={() => setActive("wishlist")}>
                           <a className={`nav-link ${active === "wishlist"
                           && `active`}`}>Wishlist</a>
                         </li>
-                        <li className="nav-item"
+                        <li className={`nav-item ${user.userType === "buyer" ? 'd-block': 'd-none'}`}
                             onClick={() => setActive("reviews")}>
                           <a className={`nav-link ${active === "reviews"
                           && `active`}`}>Reviews</a>
@@ -120,14 +118,10 @@ const ViewPublicProfile = () => {
                       </ul>
                     </div>
 
-
-                    <div
-                        className={`mt-4 ${active === "listed_items" ? `d-block`
-                            : `d-none`}`}>
-                      <h5>Listed Items</h5>
-                      {listings.map((listing) =>
-                          <ListedItems listing={listing} key={listing._id}/>)}
-                    </div>
+                    <h5 className={`mt-3 ${user.userType === "seller" ? 'd-block': 'd-none'}`}>Reviews</h5>
+                    {sellerReviews.map((review) => (
+                        <ReviewList reviewList={review} key={review._id}/>
+                    ))}
 
                     <div className={`mt-4 ${active === "wishlist" ? `d-block`
                         : `d-none`}`}>
@@ -139,9 +133,9 @@ const ViewPublicProfile = () => {
                     <div className={`mt-4 ${active === "reviews" ? `d-block`
                         : `d-none`}`}>
                       <h5>Reviews</h5>
-                      {reviews.map(review => <Reviews review={review}
-                                                      key={review._id}/>)}
+                      {reviews.map(review => <Reviews review={review} key={review._id}/>)}
                     </div>
+
 
                   </div>
 
