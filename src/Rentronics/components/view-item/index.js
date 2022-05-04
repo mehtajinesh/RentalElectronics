@@ -195,7 +195,7 @@ const ViewItem = () => {
                             <li className="list-group-item bg-light">${item["productDetails"]["price"]}</li>
                         </ul>
                     </div>
-                    <div className="mt-2">
+                    { currentUser && (currentUser.userType === 'buyer') && <div className="mt-2">
                         <div className="fs-4 fw-bold">
                             Item Count
                         </div>
@@ -205,7 +205,7 @@ const ViewItem = () => {
                                 return <option value={value}>{value}</option>;
                             })}
                         </select>
-                    </div>
+                    </div> }
                     <div className="mt-2">
                         <div className="fs-4 fw-bold">
                             Reviews
@@ -244,6 +244,7 @@ const ViewItem = () => {
                                 ))}
                         </div>
                     </div>
+                    { currentUser && (currentUser.userType === 'buyer') &&
                     <div className="d-flex flex-row p-3 justify-content-around">
                         <btn className="btn text-white bg-success w-25" onClick={handleRentNow}><span
                             className="fas fa-bag-shopping"/> Rent Now
@@ -254,7 +255,7 @@ const ViewItem = () => {
                         <btn className="btn text-white bg-danger w-25" onClick={handleAddToWishlist}><span
                             className="fas fa-heart"/> Wishlist
                         </btn>
-                    </div>
+                    </div>}
                 </div>
             </div>}
         </div>);

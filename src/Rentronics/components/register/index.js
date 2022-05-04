@@ -14,7 +14,7 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [firstName, setFirstname] = useState('');
     const [lastName, setlastName] = useState('');
-    const [dob, setDOB] = useState(new Date().toString());
+    const [dob, setDOB] = useState(new Date());
     const [phoneNumber, setPhoneNumber] = useState('');
     const [line1, setAddress1] = useState('');
     const [line2, setAddress2] = useState('');
@@ -206,6 +206,8 @@ const Register = () => {
             {
                 alert("Email already exists!")
             }
+        } else {
+            alert('Please fill out the form correctly!')
         }
 
     }
@@ -500,8 +502,7 @@ const Register = () => {
                                     onChange={(e) => setState(e.target.value)}
                                     onBlur={checkState}
                                     required>
-                                    <option value="" selected>N/A</option>
-                                    <option value="AK">Alaska</option>
+                                    <option value="AK" selected>Alaska</option>
                                     <option value="AL">Alabama</option>
                                     <option value="AR">Arkansas</option>
                                     <option value="AZ">Arizona</option>
@@ -666,16 +667,22 @@ const Register = () => {
                             <br></br>
                             <div className="form-check form-check-inline">
                                 <input className="form-check-input" type="radio" name="inlineRadioOptions"
-                                    id="buyerRadio" value="buyer" checked 
+                                    id="buyerRadio" value="buyer"  
                                     onChange={(e) => setRole(e.target.value)}
                                     />
-                                <label className="form-check-label" htmlFor="buyerRadio">Buyer</label>
+                                <label className="form-check-label" htmlFor="buyerRadio">To Rent</label>
+                            </div>
+                            <div className="form-check form-check-inline">
+                                <input className="form-check-input" type="radio" name="inlineRadioOptions"
+                                    id="buyerSellerRadio" value="seller"
+                                    onChange={(e) => setRole(e.target.value)}/>
+                                <label className="form-check-label" htmlFor="buyerSellerRadio">To Lease</label>
                             </div>
                             <div className="form-check form-check-inline">
                                 <input className="form-check-input" type="radio" name="inlineRadioOptions"
                                     id="buyerSellerRadio" value="buyer_seller"
                                     onChange={(e) => setRole(e.target.value)}/>
-                                <label className="form-check-label" htmlFor="buyerSellerRadio">Buyer & Seller</label>
+                                <label className="form-check-label" htmlFor="buyerSellerRadio">Both</label>
                             </div>
                         </div>
 
@@ -694,7 +701,7 @@ const Register = () => {
                             {
                                 showAgreeToPrivacyError &&
                                 <>
-                                    <div id="validationServer03Feedback">
+                                    <div id="validationServer03Feedback" className="text-danger">
                                         You must agree to use this service
                                     </div>    
                                 </>

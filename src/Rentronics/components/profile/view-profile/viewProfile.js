@@ -9,8 +9,9 @@ import {useSelector, useDispatch} from "react-redux";
 import ReviewList from "../review/reviewList";
 
 const ViewProfile = () => {
-  let update_profile = useSelector(state => state.updateReducer);
   const navigate = useNavigate();
+
+  let update_profile = useSelector(state => state.updateReducer);
   let loggedIn = useSelector(state => state.loggedIn);
   let currentUser = useSelector(state => state.currentUser);
 
@@ -47,6 +48,7 @@ const ViewProfile = () => {
 
       const listings = await profileService.findAllListingsByUser(userId);
       const wishlist = await profileService.findWishlistByUser(userId);
+
 
       setUser(currentUser);
       setWishlists(wishlist);
@@ -129,6 +131,7 @@ const ViewProfile = () => {
                         <a className={`nav-link ${active === "rentals"
                         && `active`}`} aria-current="page">Last rentals</a>
                       </li>
+
                       <li className={`nav-item ${user.userType === "buyer" ? 'd-block': 'd-none'}`}
                           onClick={() => setActive("wishlist")}>
                         <a className={`nav-link ${active === "wishlist"
@@ -156,6 +159,7 @@ const ViewProfile = () => {
                   {sellerReviews.map((review) => (
                       <ReviewList reviewList={review} key={review._id}/>
                   ))}
+
 
                   <div className={`mt-4 ${active === "wishlist" ? `d-block`
                       : `d-none`}`}>

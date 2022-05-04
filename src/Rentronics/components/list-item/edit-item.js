@@ -2,6 +2,7 @@ import { useNavigate}  from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as service from '../services/best-buy-api-service.js'
+import * as itemService from '../../../Rentronics/services/view-item-services.js'
 import * as productService from '../services/product-service.js'
 import * as featuresService from '../services/features-service.js'
 
@@ -14,26 +15,19 @@ const EditItem = () => {
   const { pid } = useParams();
 
   let loggedIn = useSelector(state => state.loggedIn);
-  // let currentUser = useSelector(state => state.currentUser);
-  // let [currentUser, setCurrentUser] = useState();
-  // let listedProducts = useSelector(state => state.listedProducts);
   let [chosenProduct, setChosenProduct] = useState();
   let [productFeatures, setProductFeatures]= useState();
-
-  // const newId = listedProducts.length + 1;
 
   const [category, setCategory] = useState('Laptops');
   const [productName, setProductName] = useState();
   const [productDescription, setProductDescription] = useState();
-  const [brand, setBrand] = useState('');
-  // const [brand, setBrand] = useState('');
-
-  const [searchResults, setSearchResults] = useState([]);
-  const [fetchingAPI, setFetchAPI] = useState(false);
 
   const [condition, setCondition] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [conditionID, setConditionID] = useState();
+  const [endDateID, setEndDateID] = useState();
+  const [startDateID, setStartDateID] = useState();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,26 +36,22 @@ const EditItem = () => {
   const getItem = async () => {
     try {
       // get product 
-      const productToEdit = await productService.findItemById(pid);
+      const productToEdit = await itemService.getProductPageData({"productID": pid});
+      setChosenProduct(productToEdit["productDetails"]);
+      setProductName(productToEdit["productDetails"].productName);
+      setProductDescription(productToEdit["productDetails"].productDescription);
+      setProductFeatures(productToEdit.productFeatures);
       console.log(productToEdit);
-      setChosenProduct(productToEdit);
-      setProductName(productToEdit.productName);
-      setProductDescription(productToEdit.productDescription);
 
-      // get features
-      const productFeaturesId = await featuresService.getAllFeaturesIDsForProduct(pid);
 
-      const productFeatures = await Promise.all(productFeaturesId.map(async (featureID) => {
-        const feature = await featuresService.getFeatureById(featureID)
-        return feature;
-      }));
+      // .map(feature => feature.featureID.FeatureValue))
+      setStartDate(productToEdit.productFeatures.filter(feature => feature.featureID.FeatureName === "startDate").map(feature => feature.featureID.FeatureValue)[0]);
+      setEndDate(productToEdit.productFeatures.filter(feature => feature.featureID.FeatureName === "endDate").map(feature => feature.featureID.FeatureValue)[0]);
+      setCondition(productToEdit.productFeatures.filter(feature => feature.featureID.FeatureName === "condition").map(feature => feature.featureID.FeatureValue)[0]);
 
-      setProductFeatures(productFeatures);
-      setStartDate(productFeatures[0].FeatureValue);
-      setEndDate(productFeatures[1].FeatureValue);
-      setCondition(productFeatures[4].FeatureValue);
-
-      console.log(productFeatures);
+      setConditionID(productToEdit.productFeatures.filter(feature => feature.featureID.FeatureName === "startDate")[0]._id);
+      setEndDateID(productToEdit.productFeatures.filter(feature => feature.featureID.FeatureName === "endDate")[0]._id);
+      setStartDateID(productToEdit.productFeatures.filter(feature => feature.featureID.FeatureName === "condition")[0]._id);
 
     } catch (e) {
       setChosenProduct();
@@ -90,26 +80,26 @@ const EditItem = () => {
     return (end - start) / (1000 * 3600 * 24);
   }
 
-  const callAPI = async () => {
-    let search_terms = {
-      brand: brand.toLowerCase(),
-      category: category.toLowerCase(),
-      keywords: productName.trim().toLowerCase(),
-    }
+  // const callAPI = async () => {
+  //   let search_terms = {
+  //     brand: brand.toLowerCase(),
+  //     category: category.toLowerCase(),
+  //     keywords: productName.trim().toLowerCase(),
+  //   }
 
-    setFetchAPI(true);
-    const searchResult = await service.searchProduct(search_terms);
-    setSearchResults(searchResult);
-  }
+  //   setFetchAPI(true);
+  //   const searchResult = await service.searchProduct(search_terms);
+  //   setSearchResults(searchResult);
+  // }
 
-  const resetChosenProduct = () => {
-    dispatch({
-      type: 'RESET_PRODUCT',
-    })
-    setBrand('');
-    setProductName('');
-    setSearchResults([])
-  }
+  // const resetChosenProduct = () => {
+  //   dispatch({
+  //     type: 'RESET_PRODUCT',
+  //   })
+  //   setBrand('');
+  //   setProductName('');
+  //   setSearchResults([])
+  // }
 
   const handleUpdate = async () => {
     let updateProduct = { 
@@ -123,9 +113,9 @@ const EditItem = () => {
       console.log(insertedItem);
 
       // update the features
-      await featuresService.updateFeature(productFeatures[0]._id, {FeatureName: 'startDate', FeatureValue: startDate}); // start date
-      await featuresService.updateFeature(productFeatures[1]._id, {FeatureName: 'endDate', FeatureValue: endDate}); // end date
-      await featuresService.updateFeature(productFeatures[4]._id, {FeatureName: 'condition', FeatureValue: condition}); // condition
+      await featuresService.updateFeature(startDateID, {FeatureName: 'startDate', FeatureValue: startDate}); // start date
+      await featuresService.updateFeature(endDateID, {FeatureName: 'endDate', FeatureValue: endDate}); // end date
+      await featuresService.updateFeature(conditionID, {FeatureName: 'condition', FeatureValue: condition}); // condition
 
       console.log(productFeatures[0].FeatureValue);
 
@@ -136,7 +126,7 @@ const EditItem = () => {
         update
       })
 
-      navigate('/profile')
+      navigate('/myitems')
     }
     catch (e) 
     {
@@ -148,9 +138,10 @@ const EditItem = () => {
 
   }
 
+
   return (
     <>
-      {chosenProduct && productFeatures &&
+      {chosenProduct && startDate && endDate && condition &&
 
       <div className="container my-5">
   
@@ -166,13 +157,13 @@ const EditItem = () => {
               <div className="card mb-3 shadow-sm py-4 px-2">
                 <div className="row g-0">
                     <div className="col-md-4">
-                    <img src={chosenProduct.productImages[0]['href']} className="img-fluid rounded-start mx-1 my-2" alt="..."/>
+                    <img src={chosenProduct.productImages[0]} className="img-fluid rounded-start mx-1 my-2" alt="..."/>
                 </div>
 
                 <div className="col-md-8">
                     <div className="card-body">    
                         <h5 className="card-title">{chosenProduct.productName}</h5>
-                        <p class="card-text">{productFeatures[2].FeatureName}: {productFeatures[2].FeatureValue}</p>
+                        {/* <p className="card-text">{productFeatures[2].FeatureName}: {productFeatures[2].FeatureValue}</p> */}
                     </div>
                 </div>
               </div>

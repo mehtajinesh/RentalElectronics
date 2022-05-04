@@ -1,31 +1,46 @@
 import {Link} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ListedItems = ({listing}) => {
 
   const Availability = (listing.totalAvailable > 0) ? "Available" : "Reserved";
+  const navigate = useNavigate();
+
+  const onClickHanlder = () => {
+    navigate(`/viewItem/${listing._id}`)
+  }
+
+  const onClickEditItem = () => {
+    navigate(`/edititem/${listing._id}`)
+  }
 
   return(
       <>
-        <div className="ri_border border w-100 h-100 ms-0">
-          <Link to={`/viewItem/${listing._id}`} className="text-decoration-none row">
+        <div className="ri_border border w-100 h-100 ms-0 bg-white">
           <div className="row">
-            <div className="col-2 mt-3 mb-3 ps-4">
-              <img className="pr-ri-pic rounded" alt="" src={listing.productImages[0]}/>
-            </div>
 
-            <div className="col-8 mt-2 ps-4">
-              <div className="fs-6 fw-bold">{listing.productName}</div>
-              <div className="fs-6">{listing.productDescription}</div>
-              <div className="ri-listed-font text-secondary mt-2 mb-1">{Availability}</div>
+                <div className="col-2 mt-3 mb-3 ps-4">
+                  <img className="pr-ri-pic rounded" onClick={onClickHanlder} alt="" src={listing.productImages[0]}/>
+                </div>
 
-            </div>
+
+                <div className="col-8 mt-2 ps-4" onClick={onClickHanlder}>
+                  <div className="fs-6 fw-bold">{listing.productName}</div>
+                  <div className="fs-6">{listing.productDescription}</div>
+
+                  <div className="ri-listed-font text-secondary mt-2 mb-1">{Availability}</div>
+
+                </div>
+ 
 
             <div className="col-2 mt-3">
-              <div className="ri-price-font fw-bold pe-2">{listing.price}</div>
-              <div className="ri-price-font fw-bold pe-2 float-start">USD</div>
+              <button type="button" class="btn btn-primary rounded-pill" onClick={onClickEditItem}>Edit Item</button>
+
+              {/* <div className="ri-price-font fw-bold pe-2">{listing.duration}</div>
+              <div className="ri-price-font fw-bold pe-2 float-start">USD</div> */}
             </div>
           </div>
-          </Link>
+
 
         </div>
       </>

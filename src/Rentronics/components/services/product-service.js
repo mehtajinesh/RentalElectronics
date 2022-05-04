@@ -9,7 +9,7 @@ export const addItem = async (product) => {
 };
 
 export const findItemById = async (pid) => {
-    const response = await axios.get(`${PRODUCT_API}/${pid}`);
+    const response = await axios.post(`${PRODUCT_API}/${pid}`);
     return response.data;
 }
 

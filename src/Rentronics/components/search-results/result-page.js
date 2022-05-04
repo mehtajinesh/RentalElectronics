@@ -27,12 +27,15 @@ const ResultsPage = ({items}) => {
                 items && !(Object.keys(items).length === 0) && items.map((item) => {
                     return (
                         <div className="col">
-                            <div className="card h-100">
+                            <div className="card h-100" onClick={() => {
+                                navigate(`/viewItem/${item._id}`);
+                            }}>
                                 <img src={item["productImages"][0]} className="card-img-top p-2" alt="product primary image"/>
                                 <div className="card-body">
                                     <h5 className="card-title">{item["productName"]}</h5>
                                     <p className="card-subtitle pt-2 pb-2 fw-bold">Price: ${item["price"]}</p>
-                                    <button onClick={() => handleAddToCart({item})} className="btn btn-primary">Add to cart</button>
+                                    { currentUser && (currentUser.userType === 'buyer') &&
+                                    <button onClick={() => handleAddToCart({item})} className="btn btn-primary">Add to cart</button> }
                                 </div>
                             </div>
                         </div>
