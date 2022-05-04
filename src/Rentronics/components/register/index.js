@@ -678,12 +678,7 @@ const Register = () => {
                                     onChange={(e) => setRole(e.target.value)}/>
                                 <label className="form-check-label" htmlFor="buyerSellerRadio">To Lease</label>
                             </div>
-                            <div className="form-check form-check-inline">
-                                <input className="form-check-input" type="radio" name="inlineRadioOptions"
-                                    id="buyerSellerRadio" value="buyer_seller"
-                                    onChange={(e) => setRole(e.target.value)}/>
-                                <label className="form-check-label" htmlFor="buyerSellerRadio">Both</label>
-                            </div>
+
                         </div>
 
                         <div className="form-check mt-3">

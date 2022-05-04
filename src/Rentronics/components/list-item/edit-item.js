@@ -49,9 +49,10 @@ const EditItem = () => {
       setEndDate(productToEdit.productFeatures.filter(feature => feature.featureID.FeatureName === "endDate").map(feature => feature.featureID.FeatureValue)[0]);
       setCondition(productToEdit.productFeatures.filter(feature => feature.featureID.FeatureName === "condition").map(feature => feature.featureID.FeatureValue)[0]);
 
-      setConditionID(productToEdit.productFeatures.filter(feature => feature.featureID.FeatureName === "startDate")[0]._id);
-      setEndDateID(productToEdit.productFeatures.filter(feature => feature.featureID.FeatureName === "endDate")[0]._id);
-      setStartDateID(productToEdit.productFeatures.filter(feature => feature.featureID.FeatureName === "condition")[0]._id);
+      setConditionID(productToEdit.productFeatures.filter(feature => feature.featureID.FeatureName === "startDate").map(feature => feature.featureID._id)[0]);
+      setEndDateID(productToEdit.productFeatures.filter(feature => feature.featureID.FeatureName === "endDate").map(feature => feature.featureID._id)[0]);
+      setStartDateID(productToEdit.productFeatures.filter(feature => feature.featureID.FeatureName === "condition").map(feature => feature.featureID._id)[0]);
+
 
     } catch (e) {
       setChosenProduct();
@@ -113,6 +114,7 @@ const EditItem = () => {
       console.log(insertedItem);
 
       // update the features
+      // Should be feature id
       await featuresService.updateFeature(startDateID, {FeatureName: 'startDate', FeatureValue: startDate}); // start date
       await featuresService.updateFeature(endDateID, {FeatureName: 'endDate', FeatureValue: endDate}); // end date
       await featuresService.updateFeature(conditionID, {FeatureName: 'condition', FeatureValue: condition}); // condition

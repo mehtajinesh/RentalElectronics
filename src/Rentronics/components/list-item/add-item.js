@@ -17,7 +17,8 @@ const AddItem = () => {
 
   const [category, setCategory] = useState('Any');
   const [categoryId, setCategoryId] = useState();
-  const [categoryBrands, setCategoryBrands] = useState([]);
+  const [categoryIdForAll, setCategoryIdForAny] = useState();
+  const [categoryBrands, setCategoryBrands] = useState(['Apple', 'Samsung', 'Sony', 'LG']);
 
   const [productName, setProductName] = useState('');
   const [brand, setBrand] = useState('');
@@ -44,7 +45,11 @@ const AddItem = () => {
   const handleCategory = async () => {
     const categoryData = await categoryService.getCategoryIdByName(category);
     setCategoryId(categoryData[0]._id)
-    setCategoryBrands(['Apple', 'Samsung', 'Sony', 'LG'])
+
+    const categoryIdForAll = await categoryService.getCategoryIdByName('Any');
+    setCategoryIdForAny(categoryIdForAll[0]._id)
+
+    // setCategoryBrands(['Apple', 'Samsung', 'Sony', 'LG'])
   }
 
   useEffect(() => {
@@ -88,7 +93,7 @@ const AddItem = () => {
       productDescription: productDescription,
       duration: calculateRentDuration(),
       location: currentUser.address.city,
-      postDate: new Date(),
+      postDate: new Date().toISOString().split('T')[0],
       sellerID: currentUser._id,
       price: 3,
       productImages: productImages,
@@ -127,6 +132,7 @@ const AddItem = () => {
 
       // send product and category
       await categoryService.addProductCategory({productID: productId, categoryID: categoryId})
+      await categoryService.addProductCategory({productID: productId, categoryID: categoryIdForAll})
 
       // send product and features 
       const output = await Promise.all(featuresId.map(async (featureID) => {
@@ -168,7 +174,7 @@ const AddItem = () => {
   
           <div className="form-floating mb-4">
               <select className="form-select" id="floatingSelect" aria-label="Floating label select example" value={category} onChange={(e) => setCategory(e.target.value)} required>
-                <option value="Any" selected>All</option>
+                {/* <option value="Any" selected>All</option> */}
                 <option value="Laptops">Laptops</option>
                 <option value="Phones">Phones</option>
                 <option value="Monitors">Monitors</option>

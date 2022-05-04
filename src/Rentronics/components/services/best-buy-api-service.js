@@ -20,10 +20,6 @@ const createSearchQuery = (search_terms) => {
 
     console.log(search_terms.category);
 
-    if (search_terms.category=== 'any') {
-        search_terms.category = '';
-    }
-
     if (search_terms.keywords !== '') {
         splitTerms = search_terms.keywords.split(' ');
         splitTerms.push(search_terms.category);
@@ -31,11 +27,18 @@ const createSearchQuery = (search_terms) => {
         splitTerms = [];
         splitTerms.push(search_terms.category);
     }
+
+    if (search_terms.keywords === '' && search_terms.category === 'any') {
+        splitTerms = ['*'];
+    }
+
     let search_query = "(("; 
+
+    console.log(splitTerms);
 
     let i = 0;
 
-    while ( i < splitTerms.length - 1) {
+    while (i < splitTerms.length - 1) {
         search_query += 'search=' + splitTerms[i] + '&';
         i++;
     }
