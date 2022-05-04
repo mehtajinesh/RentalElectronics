@@ -37,9 +37,9 @@ const createSearchQuery = (search_terms) => {
         splitTerms.push(search_terms.category);
     }
 
-    if (search_terms.keywords === '' && search_terms.category === 'any') {
-        splitTerms = ['*'];
-    }
+    // if (search_terms.keywords === '' && search_terms.category === 'any') {
+    //     splitTerms = ['*'];
+    // }
 
     let search_query = "(("; 
 

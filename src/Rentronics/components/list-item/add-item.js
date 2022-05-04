@@ -15,7 +15,7 @@ const AddItem = () => {
   let chosenProduct = useSelector(state => state.chooseProduct);
   let update = useSelector(state => state.updateReducer);
 
-  const [category, setCategory] = useState('Any');
+  const [category, setCategory] = useState('Laptops');
   const [categoryId, setCategoryId] = useState();
   const [categoryIdForAll, setCategoryIdForAny] = useState();
   const [categoryBrands, setCategoryBrands] = useState(['Apple', 'Samsung', 'Sony', 'LG']);
@@ -175,7 +175,7 @@ const AddItem = () => {
           <div className="form-floating mb-4">
               <select className="form-select" id="floatingSelect" aria-label="Floating label select example" value={category} onChange={(e) => setCategory(e.target.value)} required>
                 {/* <option value="Any" selected>All</option> */}
-                <option value="Laptops">Laptops</option>
+                <option value="Laptops" selected>Laptops</option>
                 <option value="Phones">Phones</option>
                 <option value="Monitors">Monitors</option>
               </select>

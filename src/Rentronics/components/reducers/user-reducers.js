@@ -24,7 +24,7 @@ const userReducer = (state = null, action) => {
             return state.map(
                 user => user._id === action.user._id ? action.user : user
             );
-
+            
         default:
             return state;
     }
