@@ -32,7 +32,8 @@ const ResultsPage = ({items}) => {
                                 <div className="card-body">
                                     <h5 className="card-title">{item["productName"]}</h5>
                                     <p className="card-subtitle pt-2 pb-2 fw-bold">Price: ${item["price"]}</p>
-                                    <button onClick={() => handleAddToCart({item})} className="btn btn-primary">Add to cart</button>
+                                    { currentUser && (currentUser.userType === 'buyer') &&
+                                    <button onClick={() => handleAddToCart({item})} className="btn btn-primary">Add to cart</button> }
                                 </div>
                             </div>
                         </div>
