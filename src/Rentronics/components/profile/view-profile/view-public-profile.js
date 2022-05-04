@@ -4,7 +4,7 @@ import Reviews from "../review";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import * as service from "../../services/user-service"
 import * as profileService from "../../services/profile-service"
-import ListedItems from "../listed-items";
+// import ListedItems from "../listed-items";
 import Wishlist from "../wishlist";
 import * as authService from "../../services/auth-service";
 import {useSelector, useDispatch} from "react-redux";

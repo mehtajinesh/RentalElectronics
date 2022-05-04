@@ -3,6 +3,7 @@ import axios from "axios"
 const API = 'https://api.bestbuy.com/v1/products';
 const API_KEY = 'qhqws47nyvgze2mq3qx4jadt';
 
+
 export const searchProduct = async (search_terms) => {
     let search_query = createSearchQuery(search_terms);
 
@@ -12,6 +13,14 @@ export const searchProduct = async (search_terms) => {
     
     console.log(response.data.products);
     return response.data.products;
+}
+
+export const getProductPrice = async (sku) => {
+    const query = API + '(sku='+ sku +')?apiKey=' + API_KEY + '&format=json';
+    console.log(query);
+    const response = await axios.get(query);
+    console.log(response.data.products[0].regularPrice);
+    return response.data.products[0].regularPrice;
 }
 
 

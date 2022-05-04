@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {useSelector, useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as profileService from "../services/profile-service"
-import ListedItems from "../profile/listed-items"
+import ListedItems from "./listed-items"
 
 
 const MyItems = () => {

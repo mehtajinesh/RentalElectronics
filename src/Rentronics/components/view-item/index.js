@@ -9,6 +9,7 @@ import {
     getProductPageData
 } from "../../actions/view-item-actions";
 import Rating from "react-rating";
+import * as service from '../services/best-buy-api-service.js'
 
 const ViewItem = () => {
     const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const ViewItem = () => {
     let currentUser = useSelector(state => state.currentUser);
 
     // const profile = useSelector(state => state.profile);
-    const userID = currentUser && currentUser._id
+    const userID = currentUser && currentUser._id;
 
     // const profile = useSelector(state => state.profile);
     // //TODO: Update profile ID fetching
@@ -32,8 +33,10 @@ const ViewItem = () => {
             if (userID) {
                 addProductToRecent(userIDProductID)
             }
-        })
+        });
+
     }, []);
+    
     // fetch product details from redux
     const item = useSelector(state => state.productDetails);
     const list_text = item["productDetails"] && !(Object.keys(item["productDetails"]).length === 0) && item["productDetails"]["productDescription"].trim().split("\n")
@@ -42,6 +45,19 @@ const ViewItem = () => {
     const navigate = useNavigate();
     const [itemCount, setItemCount] = useState(1);
     const availableItemCount = item["productDetails"] && !(Object.keys(item["productDetails"]).length === 0) && item["productDetails"]["totalAvailable"] - item["productDetails"]["totalSold"]
+    // const sku = features && features.filter((feature) => feature["featureID"]["FeatureName"] === 'sku').map(feature => feature.featureID.FeatureValue)[0];
+    const [bestBuyPrice , setBestBuyPrice] = useState();
+
+
+    const getBestBuyPrice= async () => {
+        console.log("features");
+        // console.log(features);
+        const sku = features && features.filter((feature) => feature["featureID"]["FeatureName"] === 'sku')[0]["featureID"]["FeatureValue"];
+        const price = await service.getProductPrice(sku);
+        setBestBuyPrice(price);
+    }
+
+    useEffect(() => {getBestBuyPrice()}, [item]);
 
     const handleRentNow = () => {
         // check  if user logged in, if not navigate to login
@@ -88,6 +104,7 @@ const ViewItem = () => {
 
     return (
         <div className="container">
+            {console.log()}
             {item["productDetails"] && !(Object.keys(item["productDetails"]).length === 0) && <div className="row">
                 <div className="col-12 col-sm-6">
                     <div id="carouselProductImages" className="carousel slide p-3" data-bs-ride="carousel">
@@ -194,6 +211,14 @@ const ViewItem = () => {
                         </div>
                         <ul className="list-group pt-2 ">
                             <li className="list-group-item bg-light">${item["productDetails"]["price"]}</li>
+                        </ul>
+                    </div>
+                    <div className="mt-2">
+                        <div className="fs-4 fw-bold">
+                            Price on Best Buy
+                        </div>
+                        <ul className="list-group pt-2 ">
+                            <li className="list-group-item bg-light">${bestBuyPrice}</li>
                         </ul>
                     </div>
                     { currentUser && (currentUser.userType === 'buyer') && <div className="mt-2">

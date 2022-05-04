@@ -16,6 +16,7 @@ const ListedItems = ({listing}) => {
 
   return(
       <>
+      {console.log(listing)}
         <div className="ri_border border w-100 h-100 ms-0 bg-white">
           <div className="row">
 
@@ -27,6 +28,7 @@ const ListedItems = ({listing}) => {
                 <div className="col-8 mt-2 ps-4" onClick={onClickHanlder}>
                   <div className="fs-6 fw-bold">{listing.productName}</div>
                   <div className="fs-6">{listing.productDescription}</div>
+                  <div className="fs-6 text-muted">Posted: {listing.postDate}</div>
 
                   <div className="ri-listed-font text-secondary mt-2 mb-1">{Availability}</div>
 
