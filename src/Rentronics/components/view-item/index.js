@@ -26,6 +26,7 @@ const ViewItem = () => {
     // const userID = profile && profile.userID
     const userIDProductID = {"userID":userID, "productID":id}
     useEffect(() => {
+        console.log(currentUser);
         const productIDData = {"productID": id}
         getProductPageData(dispatch, productIDData).then(r=>{
             if (userID) {
@@ -244,7 +245,20 @@ const ViewItem = () => {
                                 ))}
                         </div>
                     </div>
-                    { currentUser && (currentUser.userType === 'buyer') &&
+                    { (currentUser === null) &&
+                    <div className="d-flex flex-row p-3 justify-content-around">
+                        <btn className="btn text-white bg-success w-25" onClick={handleRentNow}><span
+                            className="fas fa-bag-shopping"/> Rent Now
+                        </btn>
+                        <btn className="btn text-white bg-warning w-25" onClick={handleAddToCart}><span
+                            className="fas fa-cart-plus"/> Add to Cart
+                        </btn>
+                        <btn className="btn text-white bg-danger w-25" onClick={handleAddToWishlist}><span
+                            className="fas fa-heart"/> Wishlist
+                        </btn>
+                    </div>}
+
+                    { (currentUser && (currentUser.userType === 'buyer')) &&
                     <div className="d-flex flex-row p-3 justify-content-around">
                         <btn className="btn text-white bg-success w-25" onClick={handleRentNow}><span
                             className="fas fa-bag-shopping"/> Rent Now

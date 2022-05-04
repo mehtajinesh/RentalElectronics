@@ -46,7 +46,7 @@ const ViewProfile = () => {
         setReviews(reviews);
       });
 
-      const listings = await profileService.findAllListingsByUser(userId);
+      // const listings = await profileService.findAllListingsByUser(userId);
       const wishlist = await profileService.findWishlistByUser(userId);
 
 

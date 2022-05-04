@@ -91,11 +91,11 @@ const ViewPublicProfile = () => {
                   <div className="d-flex">
                     <div className="col-10 mb-0">
                       <h4 className="mb-0">{user.firstName} {user.lastName}</h4>
-
+{/* 
                       <Link to="/editProfile"
                             className="mt-0 text-secondary text-decoration-underline">
                         Edit profile
-                      </Link>
+                      </Link> */}
                     </div>
 
                   </div>

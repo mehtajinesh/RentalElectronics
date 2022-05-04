@@ -14,7 +14,7 @@ const Header = () => {
     
 
     const checkIsLoggedIn = async () => {
-        console.log(currentUser)
+        // console.log(currentUser)
         try {
           const currentUser = await authService.profile();
           console.log(currentUser);
