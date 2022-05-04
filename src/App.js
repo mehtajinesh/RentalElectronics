@@ -19,6 +19,7 @@ import Cart from "./Rentronics/components/cart";
 import Admin from "./Rentronics/components/admin"
 // import OrderSummary from "./Rentronics/components/order-summary";
 import SearchResults from "./Rentronics/components/search-results";
+import MyItems from "./Rentronics/components/list-item/my-items";
 import ViewPublicProfile
   from "./Rentronics/components/profile/view-profile/view-public-profile";
 
@@ -33,6 +34,8 @@ function App() {
             <Route path="register" exact={true} element={<Register/>}/>
             <Route path='additem' exact={true} element={<AddItem/>}/>
             <Route path='edititem/:pid' exact={true} element={<EditItem/>}/>
+            <Route path='myitems' exact={true} element={<MyItems/>}/>
+
             <Route path="profile" exact={true} element={<ViewProfile/>}/>
             <Route path="profile/:uid" exact={true} element={<ViewPublicProfile/>}/>
             <Route path="editProfile" exact={true} element={<EditProfile/>}/>

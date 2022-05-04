@@ -122,7 +122,7 @@ useEffect(() => {
                       <td>
                         <select class="form-select" aria-label="Default select example" value={users[i].userType} onChange={(e) => updateUserRoles(e, i)}>
                             <option value="buyer">Buyer</option>
-                            <option value="buyer_seller">Buyer & Seller</option>
+                            <option value="seller">Seller</option>
                             <option value="admin">Admin</option>
                         </select>
                       </td>

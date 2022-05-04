@@ -52,4 +52,3 @@ export const updateUser = async (dispatch, user) => {
         user
     })
 };
-

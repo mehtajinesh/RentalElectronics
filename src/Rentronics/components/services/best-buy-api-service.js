@@ -42,7 +42,7 @@ const createSearchQuery = (search_terms) => {
     
     search_query += 'search=' + splitTerms[i] + ")";
     search_query += '&manufacturer=' + search_terms.brand;
-    search_query += "&type=HardGood)?apiKey="+ API_KEY +"&show=details.value,images,image,name,modelNumber,sku&format=json"
+    search_query += "&type=HardGood)?apiKey="+ API_KEY +"&show=details.value,images,image,name,modelNumber,regularPrice,sku&format=json"
     
     return search_query;
 }

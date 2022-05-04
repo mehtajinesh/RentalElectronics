@@ -21,7 +21,7 @@ const initialState = {
 }
 
 
-const currentUserReducer = (state = initialState, action) => {
+const currentUserReducer = (state = null, action) => {
     switch (action.type) {
         case 'SET_CURRENT_USER':
             return action.currentUser;
@@ -31,9 +31,15 @@ const currentUserReducer = (state = initialState, action) => {
                 ...state,
                 ...action.profile
             };
+
+        case 'UPDATE_USER_ROLE':
+            return {
+                ...state,
+                "userType": action.userType
+            };
         
         case 'REMOVE_CURRENT_USER':
-            return {...initialState};
+            return null;
 
         case 'ADD_ITEM_TO_CART':
             return {...state, "cart" : [...state["cart"], action.item] };

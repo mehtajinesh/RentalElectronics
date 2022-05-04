@@ -8,16 +8,13 @@ import * as authService from "../services/auth-service"
 const Header = () => {
     let loggedIn = useSelector(state => state.loggedIn);
     let currentUser = useSelector(state => state.currentUser);
-    const [user, setUser] = useState();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    const handleProfile = async () => {
-        navigate('/profile')
-    }
+    
 
     const checkIsLoggedIn = async () => {
+        console.log(currentUser)
         try {
           const currentUser = await authService.profile();
           console.log(currentUser);
@@ -27,7 +24,7 @@ const Header = () => {
               currentUser
           })
 
-          setUser(currentUser);
+        //   setUser(currentUser);
 
           loggedIn = true;
           dispatch({
@@ -49,6 +46,12 @@ const Header = () => {
     useEffect(() => {
         checkIsLoggedIn()}, [loggedIn]);
 
+
+    const handleProfile = async () => {
+        navigate('/profile')
+    }
+
+
     const handleLogout = async () => {
 
         try {
@@ -66,7 +69,7 @@ const Header = () => {
                 type: 'REMOVE_CURRENT_USER',
             })
     
-            setUser();
+            // setUser();
     
             navigate('/login')
         }
@@ -80,7 +83,29 @@ const Header = () => {
         navigate('/cart');
     }
 
-    const handleAddItem = async () => {
+    const handleBecomeLeaser = () => {
+
+        // setUser({...user, userType: 'seller'})
+        const userType = 'seller'
+        dispatch({
+            type: "UPDATE_USER_ROLE",
+            userType
+        })
+
+        console.log(currentUser);
+    }
+
+    const handleBecomeRenter = () => {
+        // setUser({...user, userType: 'buyer'})
+
+        const userType = 'buyer'
+        dispatch({
+            type: "UPDATE_USER_ROLE",
+            userType
+        })
+    }
+ 
+    const handleMyItems = async () => {
 
         // if (currentUser.userType === 'buyer') {
         //     await userService.updateUser(currentUser._id, {userType: 'buyer_seller'});
@@ -88,7 +113,7 @@ const Header = () => {
         // }
 
         const uid = currentUser._id;
-        navigate('/additem')
+        navigate('/myitems')
     }
 
     return (
@@ -107,14 +132,14 @@ const Header = () => {
 
                             <li className="nav-item">     
                                 {
-                                    !user &&
+                                    !currentUser &&
                                     <button type="button" className="btn rounded-pill" onClick={handleCart}>
                                         <i className="fas fa-shopping-cart"></i> Cart   
                                     </button>
                                 }
                                 {
                                     // I had to do this to match the margins
-                                    user &&
+                                    currentUser && (currentUser.userType === 'buyer') &&
                                     <button type="button" className="btn rounded-pill mt-2" onClick={handleCart}>
                                         <i className="fas fa-shopping-cart"></i> Cart   
                                     </button>
@@ -122,9 +147,20 @@ const Header = () => {
 
                             </li>
 
+                            <li className="nav-item">     
+                                {
+                                    // I had to do this to match the margins
+                                    currentUser && currentUser.userType === 'seller' &&
+                                    <button type="button" className="btn rounded-pill mt-2" onClick={handleMyItems}>
+                                        <i className="fa fa-archive"></i> Items    
+                                    </button>
+                                }
+
+                            </li>
+
 
                             {
-                                !user &&
+                                !currentUser &&
                                 <li className="nav-item">
                                     <Link to="login">
                                         <button type="button" className="btn btn-outline-primary rounded-pill px-4 mx-1">Login</button>
@@ -134,7 +170,7 @@ const Header = () => {
                             
 
                             { 
-                                user && user.userType === 'buyer' &&
+                                currentUser && (currentUser.userType === 'buyer') &&
 
                                 <li className="nav-item dropdown ms-3">
                                     <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-1 border-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -143,7 +179,7 @@ const Header = () => {
 
                                     <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <li><Link to="profile" className="dropdown-item" onClick={handleProfile}>Profile</Link></li>
-                                        <li><Link to="/additem" className="dropdown-item" onClick={handleAddItem}>Become Leaser</Link></li>
+                                        <li><Link to="/" className="dropdown-item" onClick={handleBecomeLeaser}>Become Leaser</Link></li>
                                         <li><hr className="dropdown-divider"/></li>
 
                                         <li><Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link></li>
@@ -154,7 +190,7 @@ const Header = () => {
 
 
                             {  
-                                user && user.userType === 'buyer_seller' &&
+                                currentUser && currentUser.userType === 'seller' && 
 
                                 <li className="nav-item dropdown ms-3">
                                     <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-1 border-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -163,7 +199,7 @@ const Header = () => {
 
                                     <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <li><Link to="profile" className="dropdown-item" onClick={handleProfile}>Profile</Link></li>
-                                        <li><Link to="/additem" className="dropdown-item" onClick={handleAddItem}>Add Item</Link></li>
+                                        <li><Link to="/" className="dropdown-item" onClick={handleBecomeRenter}>Rent Items</Link></li>
                                         <li><hr className="dropdown-divider"/></li>
 
                                         <li><Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link></li>
@@ -173,7 +209,7 @@ const Header = () => {
                             }
                             
                             {  
-                                user && user.userType === 'admin' &&
+                                currentUser && currentUser.userType === 'admin' &&
 
                                 <li className="nav-item dropdown ms-3">
                                     <button className="btn btn-outline-secondary rounded-pill nav-link dropdown-toggle mt-1 border-0" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -183,7 +219,7 @@ const Header = () => {
                                     <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <li><Link to="profile" className="dropdown-item">Profile</Link></li>
                                         <li><Link to="admin" className="dropdown-item" >Manage Users</Link></li>
-                                        <li><Link to="/additem" className="dropdown-item" onClick={handleAddItem}>Add Item</Link></li>
+                                        {/* <li><Link to="/additem" className="dropdown-item" onClick={handleAddItem}>Add Item</Link></li> */}
                                         <li><hr className="dropdown-divider"/></li>
                                         <li><Link to="/" className="dropdown-item" onClick={handleLogout}>Logout</Link></li>
                                         {/* <li><hr className="dropdown-divider"/></li>

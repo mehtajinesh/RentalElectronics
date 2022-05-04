@@ -11,8 +11,9 @@ import Orders from "../review/orders";
 import {useSelector, useDispatch} from "react-redux";
 
 const ViewProfile = () => {
-  let update_profile = useSelector(state => state.updateReducer);
   const navigate = useNavigate();
+
+  let update_profile = useSelector(state => state.updateReducer);
   let loggedIn = useSelector(state => state.loggedIn);
 
   const [user, setUser] = useState();
@@ -42,7 +43,8 @@ const ViewProfile = () => {
         setReviews(reviews);
       });
 
-      const listings = await profileService.findAllListingsByUser(profile._id);
+      // const listings = await profileService.findAllListingsByUser(profile._id);
+          
       const wishlist = await profileService.findWishlistByUser(profile._id);
 
       setUser(userData);
@@ -128,11 +130,11 @@ const ViewProfile = () => {
                         <a className={`nav-link ${active === "rentals"
                         && `active`}`} aria-current="page">Last rentals</a>
                       </li>
-                      <li className={`nav-item ${user.userType === 'buyer' ? 'd-none' : 'd-block'}`}
+                      {/* <li className={`nav-item ${user.userType === 'buyer' ? 'd-none' : 'd-block'}`}
                           onClick={() => setActive("listed_items")}>
                         <a className={`nav-link ${active === "listed_items"
                         && `active`}`} >Listed Items</a>
-                      </li>
+                      </li> */}
                       <li className="nav-item"
                           onClick={() => setActive("wishlist")}>
                         <a className={`nav-link ${active === "wishlist"
@@ -155,12 +157,12 @@ const ViewProfile = () => {
                     ))}
                   </div>
 
-                  <div className={`mt-4 ${active === "listed_items" ? `d-block`
+                  {/* <div className={`mt-4 ${active === "listed_items" ? `d-block`
                       : `d-none`}`}>
                     <h5>My Listed Items</h5>
                     {listings.map((listing) =>
                         <ListedItems listing={listing} key={listing._id}/>)}
-                  </div>
+                  </div> */}
 
                   <div className={`mt-4 ${active === "wishlist" ? `d-block`
                       : `d-none`}`}>

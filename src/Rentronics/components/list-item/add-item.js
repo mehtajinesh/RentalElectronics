@@ -141,7 +141,7 @@ const AddItem = () => {
       })
 
       resetChosenProduct();
-      navigate('/profile');
+      navigate('/myitems');
     }
     catch (e) {
 
